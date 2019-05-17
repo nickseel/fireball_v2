@@ -1,4 +1,4 @@
-package com.fireball.game.boards;
+package com.fireball.game.rooms.collision;
 
 import java.util.HashMap;
 import java.util.LinkedList;

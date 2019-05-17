@@ -1,12 +1,7 @@
 package com.fireball.game.textures;
 
 public enum TextureData {
-    TEST_IMAGE ("badlogic.jpg"),
-    SHAPES ("shapes.png", 8, 8),
-    ROUNDED_RECT ("rounded_rect.png"),
-    WEAPONS ("guns.png", 2, 2),
-    DIAGONALS ("diagonals.png"),
-    ARROW ("arrow.png");
+    TEST_IMAGE ("images/badlogic.jpg");
 
     private String fileName;
     private int sheetRows, sheetCols;

@@ -1,10 +1,10 @@
 package com.fireball.game.entities;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.fireball.game.boards.Board;
-import com.fireball.game.boards.CellEventManager;
-import com.fireball.game.boards.CellSlotter;
-import com.fireball.game.boards.Wall;
+import com.fireball.game.rooms.Room;
+import com.fireball.game.rooms.collision.CellEventManager;
+import com.fireball.game.rooms.collision.CellSlotter;
+import com.fireball.game.rooms.walls.Wall;
 import com.fireball.game.entities.hitboxes.BodyHitbox;
 import com.fireball.game.entities.hitboxes.DamagerHitbox;
 
@@ -23,7 +23,7 @@ public class EntityManager {
     private CellSlotter<BodyHitbox> slottedPlayerBodyHitboxes, slottedEnemyBodyHitboxes;
     private CellSlotter<DamagerHitbox> slottedPlayerDamagerHitboxes, slottedEnemyDamagerHitboxes;
 
-    private CellEventManager<Wall, Entity> terrainCollisionEventManager;
+    private CellEventManager<Wall, Entity> staticTerrainCollisionEventManager;
     private CellEventManager<BodyHitbox, DamagerHitbox> hitboxCollisionEventManager;
     private CellEventManager<BodyHitbox, BodyHitbox> hitboxPushCollisionEventManager;
 
@@ -47,7 +47,7 @@ public class EntityManager {
         slottedEnemyDamagerHitboxes = new CellSlotter<DamagerHitbox>();
 
 
-        terrainCollisionEventManager = new CellEventManager<Wall, Entity>() {
+        staticTerrainCollisionEventManager = new CellEventManager<Wall, Entity>() {
             @Override
             public void event(Wall item1, Entity item2) {
                 if(item1.collide(item2)) {
@@ -74,7 +74,7 @@ public class EntityManager {
         };
     }
 
-    public void updateEntities(double delta, Board board) {
+    public void updateEntities(double delta, Room room) {
         setCurrent();
 
         prepareEntityHitboxes();
@@ -89,7 +89,7 @@ public class EntityManager {
 
         //EfficiencyMetrics.startTimer(EfficiencyMetricType.COLLISION);
         collideEntities();
-        collideTerrain(board);
+        collideTerrain(room);
         //EfficiencyMetrics.stopTimer(EfficiencyMetricType.COLLISION);
 
         for(int i = 0; i < playerEntities.size(); i++) {
@@ -117,12 +117,12 @@ public class EntityManager {
         slottedEnemyDamagerHitboxes.clear();
 
         for(Entity e: playerEntities) {
-            slottedPlayerBodyHitboxes.addAndUpdateAll(e.getBodyHitboxes(), Board.CELL_SIZE);
-            slottedPlayerDamagerHitboxes.addAndUpdateAll(e.getDamagerHitboxes(), Board.CELL_SIZE);
+            slottedPlayerBodyHitboxes.addAndUpdateAll(e.getBodyHitboxes(), Room.CELL_SIZE);
+            slottedPlayerDamagerHitboxes.addAndUpdateAll(e.getDamagerHitboxes(), Room.CELL_SIZE);
         }
         for(Entity e: enemyEntities) {
-            slottedEnemyBodyHitboxes.addAndUpdateAll(e.getBodyHitboxes(), Board.CELL_SIZE);
-            slottedEnemyDamagerHitboxes.addAndUpdateAll(e.getDamagerHitboxes(), Board.CELL_SIZE);
+            slottedEnemyBodyHitboxes.addAndUpdateAll(e.getBodyHitboxes(), Room.CELL_SIZE);
+            slottedEnemyDamagerHitboxes.addAndUpdateAll(e.getDamagerHitboxes(), Room.CELL_SIZE);
         }
     }
 
@@ -137,14 +137,14 @@ public class EntityManager {
         hitboxCollisionEventManager.callEvents(slottedEnemyBodyHitboxes, slottedPlayerDamagerHitboxes);
     }
 
-    private void collideTerrain(Board board) {
+    private void collideTerrain(Room room) {
         slottedPlayerEntities.clear();
-        slottedPlayerEntities.addAndUpdateAll(playerEntities, Board.CELL_SIZE);
+        slottedPlayerEntities.addAndUpdateAll(playerEntities, Room.CELL_SIZE);
         slottedEnemyEntities.clear();
-        slottedEnemyEntities.addAndUpdateAll(enemyEntities, Board.CELL_SIZE);
+        slottedEnemyEntities.addAndUpdateAll(enemyEntities, Room.CELL_SIZE);
 
-        terrainCollisionEventManager.callEvents(board.getSlottedWalls(), slottedPlayerEntities);
-        terrainCollisionEventManager.callEvents(board.getSlottedWalls(), slottedEnemyEntities);
+        staticTerrainCollisionEventManager.callEvents(room.getSlottedStaticWalls(), slottedPlayerEntities);
+        staticTerrainCollisionEventManager.callEvents(room.getSlottedStaticWalls(), slottedEnemyEntities);
     }
 
     public void draw(SpriteBatch batch) {

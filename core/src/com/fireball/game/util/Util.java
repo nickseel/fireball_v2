@@ -30,7 +30,7 @@ public class Util {
     }
 
     public static NinePatch createNinePatch(TextureData data, float cornerSize) {
-        Texture texture = TextureManager.getTexture(TextureData.ROUNDED_RECT);
+        Texture texture = TextureManager.getTexture(data);
         NinePatch sprite = new NinePatch(texture, texture.getWidth()/3, texture.getWidth()/3, texture.getHeight()/3, texture.getHeight()/3);
         sprite.setBottomHeight(cornerSize);
         sprite.setTopHeight(cornerSize);

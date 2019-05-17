@@ -14,7 +14,7 @@ public class FontManager {
     public static BitmapFont aireExterior64;
 
     public static void init() {
-        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("AireExterior.ttf"));
+        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/AireExterior.ttf"));
         FreeTypeFontParameter parameter = new FreeTypeFontParameter();
 
         parameter.size = 12;

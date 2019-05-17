@@ -1,7 +1,7 @@
 package com.fireball.game.entities;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.fireball.game.boards.Slottable;
+import com.fireball.game.rooms.collision.Slottable;
 import com.fireball.game.entities.hitboxes.BodyHitbox;
 import com.fireball.game.entities.hitboxes.DamagerHitbox;
 

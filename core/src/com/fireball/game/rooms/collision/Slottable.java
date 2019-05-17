@@ -1,4 +1,4 @@
-package com.fireball.game.boards;
+package com.fireball.game.rooms.collision;
 
 public abstract class Slottable {
     protected int slotMinX, slotMaxX, slotMinY, slotMaxY;

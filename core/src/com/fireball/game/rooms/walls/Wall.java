@@ -1,5 +1,6 @@
-package com.fireball.game.boards;
+package com.fireball.game.rooms.walls;
 
+import com.fireball.game.rooms.collision.Slottable;
 import com.fireball.game.entities.Entity;
 
 import static java.lang.Math.*;

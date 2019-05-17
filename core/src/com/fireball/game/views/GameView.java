@@ -5,10 +5,11 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
-import com.fireball.game.boards.Board;
-import com.fireball.game.boards.BoardCamera;
-import com.fireball.game.boards.BoardPreset1;
+import com.fireball.game.rooms.Room;
+import com.fireball.game.rooms.RoomCamera;
+import com.fireball.game.rooms.RoomPreset1;
 import com.fireball.game.entities.EntityManager;
+import com.fireball.game.entities.Player;
 import com.fireball.game.input.ControlMapping;
 import com.fireball.game.input.InputManager;
 
@@ -17,8 +18,8 @@ public class GameView extends View {
     private boolean paused = false;
 
     private EntityManager entityManager;
-    private Board board;
-    private BoardCamera camera;
+    private Room room;
+    private RoomCamera camera;
 
     private FrameBuffer gameFrameBuffer;
     private SpriteBatch bufferBatch;
@@ -29,16 +30,16 @@ public class GameView extends View {
         pauseMenuView = new PauseMenuView(this, width, height);
 
         entityManager = new EntityManager();
-        board = new BoardPreset1(this);
-        camera = new BoardCamera(width, height);
+        room = new RoomPreset1(this);
+        camera = new RoomCamera(width, height);
 
         gameFrameBuffer = new FrameBuffer(Pixmap.Format.RGB888, width, height, false);
         //gameFrameBuffer.getColorBufferTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         bufferBatch = new SpriteBatch();
 
-        //Player p = new Player();
-        //p.setBoardCamera(camera);
-        //camera.follow(p, 16);
+        Player p = new Player();
+        p.setRoomCamera(camera);
+        camera.follow(p, 16);
     }
 
     @Override
@@ -55,8 +56,8 @@ public class GameView extends View {
         }
 
         if(!paused) {
-            board.update(delta);
-            entityManager.updateEntities(delta, board);
+            room.update(delta);
+            entityManager.updateEntities(delta, room);
             camera.update(delta);
         }
 
@@ -72,7 +73,7 @@ public class GameView extends View {
 
         bufferBatch.setProjectionMatrix(camera.combined);
         bufferBatch.begin();
-        board.draw(bufferBatch);
+        room.draw(bufferBatch);
         entityManager.draw(bufferBatch);
         bufferBatch.end();
 

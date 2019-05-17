@@ -1,6 +1,6 @@
 package com.fireball.game.entities.hitboxes;
 
-import com.fireball.game.boards.Slottable;
+import com.fireball.game.rooms.collision.Slottable;
 import com.fireball.game.entities.Entity;
 import com.fireball.game.entities.Team;
 

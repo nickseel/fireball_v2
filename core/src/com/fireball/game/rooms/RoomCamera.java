@@ -1,13 +1,13 @@
-package com.fireball.game.boards;
+package com.fireball.game.rooms;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.fireball.game.entities.Entity;
 
-public class BoardCamera extends OrthographicCamera {
+public class RoomCamera extends OrthographicCamera {
     private double followSpeed;
     private Entity following;
 
-    public BoardCamera(int viewWidth, int viewHeight) {
+    public RoomCamera(int viewWidth, int viewHeight) {
         super(viewWidth, viewHeight);
     }
 

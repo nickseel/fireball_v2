@@ -8,6 +8,8 @@ import com.fireball.game.input.ControlMapping;
 import com.fireball.game.input.InputManager;
 import com.fireball.game.rooms.rooms.Room;
 import com.fireball.game.rooms.rooms.RoomData;
+import com.fireball.game.textures.ColorTheme;
+import com.fireball.game.textures.TextureData;
 import com.fireball.game.textures.TextureManager;
 import com.fireball.game.ui.FontManager;
 import com.fireball.game.views.MainView;
@@ -27,6 +29,7 @@ public class FireballGame extends ApplicationAdapter {
 
 		InputManager.init();
 		TextureManager.loadTextures();
+		ColorTheme.init(TextureData.COLOR_THEME);
 		FontManager.init();
 
 		Room.fromFile(null, RoomData.DEBUG);

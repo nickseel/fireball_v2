@@ -14,6 +14,8 @@ import com.fireball.game.entities.EntityManager;
 import com.fireball.game.entities.Player;
 import com.fireball.game.input.ControlMapping;
 import com.fireball.game.input.InputManager;
+import com.fireball.game.shaders.ColorThemeShader;
+import com.fireball.game.textures.ColorTheme;
 
 public class GameView extends View {
     private PauseMenuView pauseMenuView;
@@ -25,6 +27,8 @@ public class GameView extends View {
 
     private FrameBuffer gameFrameBuffer;
     private SpriteBatch bufferBatch;
+
+    private ColorThemeShader colorThemeShader;
 
     public GameView(View parentView, int width, int height) {
         super(parentView, width, height);
@@ -38,6 +42,8 @@ public class GameView extends View {
         gameFrameBuffer = new FrameBuffer(Pixmap.Format.RGB888, width, height, false);
         gameFrameBuffer.getColorBufferTexture().setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
         bufferBatch = new SpriteBatch();
+
+        colorThemeShader = new ColorThemeShader();
 
         camera.zoom = 1f/4;
         Player p;
@@ -81,8 +87,14 @@ public class GameView extends View {
 
         bufferBatch.setProjectionMatrix(camera.combined);
         bufferBatch.begin();
+
+        bufferBatch.setShader(colorThemeShader);
+        colorThemeShader.setColorThemeType(ColorTheme.WALL);
         room.draw(bufferBatch);
+
+        bufferBatch.setShader(null);
         entityManager.draw(bufferBatch);
+
         bufferBatch.end();
 
         FrameBuffer.unbind();

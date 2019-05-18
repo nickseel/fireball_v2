@@ -2,12 +2,14 @@ package com.fireball.game.rooms.rooms;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
+import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.fireball.game.rooms.collision.CellSlotter;
 import com.fireball.game.rooms.rooms.room_objects.SpawnPoint;
 import com.fireball.game.rooms.tiles.TileMap;
@@ -54,7 +56,7 @@ public class Room {
         slottedStaticWalls = new CellSlotter<Wall>();
         slottedDynamicWalls = new CellSlotter<DestructibleWall>();
 
-        wallSprite = new Sprite(TextureManager.getTexture(TextureData.TEST_IMAGE));
+        wallSprite = new Sprite(TextureManager.getColorTexture(Color.BLACK));
 
         buffer = new FrameBuffer(Pixmap.Format.RGBA8888, wallTiles.getWidth(), wallTiles.getHeight(), false);
         buffer.getColorBufferTexture().setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
@@ -166,7 +168,7 @@ public class Room {
             }
             lineIndex++;
         }
-        TileMap wallTileMap = new TileMap(wallTiles, TextureData.WALLS);
+        TileMap wallTileMap = new TileMap(wallTiles, TextureData.WALLS_GRAY);
 
 
         while(!lines[lineIndex++].contains("ground tiles")) {}

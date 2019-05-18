@@ -1,0 +1,20 @@
+#ifdef GL_ES
+precision mediump float;
+#endif
+
+varying vec4 v_color;
+varying vec2 v_texCoords;
+
+uniform sampler2D u_texture;
+
+const int MAX_COLORS = 6;
+uniform vec3 u_colors[MAX_COLORS];
+uniform int u_numColors;
+
+void main() {
+    vec4 tex = texture2D(u_texture, v_texCoords);
+    int index = int(tex.r * (u_numColors*0+6) + 0.5);
+
+    gl_FragColor = vec4(u_colors[index], tex.a);
+    //gl_FragColor = tex;
+}

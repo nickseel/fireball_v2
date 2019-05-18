@@ -37,7 +37,6 @@ public class GameView extends View {
 
         gameFrameBuffer = new FrameBuffer(Pixmap.Format.RGB888, width, height, false);
         gameFrameBuffer.getColorBufferTexture().setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
-        //gameFrameBuffer.getColorBufferTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         bufferBatch = new SpriteBatch();
 
         camera.zoom = 1f/4;

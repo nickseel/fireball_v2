@@ -20,10 +20,10 @@ public class Player extends Entity {
 
     private final double maxHealth = 1;
     private double health = maxHealth;
-    private double radius = 20;
-    private double accel = 3000;
+    private double radius = 8;
+    private double accel = 1000;
     private double friction = 0.75;
-    private double maxSpeed = 400;
+    private double maxSpeed = 150;
     private double turnAssist = 2.0;
 
     private double maxPushSpeed = 200;

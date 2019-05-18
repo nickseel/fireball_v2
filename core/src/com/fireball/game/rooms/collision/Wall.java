@@ -1,4 +1,4 @@
-package com.fireball.game.rooms.walls;
+package com.fireball.game.rooms.collision;
 
 import com.fireball.game.rooms.collision.Slottable;
 import com.fireball.game.entities.Entity;

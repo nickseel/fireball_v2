@@ -1,10 +1,10 @@
 package com.fireball.game.entities;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.fireball.game.rooms.Room;
+import com.fireball.game.rooms.rooms.Room;
 import com.fireball.game.rooms.collision.CellEventManager;
 import com.fireball.game.rooms.collision.CellSlotter;
-import com.fireball.game.rooms.walls.Wall;
+import com.fireball.game.rooms.collision.Wall;
 import com.fireball.game.entities.hitboxes.BodyHitbox;
 import com.fireball.game.entities.hitboxes.DamagerHitbox;
 

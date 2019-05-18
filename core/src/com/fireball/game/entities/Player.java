@@ -2,7 +2,7 @@ package com.fireball.game.entities;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.fireball.game.rooms.RoomCamera;
+import com.fireball.game.rooms.rooms.RoomCamera;
 import com.fireball.game.entities.hitboxes.BodyHitbox;
 import com.fireball.game.input.ControlMapping;
 import com.fireball.game.input.InputManager;
@@ -36,8 +36,10 @@ public class Player extends Entity {
     private boolean firingWeapon = false, prevFiringWeapon = false;
     private double targetX = 0, targetY = 0;
 
-    public Player() {
+    public Player(int x, int y) {
         super(Team.PLAYER);
+        this.x = x;
+        this.y = y;
         terrainCollisionRadius = radius;
 
         //squareTexture = TextureManager.getTextureRegion(TextureData.SHAPES, 7);

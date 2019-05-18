@@ -1,4 +1,4 @@
-package com.fireball.game.rooms;
+package com.fireball.game.rooms.rooms;
 
 public enum RoomData {
     DEBUG ("debug");

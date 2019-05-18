@@ -1,4 +1,4 @@
-package com.fireball.game.rooms;
+package com.fireball.game.rooms.rooms;
 
 public class RoomJsonEntityData {
     private String name, type;
@@ -35,6 +35,14 @@ public class RoomJsonEntityData {
 
     public int getHeight() {
         return height;
+    }
+
+    public int getCenterX() {
+        return x + width/2;
+    }
+
+    public int getCenterY() {
+        return y + height/2;
     }
 
     public String toString() {

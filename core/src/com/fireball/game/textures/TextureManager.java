@@ -27,7 +27,7 @@ public class TextureManager {
         if(sheetRows != 1 || sheetCols != 1) {
             if(textureSheets.get(data) == null) {
                 Texture texture = new Texture(Gdx.files.internal(data.getFileName()));
-                texture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+                texture.setFilter(TextureFilter.Nearest, TextureFilter.Nearest);
                 TextureRegion[][] regions = TextureRegion.split(texture, texture.getWidth() / sheetCols, texture.getHeight() / sheetRows);
                 TextureRegion[] regionsFlat = new TextureRegion[regions.length * regions[0].length];
 
@@ -45,13 +45,17 @@ public class TextureManager {
     public static void loadTexture(TextureData data) {
         if(textures.get(data) == null) {
             Texture texture = new Texture(Gdx.files.internal(data.getFileName()));
-            texture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+            texture.setFilter(TextureFilter.Nearest, TextureFilter.Nearest);
             textures.put(data, texture);
         }
     }
 
     public static Texture getTexture(TextureData data) {
         return textures.get(data);
+    }
+
+    public static TextureRegion[] getTextureRegions(TextureData data) {
+        return textureSheets.get(data);
     }
 
     public static TextureRegion getTextureRegion(TextureData data, int index) {

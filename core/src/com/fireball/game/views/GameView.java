@@ -3,11 +3,13 @@ package com.fireball.game.views;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
-import com.fireball.game.rooms.Room;
-import com.fireball.game.rooms.RoomCamera;
-import com.fireball.game.rooms.RoomPreset1;
+import com.fireball.game.rooms.rooms.Room;
+import com.fireball.game.rooms.rooms.RoomCamera;
+import com.fireball.game.rooms.rooms.RoomData;
+import com.fireball.game.rooms.rooms.RoomPreset1;
 import com.fireball.game.entities.EntityManager;
 import com.fireball.game.entities.Player;
 import com.fireball.game.input.ControlMapping;
@@ -30,14 +32,22 @@ public class GameView extends View {
         pauseMenuView = new PauseMenuView(this, width, height);
 
         entityManager = new EntityManager();
-        room = new RoomPreset1(this);
+        room = Room.fromFile(this, RoomData.DEBUG);
         camera = new RoomCamera(width, height);
 
         gameFrameBuffer = new FrameBuffer(Pixmap.Format.RGB888, width, height, false);
+        gameFrameBuffer.getColorBufferTexture().setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
         //gameFrameBuffer.getColorBufferTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         bufferBatch = new SpriteBatch();
 
-        Player p = new Player();
+        camera.zoom = 1f/4;
+        Player p;
+        if(room.getSpawnPoint() == null) {
+            System.out.println("INITIAL ROOM IS MISSING SPAWN POINT!");
+            p = new Player(0, 0);
+        } else {
+            p = new Player(room.getSpawnPoint().getX(), room.getSpawnPoint().getY());
+        }
         p.setRoomCamera(camera);
         camera.follow(p, 16);
     }
@@ -68,8 +78,7 @@ public class GameView extends View {
     public void preDraw() {
         gameFrameBuffer.bind();
         Gdx.gl.glClearColor(0.75f, 0.8f, 0.9f, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT |
-                (Gdx.graphics.getBufferFormat().coverageSampling?GL20.GL_COVERAGE_BUFFER_BIT_NV:0));
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
 
         bufferBatch.setProjectionMatrix(camera.combined);
         bufferBatch.begin();

@@ -1,4 +1,4 @@
-package com.fireball.game.rooms;
+package com.fireball.game.rooms.rooms;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.fireball.game.entities.Entity;

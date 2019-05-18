@@ -1,11 +1,13 @@
-package com.fireball.game.rooms;
+package com.fireball.game.rooms.rooms;
 
-import com.fireball.game.rooms.walls.Wall;
+import com.fireball.game.rooms.tiles.TileMap;
+import com.fireball.game.rooms.collision.Wall;
+import com.fireball.game.textures.TextureData;
 import com.fireball.game.views.GameView;
 
 public class RoomPreset1 extends Room {
     public RoomPreset1(GameView parentView) {
-        super(parentView);
+        super(parentView, new TileMap(new int[0][0], TextureData.TEST_IMAGE), new TileMap(new int[0][0], TextureData.TEST_IMAGE), new Wall[0], new RoomJsonEntityData[0]);
 
         staticWalls = new Wall[] {
             new Wall(0, 350, 500, 250),

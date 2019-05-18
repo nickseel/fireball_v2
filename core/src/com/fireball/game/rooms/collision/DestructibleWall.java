@@ -1,4 +1,4 @@
-package com.fireball.game.rooms.walls;
+package com.fireball.game.rooms.collision;
 
 public class DestructibleWall extends Wall {
     private boolean destroyed;

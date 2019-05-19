@@ -3,8 +3,8 @@ package com.fireball.game.util;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
-import com.fireball.game.textures.TextureData;
-import com.fireball.game.textures.TextureManager;
+import com.fireball.game.rendering.textures.TextureData;
+import com.fireball.game.rendering.textures.TextureManager;
 
 import java.util.HashMap;
 

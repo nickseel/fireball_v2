@@ -2,7 +2,7 @@ package com.fireball.game.views;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.fireball.game.ui.FontManager;
+import com.fireball.game.rendering.ui.FontManager;
 
 public class MainView extends View {
     private View gameView;

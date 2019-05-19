@@ -1,6 +1,7 @@
 package com.fireball.game.entities;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.fireball.game.rendering.fire.FireRenderer;
 import com.fireball.game.rooms.collision.Slottable;
 import com.fireball.game.entities.hitboxes.BodyHitbox;
 import com.fireball.game.entities.hitboxes.DamagerHitbox;
@@ -30,7 +31,8 @@ public abstract class Entity extends Slottable {
 
     public abstract void updatePre(double delta);
     public abstract void updatePost(double delta);
-    public abstract void draw(SpriteBatch batch);
+    public void draw(SpriteBatch batch) {}
+    public void drawFire(FireRenderer renderer) {}
 
     public abstract void eventTerrainCollision(double angle);
 

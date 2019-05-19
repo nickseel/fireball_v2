@@ -8,10 +8,10 @@ import com.fireball.game.input.ControlMapping;
 import com.fireball.game.input.InputManager;
 import com.fireball.game.rooms.rooms.Room;
 import com.fireball.game.rooms.rooms.RoomData;
-import com.fireball.game.textures.ColorTheme;
-import com.fireball.game.textures.TextureData;
-import com.fireball.game.textures.TextureManager;
-import com.fireball.game.ui.FontManager;
+import com.fireball.game.rendering.textures.ColorTheme;
+import com.fireball.game.rendering.textures.TextureData;
+import com.fireball.game.rendering.textures.TextureManager;
+import com.fireball.game.rendering.ui.FontManager;
 import com.fireball.game.views.MainView;
 import com.fireball.game.views.View;
 

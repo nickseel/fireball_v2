@@ -1,6 +1,7 @@
 package com.fireball.game.entities;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.fireball.game.rendering.fire.FireRenderer;
 import com.fireball.game.rooms.rooms.Room;
 import com.fireball.game.rooms.collision.CellEventManager;
 import com.fireball.game.rooms.collision.CellSlotter;
@@ -153,6 +154,15 @@ public class EntityManager {
         }
         for(Entity e: enemyEntities) {
             e.draw(batch);
+        }
+    }
+
+    public void drawFire(FireRenderer renderer) {
+        for(Entity e: playerEntities) {
+            e.drawFire(renderer);
+        }
+        for(Entity e: enemyEntities) {
+            e.drawFire(renderer);
         }
     }
 

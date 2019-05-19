@@ -1,4 +1,4 @@
-package com.fireball.game.textures;
+package com.fireball.game.rendering.textures;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;

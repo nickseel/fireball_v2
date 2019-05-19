@@ -1,4 +1,4 @@
-package com.fireball.game.ui;
+package com.fireball.game.rendering.ui;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;

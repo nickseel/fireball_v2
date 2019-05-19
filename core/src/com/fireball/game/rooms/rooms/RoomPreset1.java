@@ -2,7 +2,7 @@ package com.fireball.game.rooms.rooms;
 
 import com.fireball.game.rooms.tiles.TileMap;
 import com.fireball.game.rooms.collision.Wall;
-import com.fireball.game.textures.TextureData;
+import com.fireball.game.rendering.textures.TextureData;
 import com.fireball.game.views.GameView;
 
 public class RoomPreset1 extends Room {

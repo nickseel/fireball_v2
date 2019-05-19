@@ -1,7 +1,12 @@
 package com.fireball.game.entities;
 
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.fireball.game.rendering.fire.FireRenderer;
+import com.fireball.game.rendering.textures.TextureData;
+import com.fireball.game.rendering.textures.TextureManager;
 import com.fireball.game.rooms.rooms.RoomCamera;
 import com.fireball.game.entities.hitboxes.BodyHitbox;
 import com.fireball.game.input.ControlMapping;
@@ -13,7 +18,7 @@ import java.util.LinkedList;
 import static java.lang.Math.*;
 
 public class Player extends Entity {
-    private TextureRegion squareTexture, triangleTexture, circleTexture;
+    private Texture fireTexture;
     private float animationTimer = 0;
 
     private BodyHitbox hitbox;
@@ -42,6 +47,7 @@ public class Player extends Entity {
         this.y = y;
         terrainCollisionRadius = radius;
 
+        fireTexture = TextureManager.getTexture(TextureData.FIREBALL);
         //squareTexture = TextureManager.getTextureRegion(TextureData.SHAPES, 7);
         //triangleTexture = TextureManager.getTextureRegion(TextureData.SHAPES, 16 + 4);
         //circleTexture = TextureManager.getTextureRegion(TextureData.SHAPES, 32 + 0);
@@ -157,18 +163,19 @@ public class Player extends Entity {
 
     @Override
     public void draw(SpriteBatch batch) {
-        /*batch.draw(squareTexture,
-                (float)(x-squareRadius),
-                (float)(y-squareRadius),
-                squareRadius,
-                squareRadius,
-                squareRadius*2,
-                squareRadius*2,
-                1f,
-                1f,
-                (float)(animationTimer * Math.PI * 2) / squareRotationPeriod);*/
+        /*float fireRadius = (float)radius * 2;
+        batch.draw(fireTexture,
+                (float)(x-fireRadius),
+                (float)(y-fireRadius),
+                fireRadius*2,
+                fireRadius*2);*/
 
         //sprite.draw(batch);
+    }
+
+    @Override
+    public void drawFire(FireRenderer renderer) {
+        renderer.draw(fireTexture, (float)x, (float)y, (float)radius*2, Color.WHITE);
     }
 
     public void setRoomCamera(RoomCamera roomCamera) {

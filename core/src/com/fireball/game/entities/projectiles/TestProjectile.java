@@ -1,15 +1,5 @@
 package com.fireball.game.entities.projectiles;
 
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.fireball.game.entities.hitboxes.BodyHitbox;
-import com.fireball.game.entities.hitboxes.DamagerHitbox;
-import com.fireball.game.textures.TextureData;
-import com.fireball.game.textures.TextureManager;
-
-import static java.lang.Math.floor;
-
 public class TestProjectile {//} extends Projectile {
     /*private TextureRegion textureRegion;
     private float animationTimer = 0;

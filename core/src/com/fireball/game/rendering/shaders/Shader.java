@@ -1,4 +1,4 @@
-package com.fireball.game.shaders;
+package com.fireball.game.rendering.shaders;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;

@@ -2,8 +2,8 @@ package com.fireball.game.rooms.tiles;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.fireball.game.textures.TextureData;
-import com.fireball.game.textures.TextureManager;
+import com.fireball.game.rendering.textures.TextureData;
+import com.fireball.game.rendering.textures.TextureManager;
 
 public class TileMap {
     private int[][] tiles;

@@ -1,7 +1,7 @@
-package com.fireball.game.shaders;
+package com.fireball.game.rendering.shaders;
 
 import com.badlogic.gdx.graphics.Color;
-import com.fireball.game.textures.ColorTheme;
+import com.fireball.game.rendering.textures.ColorTheme;
 
 public class ColorThemeShader extends Shader {
     private static final String NAME = "colorTheme";

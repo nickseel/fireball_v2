@@ -6,16 +6,16 @@ import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
+import com.fireball.game.rendering.fire.FireRenderer;
 import com.fireball.game.rooms.rooms.Room;
 import com.fireball.game.rooms.rooms.RoomCamera;
 import com.fireball.game.rooms.rooms.RoomData;
-import com.fireball.game.rooms.rooms.RoomPreset1;
 import com.fireball.game.entities.EntityManager;
 import com.fireball.game.entities.Player;
 import com.fireball.game.input.ControlMapping;
 import com.fireball.game.input.InputManager;
-import com.fireball.game.shaders.ColorThemeShader;
-import com.fireball.game.textures.ColorTheme;
+import com.fireball.game.rendering.shaders.ColorThemeShader;
+import com.fireball.game.rendering.textures.ColorTheme;
 
 public class GameView extends View {
     private PauseMenuView pauseMenuView;
@@ -28,6 +28,7 @@ public class GameView extends View {
     private FrameBuffer gameFrameBuffer;
     private SpriteBatch bufferBatch;
 
+    private FireRenderer fireRenderer;
     private ColorThemeShader colorThemeShader;
 
     public GameView(View parentView, int width, int height) {
@@ -43,6 +44,7 @@ public class GameView extends View {
         gameFrameBuffer.getColorBufferTexture().setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
         bufferBatch = new SpriteBatch();
 
+        fireRenderer = new FireRenderer(width, height);
         colorThemeShader = new ColorThemeShader();
 
         camera.zoom = 1f/4;
@@ -59,6 +61,8 @@ public class GameView extends View {
 
     @Override
     public void update(double delta) {
+        fireRenderer.update(delta);
+
         if(InputManager.keyPressed(ControlMapping.PAUSE_GAME)) {
             if(paused) {
                 paused = false;
@@ -81,10 +85,15 @@ public class GameView extends View {
 
     @Override
     public void preDraw() {
+        fireRenderer.begin(camera);
+        entityManager.drawFire(fireRenderer);
+        fireRenderer.end();
+
+
+
         gameFrameBuffer.bind();
         Gdx.gl.glClearColor(0.75f, 0.8f, 0.9f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
-
         bufferBatch.setProjectionMatrix(camera.combined);
         bufferBatch.begin();
 
@@ -96,8 +105,8 @@ public class GameView extends View {
         entityManager.draw(bufferBatch);
 
         bufferBatch.end();
-
         FrameBuffer.unbind();
+
 
         pauseMenuView.preDraw();
     }
@@ -105,6 +114,8 @@ public class GameView extends View {
     @Override
     public void draw(SpriteBatch batch) {
         batch.draw(gameFrameBuffer.getColorBufferTexture(), 0, 0);
+
+        fireRenderer.drawDebugTextures(batch);
 
         pauseMenuView.draw(batch);
     }

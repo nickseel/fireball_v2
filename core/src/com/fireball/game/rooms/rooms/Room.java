@@ -9,14 +9,13 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
-import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.fireball.game.rooms.collision.CellSlotter;
 import com.fireball.game.rooms.rooms.room_objects.SpawnPoint;
 import com.fireball.game.rooms.tiles.TileMap;
 import com.fireball.game.rooms.collision.DestructibleWall;
 import com.fireball.game.rooms.collision.Wall;
-import com.fireball.game.textures.TextureData;
-import com.fireball.game.textures.TextureManager;
+import com.fireball.game.rendering.textures.TextureData;
+import com.fireball.game.rendering.textures.TextureManager;
 import com.fireball.game.views.GameView;
 
 import java.util.ArrayList;
@@ -39,8 +38,8 @@ public class Room {
     protected RoomJsonEntityData[] initialEntities;
 
     private SpawnPoint spawnPoint;
-    private Sprite wallSprite;
 
+    private Sprite wallSprite;
     private FrameBuffer buffer;
     private SpriteBatch bufferBatch;
 

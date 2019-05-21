@@ -14,6 +14,8 @@ public class FireResidualShader extends Shader {
     public void loadUniforms(Texture prevTexture, RoomCamera camera, float width, float height, float time) {
         Gdx.gl.glActiveTexture(Gdx.gl.GL_TEXTURE1);
         prevTexture.bind();
+        Gdx.gl.glActiveTexture(Gdx.gl.GL_TEXTURE0);
+
         setUniformi("u_previous_frame", 1);
         setUniformf("u_camera_delta", camera.getDX() / width, camera.getDY() / height);
         setUniformf("u_camera_position", camera.getX() / width, camera.getY() / height);

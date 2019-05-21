@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.fireball.game.rendering.ui.FontManager;
 
 public class MainView extends View {
-    private View gameView;
+    private GameView gameView;
 
     public MainView(int width, int height) {
         super(null, width, height);
@@ -25,6 +25,7 @@ public class MainView extends View {
     @Override
     public void draw(SpriteBatch batch) {
         gameView.draw(batch);
+
         FontManager.aireExterior36.setColor(1, 0, 0, 1);
         FontManager.aireExterior36.draw(batch, "FPS " + Gdx.graphics.getFramesPerSecond(), 0, height);
     }

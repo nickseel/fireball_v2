@@ -68,7 +68,5 @@ void main() {
 
 
 		gl_FragColor = vec4(output_fire, 1.0);
-		//gl_FragColor = vec4(vec3(texture2D(u_texture, v_texCoords).r + texture2D(u_previous_frame, v_texCoords + vec2(0.1, 0.0)).r), 1.0);
-		//gl_FragColor = vec4(texture2D(u_texture, tex_coords).r, 0.0, 0.0, 1.0);
 	}
 }

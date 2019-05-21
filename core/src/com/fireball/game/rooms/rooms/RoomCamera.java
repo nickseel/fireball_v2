@@ -1,6 +1,7 @@
 package com.fireball.game.rooms.rooms;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.math.Matrix4;
 import com.fireball.game.entities.Entity;
 
 public class RoomCamera extends OrthographicCamera {
@@ -8,16 +9,25 @@ public class RoomCamera extends OrthographicCamera {
     private Entity following;
     private float x, y, prevX, prevY;
 
-    public RoomCamera(int viewWidth, int viewHeight) {
+    private final float offsetX, offsetY;
+
+    public RoomCamera(int viewWidth, int viewHeight, float baseZoom) {
         super(viewWidth, viewHeight);
+
+        offsetX = -(viewWidth*(baseZoom-1))/2;
+        offsetY = -(viewHeight*(baseZoom-1))/2;
+        x = offsetX;
+        y = offsetY;
+        position.x = x;
+        position.y = y;
     }
 
     public void update(double delta) {
         prevX = x;
         prevY = y;
         if(following != null) {
-            double targetX = following.getX();
-            double targetY = following.getY();
+            double targetX = following.getX() + offsetX;
+            double targetY = following.getY() + offsetY;
             x += (float)(Math.signum(targetX - x) * Math.min(1, delta * followSpeed) * Math.abs(targetX - x));
             y += (float)(Math.signum(targetY - y) * Math.min(1, delta * followSpeed) * Math.abs(targetY - y));
         }

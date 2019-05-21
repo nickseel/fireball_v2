@@ -25,7 +25,7 @@ public class Player extends Entity {
 
     private final double maxHealth = 1;
     private double health = maxHealth;
-    private double radius = 8;
+    private double radius = 12;
     private double accel = 1000;
     private double friction = 0.75;
     private double maxSpeed = 150;
@@ -175,7 +175,7 @@ public class Player extends Entity {
 
     @Override
     public void drawFire(FireRenderer renderer) {
-        renderer.draw(fireTexture, (float)x, (float)y, (float)radius*2, Color.WHITE);
+        renderer.draw(fireTexture, (float)x, (float)y, (float)radius*4, Color.WHITE);
     }
 
     public void setRoomCamera(RoomCamera roomCamera) {

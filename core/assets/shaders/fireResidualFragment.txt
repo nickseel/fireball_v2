@@ -4,7 +4,6 @@ varying vec2 v_texCoords;
 varying vec4 v_color;
 
 uniform sampler2D u_texture;
-
 uniform sampler2D u_previous_frame;
 uniform vec2 u_camera_delta;
 uniform vec2 u_camera_position;

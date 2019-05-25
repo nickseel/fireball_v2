@@ -1,0 +1,21 @@
+#ifdef GL_ES
+precision mediump float;
+#endif
+
+varying vec4 v_color;
+varying vec2 v_texCoords;
+
+uniform sampler2D u_texture;
+uniform sampler2D u_previous_frame;
+uniform float u_delta_time;
+uniform vec2 u_camera_delta;
+
+const float speed = 1.0;
+
+void main() {
+	float new = texture2D(u_texture, v_texCoords).g;
+	float residual = texture2D(u_previous_frame, v_texCoords + u_camera_delta).g;
+	float total = max(new, residual - (u_delta_time * speed));
+	//float total = clamp(residual + (sign(new-residual) * (max(abs(new - residual) * speed, base)) * u_delta_time), 0.0, 1.0);
+    gl_FragColor = vec4(vec3(total), 1.0);
+}

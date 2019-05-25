@@ -14,8 +14,8 @@ public class RoomCamera extends OrthographicCamera {
     public RoomCamera(int viewWidth, int viewHeight, float baseZoom) {
         super(viewWidth, viewHeight);
 
-        offsetX = -(viewWidth*(baseZoom-1))/2;
-        offsetY = -(viewHeight*(baseZoom-1))/2;
+        offsetX = -(viewWidth*((1/baseZoom)-1))/2;
+        offsetY = -(viewHeight*((1/baseZoom)-1))/2;
         x = offsetX;
         y = offsetY;
         position.x = x;
@@ -26,20 +26,30 @@ public class RoomCamera extends OrthographicCamera {
         prevX = x;
         prevY = y;
         if(following != null) {
-            double targetX = following.getX() + offsetX;
-            double targetY = following.getY() + offsetY;
+            double targetX = following.getX();
+            double targetY = following.getY();
             x += (float)(Math.signum(targetX - x) * Math.min(1, delta * followSpeed) * Math.abs(targetX - x));
             y += (float)(Math.signum(targetY - y) * Math.min(1, delta * followSpeed) * Math.abs(targetY - y));
         }
 
-        position.x = x;
-        position.y = y;
+        position.x = x + offsetX;
+        position.y = y + offsetY;
         update();
     }
 
     public void follow(Entity entity, double followSpeed) {
         this.following = entity;
         this.followSpeed = followSpeed;
+    }
+
+    public void setPosition(float x, float y) {
+        this.x = x;// + offsetX;
+        this.y = y;// + offsetY;
+    }
+
+    public void setPositionOffset(float x, float y) {
+        this.x = x + offsetX;
+        this.y = y + offsetY;
     }
 
     public float getPrevX() {

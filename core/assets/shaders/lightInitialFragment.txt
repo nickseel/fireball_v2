@@ -1,0 +1,19 @@
+#ifdef GL_ES
+precision mediump float;
+#endif
+
+varying vec4 v_color;
+varying vec2 v_texCoords;
+
+uniform sampler2D u_texture;
+uniform float u_cutoff;
+
+void main() {
+	vec4 col = texture2D(u_texture, v_texCoords);
+	float light_amount = col.g * 1.0;// * v_color.a;
+	if(light_amount <= u_cutoff) {
+	    discard;
+	}
+    gl_FragColor = vec4(1.0, 1.0, 1.0, 1.0);
+    //gl_FragColor = col;//vec4(1.0, 1.0, 1.0, 1.0 - step(light_amount, u_cutoff));
+}

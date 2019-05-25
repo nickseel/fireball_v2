@@ -1,9 +1,7 @@
 package com.fireball.game.entities;
 
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.fireball.game.rendering.fire.FireRenderer;
 import com.fireball.game.rendering.textures.TextureData;
 import com.fireball.game.rendering.textures.TextureManager;
@@ -18,9 +16,6 @@ import java.util.LinkedList;
 import static java.lang.Math.*;
 
 public class Player extends Entity {
-    private Texture fireTexture;
-    private float animationTimer = 0;
-
     private BodyHitbox hitbox;
 
     private final double maxHealth = 1;
@@ -47,7 +42,6 @@ public class Player extends Entity {
         this.y = y;
         terrainCollisionRadius = radius;
 
-        fireTexture = TextureManager.getTexture(TextureData.FIREBALL);
         //squareTexture = TextureManager.getTextureRegion(TextureData.SHAPES, 7);
         //triangleTexture = TextureManager.getTextureRegion(TextureData.SHAPES, 16 + 4);
         //circleTexture = TextureManager.getTextureRegion(TextureData.SHAPES, 32 + 0);
@@ -153,8 +147,6 @@ public class Player extends Entity {
         x = nextX;
         y = nextY;
 
-        animationTimer += (float)delta;
-
         hitbox.setPosition(x, y);
 
         targetX = InputManager.getMouseX() - roomCamera.viewportWidth/2 + roomCamera.position.x - x;
@@ -175,7 +167,12 @@ public class Player extends Entity {
 
     @Override
     public void drawFire(FireRenderer renderer) {
-        renderer.draw(fireTexture, (float)x, (float)y, (float)radius*4, Color.WHITE);
+        renderer.drawFire((float)x, (float)y, (float)radius*1, 1.0f);
+    }
+
+    @Override
+    public void drawLight(FireRenderer renderer) {
+        renderer.drawLight((float)x, (float)y, (float)radius*2, 1.0f);
     }
 
     public void setRoomCamera(RoomCamera roomCamera) {

@@ -8,7 +8,8 @@ public enum TextureData {
     GROUND_BIG ("images/ground_big.png", 4, 4),
     WALLS ("images/walls.png", 8, 8),
     WALLS_GRAY ("images/walls_gray.png", 8, 8),
-    FIREBALL ("images/fireball.png");
+    FIREBALL ("images/fireball.png"),
+    FIREBALL_BIG ("images/fireball_big.png");
 
     private String fileName;
     private int sheetRows, sheetCols;

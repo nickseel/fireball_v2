@@ -13,9 +13,9 @@ uniform float u_time;
 uniform float u_random;
 uniform float u_freeze;
 
-const float residual_fire_fade_time = 0.043; //time fire takes to fade
-const float residual_rise_speed = 1.60; //speed that fire rises
-const float check_distance = 2.8; //distance that fire residual decreases by each frame
+const float residual_fire_fade_time = 0.059; //time fire takes to fade
+const float residual_rise_speed = 1.85; //speed that fire rises
+const float check_distance = 2.9; //distance that fire residual decreases by each frame
 const float max_residual = 0.6; //max color that a residual can be
 
 const vec2 noise_magnification = vec2(2.4, 3.5) * 0.03;
@@ -50,23 +50,23 @@ void main() {
 		float rise = residual_rise_speed * pixel_size.y * (1.0 + ((u_random - 0.5) * 0.1));
 		vec2 rise_offset = vec2(0.0, rise);
 
-		vec3 fire_residual = vec3(0.0, 0.0, 0.0);
+		float fire_residual = 0.0;
 		float dist = check_distance * pixel_size.x * (1.0 + ((u_random - 0.5) * 0.05));
 
 		for(int i = 0; i < 4; i++) {
 			float off_x = dist * (mod(float(i), 2.0) - 0.5);
 			float off_y = dist * (float(i / 2) - 0.5);
-			fire_residual += texture2D(u_previous_frame, clamp(tex_coords + rise_offset + vec2(off_x, off_y), 0.0, 1.0)).rgb;
+			fire_residual += texture2D(u_previous_frame, clamp(tex_coords + rise_offset + vec2(off_x, off_y), 0.0, 1.0)).r;
 		}
 		fire_residual /= 4.0;
-		if(fire_residual.r != 0.0) {
-			fire_residual -= vec3(residual_fire_fade_time * (1.0 + (noise_range * fade_max_variation)));
+		if(fire_residual != 0.0) {
+			fire_residual -= residual_fire_fade_time * (1.0 + (noise_range * fade_max_variation));
 		}
 
 		fire_residual = min(fire_residual, max_residual);
-		vec3 output_fire = max(texture_raw.rgb * 1.0, fire_residual);
+		float output_fire = max(texture_raw.r * 1.0, fire_residual);
 
 
-		gl_FragColor = vec4(output_fire, 1.0);
+		gl_FragColor = vec4(output_fire, 0.0, 0.0, 1.0);
 	}
 }

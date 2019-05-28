@@ -12,7 +12,7 @@ import com.fireball.game.rooms.rooms.Room;
 import com.fireball.game.rooms.rooms.RoomCamera;
 import com.fireball.game.rooms.rooms.RoomData;
 import com.fireball.game.entities.EntityManager;
-import com.fireball.game.entities.Player;
+import com.fireball.game.entities.player.Player;
 import com.fireball.game.input.ControlMapping;
 import com.fireball.game.input.InputManager;
 import com.fireball.game.rendering.shaders.ColorThemeShader;

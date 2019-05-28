@@ -1,7 +1,9 @@
-package com.fireball.game.entities;
+package com.fireball.game.entities.player;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.fireball.game.entities.Entity;
+import com.fireball.game.entities.Team;
 import com.fireball.game.rendering.fire.FireRenderer;
 import com.fireball.game.rendering.textures.TextureData;
 import com.fireball.game.rendering.textures.TextureManager;

@@ -14,13 +14,13 @@ import com.fireball.game.rendering.textures.TextureManager;
 import com.fireball.game.rooms.rooms.RoomCamera;
 
 public class FireRenderer {
-    private static final float LIGHTING_SCENE_DARKNESS = 0.75f;
+    private static final float LIGHTING_SCENE_DARKNESS = 0.0f;
     private static final float LIGHTING_RESOLUTION_FACTOR = 0.5f;
     private static final float LIGHTING_SURFACE_SIZE_FACTOR = 1.0f;
-    private static final int LIGHTING_NUM_REPETITIONS = 8;
-    private static final int LIGHTING_INITIAL_REPETITION_SKIP = 1;
-    private static final float LIGHTING_START_RADIUS = 6.0f;
-    private static final float LIGHTING_REPETITION_RADIUS_INCREASE = 0.25f;
+    private static final int LIGHTING_NUM_REPETITIONS = 1;
+    private static final int LIGHTING_INITIAL_REPETITION_SKIP = 0;
+    private static final float LIGHTING_START_RADIUS = 0f;//6.0f;
+    private static final float LIGHTING_REPETITION_RADIUS_INCREASE = 0;//0.25f;
     private static final float LIGHTING_REPETITION_RADIUS_FACTOR = 1.25f;
     private static final float LIGHTING_CIRCLE_RESOLUTION = 12;
 
@@ -40,18 +40,18 @@ public class FireRenderer {
 
     private Texture fireballTexture;
 
-    public FireRenderer(int width, int height, float bufferScale) {
+    public FireRenderer(float width, float height, float bufferScale) {
         this.width = width;
         this.height = height;
         rawFireBuffer = new FrameBuffer(Pixmap.Format.RGB888, (int)(width*LIGHTING_SURFACE_SIZE_FACTOR), (int)(height*LIGHTING_SURFACE_SIZE_FACTOR), false);
         residualFireBuffer1 = new FrameBuffer(Pixmap.Format.RGB888, (int)(width*LIGHTING_SURFACE_SIZE_FACTOR), (int)(height*LIGHTING_SURFACE_SIZE_FACTOR), false);
         residualFireBuffer2 = new FrameBuffer(Pixmap.Format.RGB888, (int)(width*LIGHTING_SURFACE_SIZE_FACTOR), (int)(height*LIGHTING_SURFACE_SIZE_FACTOR), false);
-        finalFireBuffer = new FrameBuffer(Pixmap.Format.RGBA8888, width, height, false);
+        finalFireBuffer = new FrameBuffer(Pixmap.Format.RGBA8888, (int)width, (int)height, false);
         lightBuffer1 = new FrameBuffer(Pixmap.Format.RGB888, (int)(width*LIGHTING_SURFACE_SIZE_FACTOR*LIGHTING_RESOLUTION_FACTOR), (int)(height*LIGHTING_SURFACE_SIZE_FACTOR*LIGHTING_RESOLUTION_FACTOR), false);
         lightBuffer2 = new FrameBuffer(Pixmap.Format.RGB888, (int)(width*LIGHTING_SURFACE_SIZE_FACTOR*LIGHTING_RESOLUTION_FACTOR), (int)(height*LIGHTING_SURFACE_SIZE_FACTOR*LIGHTING_RESOLUTION_FACTOR), false);
         lightOutputBuffer = new FrameBuffer(Pixmap.Format.RGB888, (int)(width*LIGHTING_SURFACE_SIZE_FACTOR*LIGHTING_RESOLUTION_FACTOR), (int)(height*LIGHTING_SURFACE_SIZE_FACTOR*LIGHTING_RESOLUTION_FACTOR), false);
         lightResidualBuffer = new FrameBuffer(Pixmap.Format.RGB888, (int)(width*LIGHTING_SURFACE_SIZE_FACTOR*LIGHTING_RESOLUTION_FACTOR), (int)(height*LIGHTING_SURFACE_SIZE_FACTOR*LIGHTING_RESOLUTION_FACTOR), false);
-        finalLightBuffer = new FrameBuffer(Pixmap.Format.RGBA8888, width, height, false);
+        finalLightBuffer = new FrameBuffer(Pixmap.Format.RGBA8888, (int)width, (int)height, false);
 
         fireResidualShader = new FireResidualShader();
         fireFinalShader= new FireFinalShader();
@@ -198,7 +198,7 @@ public class FireRenderer {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         lightResidualShader.loadUniforms(lightBuffer1.getColorBufferTexture(), camera, width*LIGHTING_SURFACE_SIZE_FACTOR*LIGHTING_RESOLUTION_FACTOR, height*LIGHTING_SURFACE_SIZE_FACTOR*LIGHTING_RESOLUTION_FACTOR, lastDelta);
-        batch.draw(rawFireBuffer.getColorBufferTexture(), 0, height*LIGHTING_SURFACE_SIZE_FACTOR*LIGHTING_RESOLUTION_FACTOR, width*LIGHTING_SURFACE_SIZE_FACTOR*LIGHTING_RESOLUTION_FACTOR, -height*LIGHTING_SURFACE_SIZE_FACTOR*LIGHTING_RESOLUTION_FACTOR);
+        batch.draw(residualFireBuffer1.getColorBufferTexture(), 0, height*LIGHTING_SURFACE_SIZE_FACTOR*LIGHTING_RESOLUTION_FACTOR, width*LIGHTING_SURFACE_SIZE_FACTOR*LIGHTING_RESOLUTION_FACTOR, -height*LIGHTING_SURFACE_SIZE_FACTOR*LIGHTING_RESOLUTION_FACTOR);
         batch.end();
         FrameBuffer.unbind();
 

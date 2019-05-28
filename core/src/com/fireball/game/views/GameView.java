@@ -33,14 +33,13 @@ public class GameView extends View {
     private FireRenderer fireRenderer;
     private ColorThemeShader colorThemeShader;
 
-    private final static float BUFFER_SCALE = 3f;
-    private int bufferWidth, bufferHeight;
+    private final static float BUFFER_SCALE = 4f;
 
     public GameView(View parentView, int width, int height) {
         super(parentView, width, height);
 
-        bufferWidth = (int)(width / BUFFER_SCALE);
-        bufferHeight = (int)(height / BUFFER_SCALE);
+        float bufferWidth = (width / BUFFER_SCALE);
+        float bufferHeight = (height / BUFFER_SCALE);
 
         //pauseMenuView = new PauseMenuView(this, width, height);
 
@@ -48,12 +47,12 @@ public class GameView extends View {
         room = Room.fromFile(this, RoomData.DEBUG);
         camera = new RoomCamera(width, height, BUFFER_SCALE);
 
-        gameFrameBuffer = new FrameBuffer(Pixmap.Format.RGB888, bufferWidth, bufferHeight, false);
+        gameFrameBuffer = new FrameBuffer(Pixmap.Format.RGB888, (int)bufferWidth, (int)bufferHeight, false);
         gameFrameBuffer.getColorBufferTexture().setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
         bufferBatch = new SpriteBatch();
         defaultProjection = bufferBatch.getProjectionMatrix().cpy();
 
-        fireRenderer = new FireRenderer(bufferWidth, bufferHeight, BUFFER_SCALE);
+        fireRenderer = new FireRenderer(width / BUFFER_SCALE, height / BUFFER_SCALE, BUFFER_SCALE);
         colorThemeShader = new ColorThemeShader();
 
         Player p;

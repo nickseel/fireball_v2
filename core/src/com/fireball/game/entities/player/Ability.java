@@ -13,4 +13,8 @@ public enum Ability {
     public String getString() {
         return string;
     }
+
+    public static Ability[] getAbilities() {
+        return Ability.values().clone();
+    }
 }

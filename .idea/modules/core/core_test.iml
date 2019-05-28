@@ -13,5 +13,4 @@
     <orderEntry type="library" name="Gradle: com.badlogicgames.gdx:gdx-freetype:1.9.9" level="project" />
     <orderEntry type="library" name="Gradle: com.badlogicgames.gdx:gdx:1.9.9" level="project" />
   </component>
-  <component name="TestModuleProperties" production-module="core_main" />
 </module>

@@ -20,7 +20,9 @@ $RECYCLE.BIN/
 
 .idea
 *.iml
-
+.gradle/*
+core/out/
 # =========================
 # Operating System Files
 # =========================
+desktop/build.gradle

@@ -14,7 +14,7 @@ public enum Ability {
         return string;
     }
 
-    public static Ability[] getAbilities() {
-        return Ability.values().clone();
+    public static Ability[] getPlayerAbilities() {
+        return new Ability[] {Ability.FIREBALL, Ability.FLAMETHROWER, Ability.RING, Ability.DASH};
     }
 }

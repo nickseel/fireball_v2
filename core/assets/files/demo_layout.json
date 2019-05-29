@@ -1,0 +1,204 @@
+{
+	"defaults": {
+		"room_defaults": {
+			"permadeath": true,
+			"permadeath_if_cleared": false,
+			
+			"exits_blocked": false,
+			"exits_unblock_on_clear": false,
+			"exits_unblock_on_puzzle": false,
+			"exits_unblock_on_gain_combo": false,
+			"puzzle_block_press_length": 1.0,
+			
+			"locked_abilities": -1,
+		},
+	},
+	"demo_stage": {
+		"room_demo_start": {
+			"index": 0,
+			"u0": "room_demo_abilities",
+		},
+		"room_demo_abilities": {
+			"index": 1,
+			"d0": "room_demo_start",
+			"u0": "room_demo_puzzle_intro",
+		},
+		"room_demo_puzzle_intro": {
+			"index": 2,
+			"d0": "room_demo_abilities",
+			"u0": "room_demo_0",
+			
+			"exits_blocked": true,
+			"exits_unblock_on_puzzle": true,
+			"puzzle_block_press_length": 5.0,
+		},
+		"room_demo_0": {
+			"index": 3,
+			"d0": "room_demo_puzzle_intro",
+			"u0": "room_demo_1",
+		},
+		"room_demo_1": {
+			"index": 4,
+			"d0": "room_demo_0",
+			"u0": "room_demo_2",
+			"r0": "room_demo_3",
+		},
+		"room_demo_2": {
+			"index": 5,
+			"d0": "room_demo_1",
+			"r0": "room_demo_puzzle_0",
+		},
+		"room_demo_3": {
+			"index": 6,
+			"l0": "room_demo_1",
+			"u0": "room_demo_puzzle_0",
+		},
+		"room_demo_puzzle_0": {
+			"index": 7,
+			"l0": "room_demo_2",
+			"d0": "room_demo_3",
+			"r0": "room_demo_4",
+			
+			"exits_blocked": true,
+			"exits_unblock_on_puzzle": true,
+		},
+		"room_demo_4": {
+			"index": 8,
+			"l0": "room_demo_puzzle_0",
+			"r0": "room_demo_challenge_0",
+		},
+		"room_demo_challenge_0": {
+			"index": 9,
+			"l0": "room_demo_4",
+			"r0": "room_demo_gain_combo",
+			
+			"exits_blocked": true,
+			"exits_unblock_on_clear": true,
+		},
+		"room_demo_gain_combo": {
+			"index": 10,
+			"l0": "room_demo_challenge_0",
+			"r0": "room_demo_5",
+			
+			"exits_blocked": true,
+			"exits_unblock_on_gain_combo": true,
+		},
+		"room_demo_5": {
+			"index": 11,
+			"l0": "room_demo_gain_combo",
+			"l1": "room_demo_6",
+		},
+		"room_demo_6": {
+			"index": 12,
+			"r0": "room_demo_5",
+			"d0": "room_demo_7",
+		},
+		"room_demo_7": {
+			"index": 13,
+			"u0": "room_demo_6",
+			"d0": "room_demo_puzzle_1",
+		},
+		"room_demo_puzzle_1": {
+			"index": 14,
+			"u0": "room_demo_7",
+			"l0": "room_demo_8",
+			
+			"exits_blocked": true,
+			"exits_unblock_on_puzzle": true,
+		},
+		"room_demo_8": {
+			"index": 15,
+			"r0": "room_demo_puzzle_1",
+			"l0": "room_demo_challenge_1",
+		},
+		"room_demo_challenge_1": {
+			"index": 16,
+			"r0": "room_demo_8",
+			"u0": "room_demo_end",
+			
+			"exits_blocked": true,
+			"exits_unblock_on_clear": true,
+		},
+		"room_demo_end": {
+			"index": 17,
+			"d0": "room_demo_challenge_1",
+		},
+	},
+	"debug_stage": {
+		"room_debug_start": {
+			"index": 0,
+			"r0": "room_debug_enemies",
+			"u0": "room_debug_boss",
+			"l0": "any",
+			"d0": "room_debug_puzzle",
+			
+			"random_rooms_used_min": 1.0,
+			"random_rooms_used_max": 1.0,
+		},
+		"room_debug_enemies": {
+			"index": 1,
+			"l0": "room_debug_start",
+			"u0": "room_debug_enemies_0",
+			"u1": "room_debug_enemies_1",
+			"u2": "room_debug_enemies_2",
+		},
+		"room_debug_enemies_0": {
+			"index": 2,
+			"d0": "room_debug_enemies",
+			
+			"enemies_respawn": true,
+		},
+		"room_debug_enemies_1": {
+			"index": 3,
+			"d0": "room_debug_enemies",
+			
+			"enemies_respawn": true,
+		},
+		"room_debug_enemies_2": {
+			"index": 4,
+			"d0": "room_debug_enemies",
+			
+			"enemies_respawn": true,
+		},
+		"room_debug_boss": {
+			"index": 5,
+			"d0": "room_debug_start",
+			
+			/*"exits_blocked": true,
+			"exits_unblock_on_clear": true,
+			"permadeath_if_cleared": true,*/
+		},
+		"room_debug_puzzle": {
+			"index": 6,
+			"u0": "room_debug_start",
+			
+			"exits_blocked": true,
+			"exits_unblock_on_clear": true,
+			"exits_unblock_on_puzzle": true,
+		},
+		"room_debug_rand1": {
+			"index": 7,
+			"l0": "any",
+		},
+		"room_debug_rand2": {
+			"index": 8,
+			"l0": "any",
+			"r0": "any",
+		},
+		"room_debug_rand3": {
+			"index": 9,
+			"u0": "any",
+			"d0": "any",
+		},
+		"room_debug_rand4": {
+			"index": 10,
+			"u0": "any",
+			"r0": "any",
+		},
+		"room_debug_rand5": {
+			"index": 11,
+			"d0": "any",
+			"r0": "any",
+		},
+	},
+}

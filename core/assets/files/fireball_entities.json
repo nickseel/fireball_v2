@@ -1,0 +1,93 @@
+{
+	"entity_base": {
+		"move_speed":		100,
+		"slide":			3,
+		"stunned":			false,
+		"bounce":			false,
+		"has_friction":		true,
+		"collide_center":	false,
+		"move_through_walls":false,
+	},
+	"player": {
+		"health": 			100,
+		"move_speed":		90,
+		"size":				21,
+		"health_regen": 	16,
+	},
+	"walker": {
+		"health": 			125,
+		"move_speed":		60,
+		"size":				20,
+		
+		"contact_damage": 15,
+		"contact_knockback": 0,
+		"contact_stun": 0,
+		
+		"min_strafe_distance": 30,
+		"max_strafe_distance": 120,
+		"directions_choose_list": [-1, 1],
+		"change_direction_timer_min": 0.5,
+		"change_direction_timer_max": 1.5,
+		"change_direction_timer_weight": 3,
+		"min_towards_player_weight": 0.25,
+	},
+	"shooter": {
+		"health": 105,
+		"move_speed": 55,
+		"size": 21,
+		
+		/*"contact_damage": 0,
+		"contact_knockback": 0,
+		"contact_stun": 0,*/
+		
+		"target_distance": 130,
+		"buffer_distance": 50,
+		"directions_choose_list": [-1, 0, 1],
+		"change_direction_timer_min": 0.5,
+		"change_direction_timer_max": 1.5,
+		"change_direction_timer_weight": 3,
+		"shoot_timer_variation": 0.3,
+		"pause_before_shoot": 0.25,
+		"pause_after_shoot": 0.1,
+		"sight_step_size": 4,
+		"sight_range": 160,
+	},
+	"shielder": {
+		"health": 145,
+		"move_speed": 45,
+		"size": 23,
+		
+		"shield_projectile_if_predicted_within_distance": 0,
+		"shield_projectile_if_predicted_within_time": 0.35,
+		"shield_projectile_if_within_distance": 20,
+		"shielding_movement_debuff": 0.6,
+		"attack_player_start_range": 50,
+		"attack_player_delay": 0.3,
+		"attack_player_post_launch_stun": 0.2,
+		"attack_player_launch_velocity": 140,
+		//"attack_shield_duration_pct": 0.5,
+	},
+	"sparker": {
+		"health": 135,
+		"move_speed": 55,
+		"size": 21,
+		
+		"isolation_damage": 25.0,
+		
+		"target_distance": 65,
+		"buffer_distance": 30,
+		"directions_choose_list": [-1, 1],
+		"change_direction_timer_min": 1.5,
+		"change_direction_timer_max": 2.3,
+		"change_direction_timer_weight": 3,
+		"other_sparker_min_distance": 95,
+		"maintain_spacing_weight": 3.0,
+	},
+	
+	"giant": {
+		"health": 1000,
+		
+		"follow_player_speed": 10,
+		
+	},
+}

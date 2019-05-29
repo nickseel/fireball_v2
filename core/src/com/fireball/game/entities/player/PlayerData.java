@@ -13,7 +13,7 @@ public class PlayerData {
     public void initDefault() {
         maxCombo = 2;
 
-        allAbilities = Ability.getAbilities();
+        allAbilities = Ability.getPlayerAbilities();
         unlockedAbilities = new boolean[allAbilities.length];
         for(int i = 0; i < unlockedAbilities.length; i++)
             unlockedAbilities[i] = true;

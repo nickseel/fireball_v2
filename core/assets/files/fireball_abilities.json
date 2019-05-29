@@ -1,0 +1,498 @@
+{
+	"player": {
+		"dash": {
+			"cast_time": 0.2,
+			"cooldown": 0.95,
+			"cost": 7,
+			
+			"num_projectiles": 4,
+			"angle_range": 0.3,
+			
+			"velocity": 300,
+			"velocity_range": 70,
+			"slide": 3,
+			"lifetime": 0.3,
+			
+			"size": 10,
+			"dash_velocity": 350,
+			
+			"damage": 6,
+			"knockback": 40,
+			"stun": 0.15
+		},
+		"fireball": {
+			"cast_time": 0.2,
+			"cooldown": 0.7,
+			"cost": 8,
+			
+			"sub_ability_name": "fireball -> explosion",
+			
+			"velocity": 320,
+			"slide": -1,
+			"lifetime": -1,
+			
+			"size": 17,
+			
+			"damage": 16,
+			"knockback": 80,
+			"stun": 0.15
+		},
+		"fireball -> explosion": {
+			"cast_name": "explosion",
+			
+			"size": 40,
+			"damage": 8,
+			"knockback": 80,
+			"stun": 0.1
+		},
+		"flamethrower": {
+			"cast_time": 0.2,
+			"cooldown": 1.0,
+			"cost": 4,
+			
+			"sub_ability_name": "flamethrower -> flame",
+			
+			"stream": 0,
+			"min_stream_time": 0.4,
+			"movement_debuff": 0.6,
+			
+			"rate": 10,
+			"num": 2,
+			"angle_range": 0.40
+		},
+		"flamethrower -> flame": {
+			"cast_name": "flame",
+			
+			"size": 42,
+			"velocity": 380.0,
+			"velocity_range": 40.0,
+			"slide": 4.0,
+			"lifetime": 0.6,
+			
+			"damage": 50,
+			"knockback": 0,
+			"stun": 0
+		},
+		"ring": {
+			"cast_time": 0.2,
+			"cooldown_type": "ring_objects_destroyed",
+			"cooldown": 2.0,
+			"cost": 8,
+			
+			"num_orbiting": 5,
+			"orbit_speed": 6.0,
+			"orbit_distance": 20,
+			"size": 12,
+			"lifetime": 5.0,
+			
+			"damage": 12,
+			"knockback": 100,
+			"stun": 0.1
+		},
+		"spark": {
+			"cast_time": 0.3,
+			"cooldown": 1.0,
+			"cost": 0.2,
+			
+			"distance": 75,
+			"spawntime": 0.0,
+			"lifetime": 0.3,
+			
+			"hurtbox_lifetime": 0.1,
+			"hurtbox_size": 32,
+			
+			"velocity": 0,
+			"damage": 1,
+			"knockback": 0,
+			"stun": 1.0
+		},
+		"dash-dash": {
+			"_description": "super dash",
+			"cast_name": "dash",
+			"cast_time": 0.4,
+			"cost": 15,
+			"cooldown_dash": 2.6,
+			
+			"num_projectiles": 3,
+			"angle_range": 0.13,
+			
+			"velocity": 400,
+			"velocity_range": 100,
+			"slide": -1,
+			"lifetime": -1,
+			
+			"size": 10,
+			"dash_velocity": 600,
+			
+			"damage": 14,
+			"knockback": 90,
+			"stun": 0.25
+		},
+		"dash-fireball": {
+			"_description": "damage dash",
+			"cast_name": "dash",
+			"cast_time": 0.1,
+			"cost": 12,
+			"sub_ability_name": "dash-fireball -> explosion",
+			
+			"num_projectiles": 8,
+			"angle_range": 0.42,
+			
+			"velocity": 300,
+			"velocity_range": 100,
+			"slide": -1,
+			"lifetime": -1,
+			
+			"size": 12,
+			"dash_velocity": 320,
+			
+			"damage": 8,
+			"knockback": 40,
+			"stun": 0.15
+		},
+		"dash-fireball -> explosion": {
+			"cast_name": "explosion",
+			
+			"size": 28,
+			"damage": 4,
+			"knockback": 50,
+			"stun": 0.05
+		},
+		"dash-flamethrower": {
+			"_description": "continuous dash",
+			"cast_time": 0.2,
+			"cost": 16,
+			
+			"sub_ability_name": "dash-flamethrower -> flame",
+			
+			"stream": 0,
+			"min_stream_time": 0.5,
+			"movement_debuff": 0.0,
+			
+			"dash_velocity": 230,
+			"angle_rate": 11.0,
+			
+			"rate": 15,
+			"num": 2,
+			"angle_range": 0.5
+		},
+		"dash-flamethrower -> flame": {
+			"cast_name": "flame",
+			
+			"size": 32,
+			"velocity": 160.0,
+			"velocity_range": 40.0,
+			"slide": 5.0,
+			"lifetime": 0.5,
+			
+			"damage": 50,
+			"knockback": 0,
+			"stun": 0
+		},
+		"dash-ring": {
+			"_description": "dash + damage ring",
+			"cast_time": 0.3,
+			"cost": 15,
+			
+			"cooldown_ring": 3.0,
+			"cooldown_dash": 3.0,
+			
+			"dash_velocity": 430,
+			
+			
+			
+			"num_orbiting": 13,
+			"orbit_speed": 12.0,
+			"orbit_distance": 15,
+			"size": 7,
+			"lifetime": 0.6,
+			
+			"damage": 9,
+			"knockback": 16,
+			"stun": 0.2
+		},
+		"fireball-fireball": {
+			"_description": "bigger, slower fireball",
+			"cast_name": "fireball",
+			"cast_time": 0.5,
+			"cost": 16,
+			
+			"sub_ability_name": "fireball-fireball -> explosion",
+			
+			"cooldown_pct_fireball": 2.0,
+			
+			"velocity": 170,
+			"slide": -1,
+			"lifetime": -1,
+			"size": 33,
+			
+			"damage": 38,
+			"knockback": 150,
+			"stun": 0.2
+		},
+		"fireball-fireball -> explosion": {
+			"cast_name": "explosion",
+			
+			"size": 72,
+			"damage": 18,
+			"knockback": 80,
+			"stun": 0.1
+		},
+		"fireball-flamethrower": {
+			"_description": "fireball stream",
+			"cast_time": 0.2,
+			"cost": 16,
+			
+			"sub_ability_name": "fireball-flamethrower -> curved_fireball",
+			
+			"stream": 0,
+			"min_stream_time": 0.3,
+			"movement_debuff": 0.4,
+			
+			"rate": 7.5,
+			"num": 1,
+			"angle_rate": 99.0,
+			"angle_range": 0.0
+		},
+		"fireball-flamethrower -> curved_fireball": {
+			"cast_name": "curved_fireball",
+			"sub_ability_name": "fireball-flamethrower -> curved_fireball -> explosion",
+			
+			"size": 11,
+			"velocity": 450,
+			"velocity_range": 0,
+			
+			"curve_timer_max": 0.2,
+			"curve_amount": 120,
+			
+			"damage": 8,
+			"knockback": 30,
+			"stun": 0.2
+		},
+		"fireball-flamethrower -> curved_fireball -> explosion": {
+			"cast_name": "explosion",
+			
+			"size": 25,
+			"damage": 4,
+			"knockback": 20,
+			"stun": 0.1
+		},
+		"fireball-ring": {
+			"_description": "ring of fireballs that shoot off after a delay   NOTE: changing size requires changing size in sub ability too!",
+			"cast_time": 0.2,
+			"cost": 16,
+			
+			"sub_ability_name": "fireball-ring -> fireball",
+			
+			"cooldown_type": "ring_objects_destroyed",
+			"cooldown_fireball": 3.0,
+			
+			"num_orbiting": 6,
+			"orbit_speed": 5.5,
+			"orbit_distance": 20,
+			"size": 13,
+			"min_lifetime": 1.0,
+			"max_lifetime": 2.3,
+			
+			"damage": 16,
+			"knockback": 100,
+			"stun": 0.1
+		},
+		"fireball-ring -> fireball": {
+			"cast_name": "fireball",
+			"sub_ability_name": "fireball-ring -> fireball -> explosion",
+			
+			"velocity": 500,
+			"slide": -1,
+			"lifetime": -1,
+			
+			"size": 13,
+			"damage": 16,
+			"knockback": 120,
+			"stun": 0.1
+		},
+		"fireball-ring -> fireball -> explosion": {
+			"cast_name": "explosion",
+			
+			"size": 38,
+			"damage": 8,
+			"knockback": 80,
+			"stun": 0.1
+		},
+		"flamethrower-flamethrower": {
+			"_description": "laser",
+			"cast_time": 0.3,
+			"cost": 15,
+			
+			"stream": 0,
+			"min_stream_time": 0.3,
+			"movement_debuff": 0.5,
+			
+			"angle_rate": 12.0,
+			"size": 11,
+			
+			"damage": 70,
+			"knockback": 0,
+			"stun": 0
+		},
+		"flamethrower-ring": {
+			"_description": "360 flamethrower",
+			"cast_name": "flamethrower",
+			"cast_time": 0.2,
+			"cost": 20,
+			
+			"sub_ability_name": "flamethrower-ring -> flame",
+			
+			"stream": 0,
+			"min_stream_time": 0.2,
+			"movement_debuff": 0.0,
+			
+			"rate": 10,
+			"num": 12,
+			"angle_range": 3.14
+		},
+		"flamethrower-ring -> flame": {
+			"cast_name": "flame",
+			
+			"size": 42,
+			"velocity": 380.0,
+			"velocity_range": 40.0,
+			"slide": 4.0,
+			"lifetime": 0.6,
+			
+			"damage": 50,
+			"knockback": 0,
+			"stun": 0
+		},
+		"ring-ring": {
+			"_description": "better ring",
+			"cast_name": "ring",
+			"cast_time": 0.4,
+			"cost": 16,
+			"cooldown_type": "ring_objects_destroyed",
+			"cooldown_ring": 2.5,
+			
+			"num_orbiting": 10,
+			"orbit_speed": 6.0,
+			"orbit_distance": 18,
+			"size": 9,
+			"lifetime": 9.0,
+			
+			"damage": 9,
+			"knockback": 60,
+			"stun": 0.1
+		},
+		"fireball-fireball-fireball": {
+			"_description": "bigger, slower fireball",
+			"cast_name": "fireball",
+			"cast_time": 1.5,
+			"cost": 0.4,
+			
+			"sub_ability_name": "fireball-fireball-fireball -> explosion",
+			
+			"cooldown_pct_fireball": 4.0,
+			
+			"velocity": 130,
+			"slide": -1,
+			"lifetime": -1,
+			"size": 60,
+			
+			"damage": 3.5,
+			"knockback": 180,
+			"stun": 0.2
+		},
+		"fireball-fireball-fireball -> explosion": {
+			"cast_name": "explosion",
+			
+			"size": 110,
+			"damage": 1.2,
+			"knockback": 110,
+			"stun": 0.2
+		},
+		"flamethrower-flamethrower-flamethrower": {
+			"_description": "laser",
+			"cast_time": 0.2,
+			"cost": 0.4,
+			"cast_name": "flamethrower-flamethrower",
+			
+			"stream": 0,
+			"min_stream_time": 0.3,
+			"movement_debuff": 0.5,
+			
+			"angle_rate": 10.0,
+			"size": 40,
+			
+			"damage": 3.0,
+			"knockback": 0,
+			"stun": 0
+		},
+		"ring-ring-ring": {
+			"_description": "bananaphone",
+			"cast_name": "ring",
+			"cast_time": 0.5,
+			"cost": 0.2,
+			"cooldown_ring": 12.0,
+			
+			"num_orbiting": 30,
+			"orbit_speed": 8.0,
+			"orbit_distance": 24,
+			"size": 10,
+			"lifetime": 10.0,
+			
+			"damage": 0.2,
+			"knockback": 60,
+			"stun": 0.1
+		}
+	},
+	"walker": {
+		
+	},
+	"shooter": {
+		"bullet": {
+			"cast_time": 0.0,
+			"cooldown": 1.0,
+			"cost": 0,
+			
+			"velocity": 200,
+			"size": 12,
+			
+			"damage": 12,
+			"knockback": 120,
+			"stun": 0.1
+		}
+	},
+	"shielder": {
+		"shield": {
+			"cast_time": 0,
+			"cooldown": 2.0,
+			"cost": 0,
+			
+			"weight": 3,
+			"lifetime": 1.4,
+			"size": 32,
+			
+			"min_distance": 8,
+			"max_distance": 20,
+			"move_time": 0.15,
+			
+			"damage": 20,
+			"knockback": 250,
+			"stun": 0.2
+		}
+	},
+	"sparker": {
+		"lightning": {
+			"cast_time": 1.0,
+			"cooldown": 2.6,
+			"cost": 0,
+			
+			"size": 7,
+			"spawn_time": 0.4,
+			"lifetime": 2.25,
+			
+			"damage": 60,
+			"knockback": 50,
+			"stun": 0.0
+		}
+	}
+}

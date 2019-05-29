@@ -1,0 +1,13 @@
+{
+	"common": {
+		"num": 7,
+		"0": "JUGGERNAUT: +25% health, +20% cooldown_pct",
+		"1": "GLASS: +25% damage_taken, +25% damage_dealt",
+		"2": "STEADY: -30% move_speed, -30% knockback_taken, -30% stun_taken",
+		"3": "REACTIVE: +25% move_speed, +40% stun_taken, +40% knockback_taken",
+		"4": "RAPID: -25% cooldown_pct, +25% ability_cost",
+		"5": "PREPARE: +50% cast_time, -20% cooldown_pct",
+		"6": "CHARGE: +100% cast_time, +30% damage_dealt",
+		"7": "TANK: +100% health, -50% damage_dealt",
+	}
+}

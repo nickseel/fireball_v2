@@ -7,6 +7,7 @@ import com.fireball.game.entities.hitboxes.BodyHitbox;
 import com.fireball.game.entities.hitboxes.DamagerHitbox;
 
 public abstract class Entity extends Slottable {
+    protected String name;
     protected Team team;
     protected double x, y;
     protected double xVel, yVel;
@@ -15,12 +16,9 @@ public abstract class Entity extends Slottable {
     protected DamagerHitbox[] damagerHitboxes = new DamagerHitbox[0];
     protected double terrainCollisionRadius = -1;
 
-    public Entity(Team team) {
+    public Entity(Team team, String name, double x, double y) {
         this.team = team;
-    }
-
-    public Entity(Team team, double x, double y) {
-        this.team = team;
+        this.name = name;
         this.x = x;
         this.y = y;
     }

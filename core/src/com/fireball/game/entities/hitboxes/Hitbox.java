@@ -22,10 +22,6 @@ public abstract class Hitbox extends Slottable {
         this.radius = radius;
     }
 
-    public Hitbox(Entity owner, Team team, double radius) {
-        this(owner, team, 0, 0, radius);
-    }
-
     public boolean overlapping(Hitbox other) {
         return Math.sqrt((other.getX() - x)*(other.getX() - x) + (other.getY() - y)*(other.getY() - y)) < radius + other.getRadius();
     }

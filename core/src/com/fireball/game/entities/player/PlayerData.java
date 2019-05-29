@@ -1,19 +1,20 @@
 package com.fireball.game.entities.player;
 
+import com.fireball.game.entities.abilities.Ability;
+
 public class PlayerData {
     public static final int maxAbilities = 4;
-    private static final int[] defaultKeys = new int[] {1, 2, 3, 4};
+    private static final int[] defaultKeys = new int[] {1000, 1001, 62, 59};
 
     private static int maxCombo;
-    private static Ability[] allAbilities;
+    private static final Ability[] allAbilities = new Ability[] {Ability.FIREBALL, Ability.FLAMETHROWER, Ability.RING, Ability.DASH};
     private static boolean[] unlockedAbilities;
     private static int[] currentAbilities;
     private static int[] abilityKeys;
 
-    public void initDefault() {
+    public static void initDefault() {
         maxCombo = 2;
 
-        allAbilities = Ability.getPlayerAbilities();
         unlockedAbilities = new boolean[allAbilities.length];
         for(int i = 0; i < unlockedAbilities.length; i++)
             unlockedAbilities[i] = true;
@@ -23,7 +24,23 @@ public class PlayerData {
         abilityKeys = defaultKeys;
     }
 
-    public void initSession() {
+    public static void initSession() {
         //to be implemented
+    }
+
+    public static Ability[] getCurrentAbilities() {
+        Ability[] abilities = new Ability[currentAbilities.length];
+        for(int i = 0; i < currentAbilities.length; i++) {
+            abilities[i] = allAbilities[currentAbilities[i]];
+        }
+        return abilities;
+    }
+
+    public static int getMaxCombo() {
+        return maxCombo;
+    }
+
+    public static int[] getAbilityKeys() {
+        return abilityKeys;
     }
 }

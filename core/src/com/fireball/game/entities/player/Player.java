@@ -2,6 +2,7 @@ package com.fireball.game.entities.player;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.fireball.game.entities.ControllableEntity;
 import com.fireball.game.entities.Entity;
 import com.fireball.game.entities.Team;
 import com.fireball.game.rendering.fire.FireRenderer;
@@ -11,44 +12,43 @@ import com.fireball.game.rooms.rooms.RoomCamera;
 import com.fireball.game.entities.hitboxes.BodyHitbox;
 import com.fireball.game.input.ControlMapping;
 import com.fireball.game.input.InputManager;
+import com.fireball.game.util.DataFile;
 import com.fireball.game.util.Util;
 
 import java.util.LinkedList;
 
 import static java.lang.Math.*;
 
-public class Player extends Entity {
+public class Player extends ControllableEntity {
     private BodyHitbox hitbox;
 
-    private final double maxHealth = 1;
-    private double health = maxHealth;
+    private double healthRegen;
     private double radius = 12;
-    private double accel = 1000;
-    private double friction = 0.75;
-    private double maxSpeed = 150;
-    private double turnAssist = 2.0;
 
     private double maxPushSpeed = 200;
     private double pushVelX = 0;
     private double pushVelY = 0;
 
-
+    private int[] abilityKeys;
     private RoomCamera roomCamera;
-    private int currentWeaponIndex = 0;
-    private boolean firingWeapon = false, prevFiringWeapon = false;
-    private double targetX = 0, targetY = 0;
 
     public Player(int x, int y) {
-        super(Team.PLAYER);
-        this.x = x;
-        this.y = y;
-        terrainCollisionRadius = radius;
+        super(Team.PLAYER, "player", x, y, PlayerData.getCurrentAbilities(), PlayerData.getMaxCombo());
 
-        //squareTexture = TextureManager.getTextureRegion(TextureData.SHAPES, 7);
-        //triangleTexture = TextureManager.getTextureRegion(TextureData.SHAPES, 16 + 4);
-        //circleTexture = TextureManager.getTextureRegion(TextureData.SHAPES, 32 + 0);
+        abilityKeys = PlayerData.getAbilityKeys();
 
-        hitbox = new BodyHitbox(this, team, radius) {
+        DataFile.setCurrentLocation("entities", "player");
+        this.maxHealth = DataFile.getFloat("maxHealth"); this.health = maxHealth;
+        this.healthRegen = DataFile.getFloat("healthRegen");
+        this.radius = DataFile.getFloat("radius");
+        this.accel = DataFile.getFloat("accel");
+        this.friction = DataFile.getFloat("friction");
+        this.maxSpeed = DataFile.getFloat("maxSpeed");
+        this.turnAssist = DataFile.getFloat("turnAssist");
+
+        this.terrainCollisionRadius = radius;
+
+        hitbox = new BodyHitbox(this, team, x, y, radius) {
             @Override
             public void takeDamage(double damage, double knockback, double knockbackAngle) {
                 health -= damage;
@@ -69,7 +69,6 @@ public class Player extends Entity {
                 pushVelY -= maxPushSpeed * pushPct * normalY;
             }
         };
-        hitbox.setPosition(x, y);
 
         bodyHitboxes = new BodyHitbox[] {hitbox};
         registerEntityAndHitboxes();
@@ -80,10 +79,11 @@ public class Player extends Entity {
         LinkedList<Double[]> heldKeys = InputManager.getHeldKeys();
 
         //check input
-        int moveX = 0;
-        int moveY = 0;
-        prevFiringWeapon = firingWeapon;
-        firingWeapon = false;
+        moveX = 0;
+        moveY = 0;
+        for(int i = 0; i < abilities.length; i++) {
+            prevAbilityInputs[i] = abilityInputs[i];
+        }
         for(Double[] keys: heldKeys) {
             //System.out.println(keys[0] + " " + keys[1]);
             if(keys[0] == ControlMapping.MOVE_LEFT)
@@ -94,47 +94,17 @@ public class Player extends Entity {
                 moveY--;
             if(keys[0] == ControlMapping.MOVE_DOWN)
                 moveY++;
-
-            if(keys[0] == ControlMapping.FIRE_WEAPON)
-                firingWeapon = true;
+        }
+        for(int i = 0; i < abilityKeys.length; i++) {
+            abilityInputs[i] = false;
+            for(Double[] keys: heldKeys) {
+                if(keys[0] == abilityKeys[i])
+                    abilityInputs[i] = true;
+            }
         }
 
-
-        //accelerate
-        if(moveX != 0) {
-            xVel += moveX * accel * delta;
-        }
-        if(moveY != 0) {
-            yVel += moveY * accel * delta;
-        }
-
-
-        //cap max speed
-        double vel = Math.hypot(xVel, yVel);
-        double angle = Math.atan2(yVel, xVel);
-        if(vel > maxSpeed) {
-            vel = signum(vel) * min(maxSpeed, abs(vel) - accel * delta);
-        } else if(moveX == 0 && moveY == 0) {
-            vel = signum(vel) * max(0, abs(vel) - accel * friction * delta);
-        }
-
-        //assist in turning
-        if(moveX != 0 || moveY != 0) {
-            double targetAngle = Math.atan2(moveY, moveX);
-            double turnAssistAmount = Math.cos(targetAngle) * Math.cos(angle) + Math.sin(targetAngle) * Math.sin(angle);
-            //System.out.println(turnAssistAmount);
-
-            double angleDiff = targetAngle - angle;
-            if(angleDiff > Math.PI)
-                angleDiff -= 2*Math.PI;
-            if(angleDiff < -Math.PI)
-                angleDiff += 2*Math.PI;
-
-            angle += angleDiff * Math.min(1, turnAssist * turnAssistAmount * delta);
-        }
-        xVel = vel * cos(angle);
-        yVel = vel * sin(angle);
-
+        updateAbilities(delta);
+        move(delta);
 
         //set next position for collision detection
         nextX = x + (xVel + pushVelX) * delta;
@@ -151,8 +121,8 @@ public class Player extends Entity {
 
         hitbox.setPosition(x, y);
 
-        targetX = InputManager.getMouseX() - roomCamera.viewportWidth/2 + roomCamera.position.x - x;
-        targetY = InputManager.getMouseY() - roomCamera.viewportHeight/2 + roomCamera.position.y - y;
+        targetX = InputManager.getMouseX() - roomCamera.viewportWidth/2 + roomCamera.getX() - x;
+        targetY = InputManager.getMouseY() - roomCamera.viewportHeight/2 + roomCamera.getY() - y;
     }
 
     @Override
@@ -187,28 +157,10 @@ public class Player extends Entity {
     }
 
     @Override
-    public boolean isAlive() {
-        return health > 0;
-    }
-
-    @Override
-    public void kill() {
-        health = 0;
-    }
-
-    @Override
     public void updateSlotPositions(double slotSize) {
         slotMinX = (int)floor((x - radius) / slotSize);
         slotMaxX = (int)floor((x + radius) / slotSize);
         slotMinY = (int)floor((y - radius) / slotSize);
         slotMaxY = (int)floor((y + radius) / slotSize);
-    }
-
-    public double getTargetX() {
-        return targetX;
-    }
-
-    public double getTargetY() {
-        return targetY;
     }
 }

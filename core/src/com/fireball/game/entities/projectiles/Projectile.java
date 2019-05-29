@@ -15,8 +15,8 @@ public abstract class Projectile extends Entity {
     //inherited: protected DamagerHitbox[] damagerHitboxes = new DamagerHitbox[0];
     //inherited: protected double terrainCollisionRadius = -1;
 
-    public Projectile(Team team) {
-        super(team);
+    public Projectile(Team team, String name, double x, double y) {
+        super(team, name, x, y);
     }
 
     /*public Projectile(WeaponController source, Weapon weaponSource) {

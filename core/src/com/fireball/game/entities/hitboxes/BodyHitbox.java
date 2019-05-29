@@ -11,10 +11,6 @@ public abstract class BodyHitbox extends Hitbox {
         super(owner, team, x, y, radius);
     }
 
-    public BodyHitbox(Entity owner, Team team, double radius) {
-        super(owner, team, radius);
-    }
-
     public abstract void takeDamage(double damage, double knockback, double knockbackAngle);
     public abstract void getPushedBy(BodyHitbox other);
 

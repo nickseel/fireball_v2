@@ -4,6 +4,7 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.fireball.game.entities.player.PlayerData;
 import com.fireball.game.input.ControlMapping;
 import com.fireball.game.input.InputManager;
 import com.fireball.game.rooms.rooms.Room;
@@ -12,6 +13,7 @@ import com.fireball.game.rendering.textures.ColorTheme;
 import com.fireball.game.rendering.textures.TextureData;
 import com.fireball.game.rendering.textures.TextureManager;
 import com.fireball.game.rendering.ui.FontManager;
+import com.fireball.game.util.DataFile;
 import com.fireball.game.views.MainView;
 import com.fireball.game.views.View;
 
@@ -26,11 +28,14 @@ public class FireballGame extends ApplicationAdapter {
 	@Override
 	public void create() {
 		RoomData.processAllRooms();
+		DataFile.loadJsonFile("abilities");
+		DataFile.loadJsonFile("entities");
 
 		InputManager.init();
 		TextureManager.loadTextures();
 		ColorTheme.init(TextureData.COLOR_THEME);
 		FontManager.init();
+		PlayerData.initDefault();
 
 		Room.fromFile(null, RoomData.DEBUG);
 

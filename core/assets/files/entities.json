@@ -1,18 +1,13 @@
 {
-	"entity_base": {
-		"move_speed":		100,
-		"slide":			3,
-		"stunned":			false,
-		"bounce":			false,
-		"has_friction":		true,
-		"collide_center":	false,
-		"move_through_walls":false,
-	},
 	"player": {
-		"health": 			100,
-		"move_speed":		90,
-		"size":				21,
-		"health_regen": 	16,
+		"maxHealth": 		100,
+		"healthRegen": 		16,
+
+		"radius":			11,
+		"accel": 			1000,
+		"friction": 		0.75,
+		"maxSpeed":			90,
+		"turnAssist": 		2.0
 	},
 	"walker": {
 		"health": 			125,
@@ -29,16 +24,12 @@
 		"change_direction_timer_min": 0.5,
 		"change_direction_timer_max": 1.5,
 		"change_direction_timer_weight": 3,
-		"min_towards_player_weight": 0.25,
+		"min_towards_player_weight": 0.25
 	},
 	"shooter": {
 		"health": 105,
 		"move_speed": 55,
 		"size": 21,
-		
-		/*"contact_damage": 0,
-		"contact_knockback": 0,
-		"contact_stun": 0,*/
 		
 		"target_distance": 130,
 		"buffer_distance": 50,
@@ -50,7 +41,7 @@
 		"pause_before_shoot": 0.25,
 		"pause_after_shoot": 0.1,
 		"sight_step_size": 4,
-		"sight_range": 160,
+		"sight_range": 160
 	},
 	"shielder": {
 		"health": 145,
@@ -64,8 +55,7 @@
 		"attack_player_start_range": 50,
 		"attack_player_delay": 0.3,
 		"attack_player_post_launch_stun": 0.2,
-		"attack_player_launch_velocity": 140,
-		//"attack_shield_duration_pct": 0.5,
+		"attack_player_launch_velocity": 140
 	},
 	"sparker": {
 		"health": 135,
@@ -81,13 +71,12 @@
 		"change_direction_timer_max": 2.3,
 		"change_direction_timer_weight": 3,
 		"other_sparker_min_distance": 95,
-		"maintain_spacing_weight": 3.0,
+		"maintain_spacing_weight": 3.0
 	},
 	
 	"giant": {
 		"health": 1000,
 		
-		"follow_player_speed": 10,
-		
-	},
+		"follow_player_speed": 10
+	}
 }

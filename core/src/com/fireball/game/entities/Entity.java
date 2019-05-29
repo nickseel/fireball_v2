@@ -89,6 +89,10 @@ public abstract class Entity extends Slottable {
     }
 
     public String toString() {
-        return team.toString() + " " + this.hashCode();
+        return name + " " + team.toString() + " " + this.hashCode();
+    }
+
+    public String getName() {
+        return name;
     }
 }

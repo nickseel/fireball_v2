@@ -1,26 +1,24 @@
 package com.fireball.game.entities;
 
 import com.fireball.game.entities.abilities.Ability;
+import com.fireball.game.entities.abilities.AbilityType;
 import com.fireball.game.entities.abilities.SortAbility;
 import com.fireball.game.util.DataFile;
 
 import java.util.ArrayList;
 import java.util.Collections;
 
-import static java.lang.Math.*;
-import static java.lang.Math.sin;
-
 public abstract class ControllableEntity extends Entity {
     protected double moveX, moveY;
     protected double targetX, targetY;
 
-    protected Ability[] abilities;
+    protected AbilityType[] abilities;
     protected boolean[] prevAbilityInputs;
     protected boolean[] abilityInputs;
     protected double[][] abilityTimers;
     protected double abilityCastTimer, abilityCastTimerMax;
     protected int maxAbilityCombo;
-    protected ArrayList<Ability> abilitiesCasting;
+    protected ArrayList<AbilityType> abilitiesCasting;
     protected String abilityCastNameString;
     protected double abilityCost;
     protected boolean abilitiesStreaming;
@@ -34,7 +32,7 @@ public abstract class ControllableEntity extends Entity {
     protected double maxSpeed;
     protected double turnAssist;
 
-    public ControllableEntity(Team team, String name, double x, double y, Ability[] abilities, int maxAbilityCombo) {
+    public ControllableEntity(Team team, String name, double x, double y, AbilityType[] abilities, int maxAbilityCombo) {
         super(team, name, x, y);
 
         this.abilities = abilities;
@@ -44,7 +42,7 @@ public abstract class ControllableEntity extends Entity {
         for(int i = 0; i < abilities.length; i++)
             abilityTimers[i] = new double[] {0, 0};
         this.maxAbilityCombo = maxAbilityCombo;
-        abilitiesCasting = new ArrayList<Ability>();
+        abilitiesCasting = new ArrayList<AbilityType>();
         abilitiesStreaming = false;
         abilityStreamMovementDebuff = 1;
     }
@@ -149,7 +147,7 @@ public abstract class ControllableEntity extends Entity {
 
 
                 //actually create ability objects here
-                System.out.println("cast " + abilityCastNameString + " as " + castName);
+                Ability.castAbility(this, this, abilityCastNameString, castName);
 
 
                 abilitiesStreaming = false;
@@ -162,7 +160,7 @@ public abstract class ControllableEntity extends Entity {
                     minAbilityStreamTime = DataFile.getFloat("min_stream_time");
                     abilityStreamMovementDebuff = DataFile.getFloat("movement_debuff");
                 } else {
-                    health -= abilityCost;
+                    health = Math.max(0, health - abilityCost);
 
                     //add to recent abilities graphic
 
@@ -274,9 +272,9 @@ public abstract class ControllableEntity extends Entity {
         double vel = Math.hypot(xVel, yVel);
         double angle = Math.atan2(yVel, xVel);
         if(vel > debuffedMaxSpeed) {
-            vel = signum(vel) * min(debuffedMaxSpeed, abs(vel) - accel * delta);
+            vel = Math.signum(vel) * Math.min(debuffedMaxSpeed, Math.abs(vel) - accel * delta);
         } else if(moveX == 0 && moveY == 0) {
-            vel = signum(vel) * max(0, abs(vel) - accel * friction * delta);
+            vel = Math.signum(vel) * Math.max(0, Math.abs(vel) - accel * friction * delta);
         }
 
         //assist in turning
@@ -293,8 +291,8 @@ public abstract class ControllableEntity extends Entity {
 
             angle += angleDiff * Math.min(1, turnAssist * turnAssistAmount * delta);
         }
-        xVel = vel * cos(angle);
-        yVel = vel * sin(angle);
+        xVel = vel * Math.cos(angle);
+        yVel = vel * Math.sin(angle);
     }
 
     @Override
@@ -305,5 +303,13 @@ public abstract class ControllableEntity extends Entity {
     @Override
     public void kill() {
         health = 0;
+    }
+
+    public double getTargetX() {
+        return targetX;
+    }
+
+    public double getTargetY() {
+        return targetY;
     }
 }

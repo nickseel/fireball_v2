@@ -1,13 +1,8 @@
 package com.fireball.game.entities.player;
 
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.fireball.game.entities.ControllableEntity;
-import com.fireball.game.entities.Entity;
 import com.fireball.game.entities.Team;
 import com.fireball.game.rendering.fire.FireRenderer;
-import com.fireball.game.rendering.textures.TextureData;
-import com.fireball.game.rendering.textures.TextureManager;
 import com.fireball.game.rooms.rooms.RoomCamera;
 import com.fireball.game.entities.hitboxes.BodyHitbox;
 import com.fireball.game.input.ControlMapping;
@@ -123,18 +118,6 @@ public class Player extends ControllableEntity {
 
         targetX = InputManager.getMouseX() - roomCamera.viewportWidth/2 + roomCamera.getX() - x;
         targetY = InputManager.getMouseY() - roomCamera.viewportHeight/2 + roomCamera.getY() - y;
-    }
-
-    @Override
-    public void draw(SpriteBatch batch) {
-        /*float fireRadius = (float)radius * 2;
-        batch.draw(fireTexture,
-                (float)(x-fireRadius),
-                (float)(y-fireRadius),
-                fireRadius*2,
-                fireRadius*2);*/
-
-        //sprite.draw(batch);
     }
 
     @Override

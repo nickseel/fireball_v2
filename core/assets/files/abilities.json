@@ -40,7 +40,7 @@
 		"fireball -> explosion": {
 			"cast_name": "explosion",
 			
-			"size": 40,
+			"radius": 20,
 			"damage": 8,
 			"knockback": 80,
 			"stun": 0.1
@@ -224,7 +224,7 @@
 			"velocity": 170,
 			"slide": -1,
 			"lifetime": -1,
-			"size": 33,
+			"radius": 11.5,
 			
 			"damage": 38,
 			"knockback": 150,
@@ -233,7 +233,7 @@
 		"fireball-fireball -> explosion": {
 			"cast_name": "explosion",
 			
-			"size": 72,
+			"radius": 36,
 			"damage": 18,
 			"knockback": 80,
 			"stun": 0.1

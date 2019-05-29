@@ -30,7 +30,7 @@ public class InputManager implements InputProcessor {
 
     private static void processKeyPress(int keycode) {
         //add to pressed keys list
-        System.out.println(keycode);
+        //System.out.println(keycode);
         pressedKeys.add(new Double[] {(double)keycode, 0.0});
         heldKeys.add(new Double[] {(double)keycode, 0.0});
     }

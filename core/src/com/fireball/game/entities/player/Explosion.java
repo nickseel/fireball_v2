@@ -1,30 +1,24 @@
 package com.fireball.game.entities.player;
 
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.fireball.game.entities.ControllableEntity;
 import com.fireball.game.entities.Entity;
 import com.fireball.game.entities.abilities.Ability;
 import com.fireball.game.entities.hitboxes.BodyHitbox;
 import com.fireball.game.entities.hitboxes.DamagerHitbox;
 import com.fireball.game.rendering.fire.FireRenderer;
-import com.fireball.game.util.Util;
 
 import static java.lang.Math.floor;
 
-public class Fireball extends Ability {
+public class Explosion extends Ability {
     protected boolean isAlive = true;
     protected double radius;
-    protected double angle;
-    protected double velocity;
 
     protected DamagerHitbox hitbox;
 
-    public Fireball(ControllableEntity owner, Entity castOwner, String subAbilityName,
-                    double x, double y, double radius, double angle, double velocity) {
+    public Explosion(ControllableEntity owner, Entity castOwner, String subAbilityName,
+                    double x, double y, double radius) {
         super("fireball", owner, castOwner, subAbilityName, x, y);
         this.radius = radius;
-        this.angle = angle;
-        this.velocity = velocity;
         terrainCollisionRadius = radius;
 
         hitbox = new DamagerHitbox(this, team, x, y, radius) {
@@ -40,20 +34,15 @@ public class Fireball extends Ability {
 
     @Override
     public void updatePre(double delta) {
-        xVel = Math.cos(angle) * velocity;
-        yVel = Math.sin(angle) * velocity;
-
         //set next position for collision detection
-        nextX = x + (xVel) * delta;
-        nextY = y + (yVel) * delta;
+        nextX = x;
+        nextY = y;
     }
 
     @Override
     public void updatePost(double delta) {
-        x = nextX;
-        y = nextY;
-
         hitbox.setPosition(x, y);
+        kill(); //only lasts for one frame
     }
 
     @Override
@@ -63,7 +52,7 @@ public class Fireball extends Ability {
 
     @Override
     public void eventTerrainCollision(double angle) {
-        kill();
+
     }
 
     @Override

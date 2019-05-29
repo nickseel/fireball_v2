@@ -2,6 +2,7 @@ package com.fireball.game.entities.abilities;
 
 import com.fireball.game.entities.ControllableEntity;
 import com.fireball.game.entities.Entity;
+import com.fireball.game.entities.player.Explosion;
 import com.fireball.game.entities.player.Fireball;
 import com.fireball.game.util.DataFile;
 
@@ -17,16 +18,30 @@ public abstract class Ability extends Entity {
         this.subAbilityName = subAbilityName;
     }
 
-    public static void castAbility(ControllableEntity owner, Entity castOwner, String abilityCastNameString, String castName, CastArgumentOverride... argumentOverrides) {
-        System.out.println(owner.getName() + " cast " + abilityCastNameString + " as " + castName);
+    protected void castSubAbility() {
+        if(subAbilityName != null && !subAbilityName.equals("")) {
+            castAbility(owner, this, subAbilityName);
+        }
+    }
+
+    public static void castAbility(ControllableEntity owner, Entity castOwner, String abilityCastNameString, CastArgumentOverride... argumentOverrides) {
         Entity[] createdObjects;
 
-        double createX = owner.getX();
-        double createY = owner.getY();
+
+        //simplify the name if specified
+        DataFile.setCurrentLocation("abilities", owner.getName(), abilityCastNameString);
+        String castName = abilityCastNameString;
+        try {
+            castName = DataFile.getString("cast_name");
+        } catch(IllegalArgumentException e) {}
+        System.out.println(owner.getName() + " cast " + abilityCastNameString + " as " + castName);
+
+
+        double createX = castOwner.getX();
+        double createY = castOwner.getY();
         double targetX = owner.getTargetX();
         double targetY = owner.getTargetY();
         double angle = Math.atan2(targetY - createY, targetX - createX);
-        System.out.println((targetX - createX) + " " + (targetY - createY) + " " + angle);
         double[] extraArgs = new double[0];
         for(CastArgumentOverride override: argumentOverrides) {
             switch(override.getType()) {
@@ -60,6 +75,14 @@ public abstract class Ability extends Entity {
                     DataFile.getFloat("radius"),
                     angle,
                     DataFile.getFloat("velocity"));
+            createdObjects = new Entity[] {e};
+        } else if(castName.equals("explosion")) {
+            Entity e = new Explosion(owner,
+                    castOwner,
+                    subAbilityName,
+                    createX,
+                    createY,
+                    DataFile.getFloat("radius"));
             createdObjects = new Entity[] {e};
         }
     }

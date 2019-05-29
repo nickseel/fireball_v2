@@ -29,7 +29,6 @@ public class Player extends ControllableEntity {
 
     public Player(int x, int y) {
         super(Team.PLAYER, "player", x, y, PlayerData.getCurrentAbilities(), PlayerData.getMaxCombo());
-
         abilityKeys = PlayerData.getAbilityKeys();
 
         DataFile.setCurrentLocation("entities", "player");
@@ -123,11 +122,6 @@ public class Player extends ControllableEntity {
     @Override
     public void drawFire(FireRenderer renderer) {
         renderer.drawFire((float)x, (float)y, (float)radius*1, 1.0f);
-    }
-
-    @Override
-    public void drawLight(FireRenderer renderer) {
-        renderer.drawLight((float)x, (float)y, (float)radius*2, 1.0f);
     }
 
     public void setRoomCamera(RoomCamera roomCamera) {

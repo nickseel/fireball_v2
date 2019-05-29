@@ -99,15 +99,6 @@ public class FireRenderer {
         batch.draw(texture, centerX-fireRadius, centerY-fireRadius, fireRadius*2, fireRadius*2);
     }
 
-    public void drawLight(float centerX, float centerY, float lightRadius, float lightLevel) {
-        drawLightTexture(fireballTexture, centerX, centerY, lightRadius, lightLevel);
-    }
-
-    public void drawLightTexture(Texture texture, float centerX, float centerY, float lightRadius, float lightLevel) {
-        //batch.setColor(0, 1, 0, lightLevel);
-        //batch.draw(texture, centerX-lightRadius, centerY-lightRadius, lightRadius*2, lightRadius*2);
-    }
-
     public void end() {
         batch.setColor(Color.WHITE);
         batch.end();

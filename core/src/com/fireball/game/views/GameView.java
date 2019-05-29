@@ -94,7 +94,6 @@ public class GameView extends View {
     public void preDraw() {
         fireRenderer.begin(camera);
         entityManager.drawFire(fireRenderer);
-        entityManager.drawLight(fireRenderer);
         fireRenderer.end();
 
 

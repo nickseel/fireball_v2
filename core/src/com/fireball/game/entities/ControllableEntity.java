@@ -138,16 +138,9 @@ public abstract class ControllableEntity extends Entity {
             if(abilityCastTimer <= 0 && abilitiesCasting.size() > 0) {
                 //cast abilities
 
-                //simplify the name if specified
-                DataFile.setCurrentLocation("abilities", name, abilityCastNameString);
-                String castName = abilityCastNameString;
-                try {
-                    castName = DataFile.getString("cast_name");
-                } catch(IllegalArgumentException e) {}
-
-
                 //actually create ability objects here
-                Ability.castAbility(this, this, abilityCastNameString, castName);
+                DataFile.setCurrentLocation("abilities", name, abilityCastNameString);
+                Ability.castAbility(this, this, abilityCastNameString);
 
 
                 abilitiesStreaming = false;

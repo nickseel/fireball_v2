@@ -166,15 +166,6 @@ public class EntityManager {
         }
     }
 
-    public void drawLight(FireRenderer renderer) {
-        for(Entity e: playerEntities) {
-            e.drawLight(renderer);
-        }
-        for(Entity e: enemyEntities) {
-            e.drawLight(renderer);
-        }
-    }
-
     public void addEntity(Entity e) {
         newEntities.add(e);
     }

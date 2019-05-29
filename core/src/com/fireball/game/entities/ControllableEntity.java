@@ -160,7 +160,7 @@ public abstract class ControllableEntity extends Entity {
                     minAbilityStreamTime = DataFile.getFloat("min_stream_time");
                     abilityStreamMovementDebuff = DataFile.getFloat("movement_debuff");
                 } else {
-                    health = Math.max(0, health - abilityCost);
+                    health = Math.max(0.01, health - abilityCost);
 
                     //add to recent abilities graphic
 

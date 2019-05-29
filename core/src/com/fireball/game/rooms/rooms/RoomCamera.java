@@ -8,11 +8,13 @@ public class RoomCamera extends OrthographicCamera {
     private double followSpeed;
     private Entity following;
     private float x, y, prevX, prevY;
+    private float baseZoom;
 
     private final float offsetX, offsetY;
 
     public RoomCamera(int viewWidth, int viewHeight, float baseZoom) {
         super(viewWidth, viewHeight);
+        this.baseZoom = baseZoom;
 
         offsetX = -(viewWidth*((1/baseZoom)-1))/2;
         offsetY = -(viewHeight*((1/baseZoom)-1))/2;
@@ -74,5 +76,25 @@ public class RoomCamera extends OrthographicCamera {
 
     public float getY() {
         return y;
+    }
+
+    public float getWidth() {
+        return viewportWidth / baseZoom;
+    }
+
+    public float getHeight() {
+        return viewportHeight / baseZoom;
+    }
+
+    public float getOffsetX() {
+        return offsetX;
+    }
+
+    public float getOffsetY() {
+        return offsetY;
+    }
+
+    public float getBaseZoom() {
+        return baseZoom;
     }
 }

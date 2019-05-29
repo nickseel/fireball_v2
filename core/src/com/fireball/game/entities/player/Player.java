@@ -116,8 +116,8 @@ public class Player extends ControllableEntity {
 
         hitbox.setPosition(x, y);
 
-        targetX = InputManager.getMouseX() - roomCamera.viewportWidth/2 + roomCamera.getX() - x;
-        targetY = InputManager.getMouseY() - roomCamera.viewportHeight/2 + roomCamera.getY() - y;
+        targetX = InputManager.getMouseX()/roomCamera.getBaseZoom() - roomCamera.getWidth()/2 + roomCamera.getX();// - x;
+        targetY = InputManager.getMouseY()/roomCamera.getBaseZoom() - roomCamera.getHeight()/2 + roomCamera.getY();// - y;
     }
 
     @Override

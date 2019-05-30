@@ -52,7 +52,7 @@ public class EntityManager {
             @Override
             public void event(Wall item1, Entity item2) {
                 if(item1.collide(item2)) {
-                    item2.eventTerrainCollision(0);
+                    item2.eventTerrainCollision(item1.getAngle());
                 }
             }
         };
@@ -92,6 +92,13 @@ public class EntityManager {
         collideEntities();
         collideTerrain(room);
         //EfficiencyMetrics.stopTimer(EfficiencyMetricType.COLLISION);
+
+        for(Entity e: playerEntities) {
+            e.updateMid(delta);
+        }
+        for(Entity e: enemyEntities) {
+            e.updateMid(delta);
+        }
 
         for(int i = 0; i < playerEntities.size(); i++) {
             Entity e = playerEntities.get(i);

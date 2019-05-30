@@ -47,6 +47,10 @@ public abstract class Hitbox extends Slottable {
         return radius;
     }
 
+    public void setRadius(double radius) {
+        this.radius = radius;
+    }
+
     public Team getTeam() {
         return team;
     }

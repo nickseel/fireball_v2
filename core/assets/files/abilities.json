@@ -56,18 +56,19 @@
 			"min_stream_time": 0.4,
 			"movement_debuff": 0.6,
 			
-			"rate": 10,
-			"num": 2,
-			"angle_range": 0.40
+			"fire_rate": 10,
+			"num_projectiles": 2,
+			"angle_range": 0.35
 		},
 		"flamethrower -> flame": {
 			"cast_name": "flame",
 			
-			"size": 42,
-			"velocity": 380.0,
+			"radius": 22,
+			"grow_time": 0.1,
+			"velocity": 300.0,
 			"velocity_range": 40.0,
-			"slide": 4.0,
-			"lifetime": 0.6,
+			"final_velocity": -20.0,
+			"lifetime": 0.8,
 			
 			"damage": 50,
 			"knockback": 0,

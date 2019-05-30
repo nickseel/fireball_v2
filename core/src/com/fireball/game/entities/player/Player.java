@@ -109,7 +109,7 @@ public class Player extends ControllableEntity {
     }
 
     @Override
-    public void updatePost(double delta) {
+    public void updateMid(double delta) {
         x = nextX;
         y = nextY;
 
@@ -117,6 +117,11 @@ public class Player extends ControllableEntity {
 
         targetX = InputManager.getMouseX()/roomCamera.getBaseZoom() - roomCamera.getWidth()/2 + roomCamera.getX();// - x;
         targetY = InputManager.getMouseY()/roomCamera.getBaseZoom() - roomCamera.getHeight()/2 + roomCamera.getY();// - y;
+    }
+
+    @Override
+    public void updatePost(double delta) {
+
     }
 
     @Override

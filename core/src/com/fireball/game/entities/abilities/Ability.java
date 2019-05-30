@@ -4,6 +4,8 @@ import com.fireball.game.entities.ControllableEntity;
 import com.fireball.game.entities.Entity;
 import com.fireball.game.entities.player.Explosion;
 import com.fireball.game.entities.player.Fireball;
+import com.fireball.game.entities.player.Flamethrower;
+import com.fireball.game.entities.player.FlamethrowerProjectile;
 import com.fireball.game.util.DataFile;
 
 public abstract class Ability extends Entity {
@@ -18,9 +20,9 @@ public abstract class Ability extends Entity {
         this.subAbilityName = subAbilityName;
     }
 
-    protected void castSubAbility() {
+    protected void castSubAbility(CastArgumentOverride... overrides) {
         if(subAbilityName != null && !subAbilityName.equals("")) {
-            castAbility(owner, this, subAbilityName);
+            castAbility(owner, this, subAbilityName, overrides);
         }
     }
 
@@ -83,6 +85,33 @@ public abstract class Ability extends Entity {
                     createX,
                     createY,
                     DataFile.getFloat("radius"));
+            createdObjects = new Entity[] {e};
+        } else if(castName.equals("flamethrower")) {
+            Entity e = new Flamethrower(owner,
+                    castOwner,
+                    subAbilityName,
+                    createX,
+                    createY,
+                    angle,
+                    DataFile.getFloat("angle_range"),
+                    DataFile.getFloat("fire_rate"),
+                    DataFile.getInt("num_projectiles"));
+            createdObjects = new Entity[] {e};
+        } else if(castName.equals("flame")) {
+            double lifetime = DataFile.getFloat("lifetime");
+            double velocity = DataFile.getFloat("velocity") + (Math.random()*2-1) * DataFile.getFloat("velocity_range");
+            Entity e = new FlamethrowerProjectile(owner,
+                    castOwner,
+                    subAbilityName,
+                    createX,
+                    createY,
+                    lifetime,
+                    angle,
+                    velocity,
+                    (DataFile.getFloat("final_velocity") - velocity)/lifetime,
+                    owner.getBodyHitboxes()[0].getRadius(),
+                    DataFile.getFloat("radius"),
+                    DataFile.getFloat("grow_time"));
             createdObjects = new Entity[] {e};
         }
     }

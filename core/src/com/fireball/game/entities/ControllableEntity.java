@@ -136,6 +136,8 @@ public abstract class ControllableEntity extends Entity {
             //check if abilities are casted
             abilityCastTimer -= delta;
             if(abilityCastTimer <= 0 && abilitiesCasting.size() > 0) {
+                abilityCastTimer = 0;
+                abilityCastTimerMax = 0;
                 //cast abilities
 
                 //actually create ability objects here
@@ -304,5 +306,9 @@ public abstract class ControllableEntity extends Entity {
 
     public double getTargetY() {
         return targetY;
+    }
+
+    public boolean abilitiesStreaming() {
+        return abilitiesStreaming;
     }
 }

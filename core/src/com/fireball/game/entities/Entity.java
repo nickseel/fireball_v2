@@ -28,6 +28,7 @@ public abstract class Entity extends Slottable {
     }
 
     public abstract void updatePre(double delta);
+    public abstract void updateMid(double delta);
     public abstract void updatePost(double delta);
     public void draw(SpriteBatch batch) {}
     public void drawFire(FireRenderer renderer) {}

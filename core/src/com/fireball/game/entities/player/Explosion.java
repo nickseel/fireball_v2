@@ -40,8 +40,12 @@ public class Explosion extends Ability {
     }
 
     @Override
-    public void updatePost(double delta) {
+    public void updateMid(double delta) {
         hitbox.setPosition(x, y);
+    }
+
+    @Override
+    public void updatePost(double delta) {
         kill(); //only lasts for one frame
     }
 

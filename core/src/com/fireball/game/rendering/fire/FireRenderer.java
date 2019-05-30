@@ -95,7 +95,7 @@ public class FireRenderer {
     }
 
     public void drawFireTexture(Texture texture, float centerX, float centerY, float fireRadius, float fireLevel) {
-        batch.setColor(1, 1, 0, fireLevel);
+        batch.setColor(fireLevel, 0, 0, 1);
         batch.draw(texture, centerX-fireRadius, centerY-fireRadius, fireRadius*2, fireRadius*2);
     }
 

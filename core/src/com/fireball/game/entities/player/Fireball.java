@@ -31,6 +31,7 @@ public class Fireball extends Ability {
             @Override
             public void damage(BodyHitbox other) {
                 other.takeDamage(1, 1, 0);
+                kill();
             }
         };
 
@@ -49,11 +50,16 @@ public class Fireball extends Ability {
     }
 
     @Override
-    public void updatePost(double delta) {
+    public void updateMid(double delta) {
         x = nextX;
         y = nextY;
 
         hitbox.setPosition(x, y);
+    }
+
+    @Override
+    public void updatePost(double delta) {
+
     }
 
     @Override
@@ -75,6 +81,7 @@ public class Fireball extends Ability {
     public void kill() {
         isAlive = false;
         castSubAbility();
+        subAbilityName = null;
     }
 
     @Override

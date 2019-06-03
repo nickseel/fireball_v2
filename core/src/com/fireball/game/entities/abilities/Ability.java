@@ -2,10 +2,7 @@ package com.fireball.game.entities.abilities;
 
 import com.fireball.game.entities.ControllableEntity;
 import com.fireball.game.entities.Entity;
-import com.fireball.game.entities.player.Explosion;
-import com.fireball.game.entities.player.Fireball;
-import com.fireball.game.entities.player.Flamethrower;
-import com.fireball.game.entities.player.FlamethrowerProjectile;
+import com.fireball.game.entities.player.*;
 import com.fireball.game.util.DataFile;
 
 public abstract class Ability extends Entity {
@@ -113,6 +110,25 @@ public abstract class Ability extends Entity {
                     DataFile.getFloat("radius"),
                     DataFile.getFloat("grow_time"));
             createdObjects = new Entity[] {e};
+        } else if(castName.equals("ring")) {
+            int num = DataFile.getInt("num");
+            createdObjects = new Entity[num];
+
+            for(int i = 0; i < num; i++) {
+                Entity e = new RingFireball(owner,
+                        castOwner,
+                        subAbilityName,
+                        createX,
+                        createY,
+                        DataFile.getFloat("radius"),
+                        DataFile.getFloat("lifetime"),
+                        i * (Math.PI * 2 / num),
+                        DataFile.getFloat("spin_speed"),
+                        0,
+                        DataFile.getFloat("max_distance"),
+                        DataFile.getFloat("extend_time"));
+                createdObjects[i] = e;
+            }
         }
     }
 }

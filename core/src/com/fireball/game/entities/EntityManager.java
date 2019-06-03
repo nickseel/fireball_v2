@@ -51,7 +51,7 @@ public class EntityManager {
         staticTerrainCollisionEventManager = new CellEventManager<Wall, Entity>() {
             @Override
             public void event(Wall item1, Entity item2) {
-                if(item1.collide(item2)) {
+                if(item2.terrainCollisionRadius != -1 && item1.collide(item2)) {
                     item2.eventTerrainCollision(item1.getAngle());
                 }
             }

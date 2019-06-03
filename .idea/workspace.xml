@@ -2,22 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c0b3a87e-2e31-477a-a06f-8f8c9b52d0b3" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/core/src/com/fireball/game/entities/player/Flamethrower.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/src/com/fireball/game/entities/player/FlamethrowerProjectile.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/src/com/fireball/game/entities/player/RingFireball.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/assets/files/abilities.json" beforeDir="false" afterPath="$PROJECT_DIR$/core/assets/files/abilities.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/out/production/classes/com/fireball/game/entities/Entity.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/out/production/classes/com/fireball/game/entities/Entity.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/out/production/classes/com/fireball/game/entities/EntityManager$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/out/production/classes/com/fireball/game/entities/EntityManager$4.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/out/production/classes/com/fireball/game/entities/EntityManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/out/production/classes/com/fireball/game/entities/EntityManager.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/out/production/classes/com/fireball/game/entities/EntityManager$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/out/production/classes/com/fireball/game/entities/EntityManager$1.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/src/com/fireball/game/entities/ControllableEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/fireball/game/entities/ControllableEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/com/fireball/game/entities/Entity.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/fireball/game/entities/Entity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/src/com/fireball/game/entities/EntityManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/fireball/game/entities/EntityManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/src/com/fireball/game/entities/abilities/Ability.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/fireball/game/entities/abilities/Ability.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/com/fireball/game/entities/hitboxes/Hitbox.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/fireball/game/entities/hitboxes/Hitbox.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/com/fireball/game/entities/player/Explosion.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/fireball/game/entities/player/Explosion.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/com/fireball/game/entities/player/Fireball.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/fireball/game/entities/player/Fireball.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/com/fireball/game/entities/player/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/fireball/game/entities/player/Player.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/com/fireball/game/rendering/fire/FireRenderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/fireball/game/rendering/fire/FireRenderer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/com/fireball/game/entities/player/FlamethrowerProjectile.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/fireball/game/entities/player/FlamethrowerProjectile.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/classes/" />
     <ignored path="$PROJECT_DIR$/.gradle/" />
@@ -45,28 +37,70 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/core/src/com/fireball/game/entities/abilities/Ability.java">
+        <entry file="file://$PROJECT_DIR$/desktop/src/com/fireball/game/desktop/DesktopLauncher.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="337">
-              <caret line="111" column="59" lean-forward="true" selection-start-line="111" selection-start-column="59" selection-end-line="111" selection-end-column="59" />
+            <state relative-caret-position="240">
+              <caret line="14" column="9" selection-start-line="14" selection-start-column="9" selection-end-line="14" selection-end-column="9" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/core/src/com/fireball/game/entities/player/PlayerData.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="340">
+              <caret line="17" column="52" selection-start-line="17" selection-start-column="52" selection-end-line="17" selection-end-column="52" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/core/src/com/fireball/game/entities/Entity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="240">
+              <caret line="16" column="43" selection-start-line="16" selection-start-column="21" selection-end-line="16" selection-end-column="43" />
               <folding>
-                <element signature="imports" expanded="true" />
+                <element signature="e#895#896#0" expanded="true" />
+                <element signature="e#948#949#0" expanded="true" />
+                <element signature="e#1375#1376#0" expanded="true" />
+                <element signature="e#1410#1411#0" expanded="true" />
+                <element signature="e#1461#1462#0" expanded="true" />
+                <element signature="e#1499#1500#0" expanded="true" />
+                <element signature="e#1527#1528#0" expanded="true" />
+                <element signature="e#1551#1552#0" expanded="true" />
+                <element signature="e#1579#1580#0" expanded="true" />
+                <element signature="e#1603#1604#0" expanded="true" />
+                <element signature="e#1634#1635#0" expanded="true" />
+                <element signature="e#1661#1662#0" expanded="true" />
+                <element signature="e#1692#1693#0" expanded="true" />
+                <element signature="e#1719#1720#0" expanded="true" />
+                <element signature="e#1866#1867#0" expanded="true" />
+                <element signature="e#1894#1895#0" expanded="true" />
+                <element signature="e#1926#1927#0" expanded="true" />
+                <element signature="e#1954#1955#0" expanded="true" />
+                <element signature="e#2128#2129#0" expanded="true" />
+                <element signature="e#2173#2174#0" expanded="true" />
+                <element signature="e#2202#2203#0" expanded="true" />
+                <element signature="e#2229#2230#0" expanded="true" />
+                <element signature="e#2261#2262#0" expanded="true" />
+                <element signature="e#2336#2337#0" expanded="true" />
+                <element signature="e#2367#2368#0" expanded="true" />
+                <element signature="e#2394#2395#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/core/src/com/fireball/game/entities/player/Flamethrower.java">
+        <entry file="file://$PROJECT_DIR$/core/src/com/fireball/game/entities/player/Player.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="575">
-              <caret line="54" lean-forward="true" selection-start-line="54" selection-end-line="54" />
+            <state relative-caret-position="-580">
+              <caret line="16" column="13" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
               <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#2006#2007#0" expanded="true" />
-                <element signature="e#2036#2037#0" expanded="true" />
-                <element signature="e#2076#2077#0" expanded="true" />
-                <element signature="e#2107#2108#0" expanded="true" />
+                <element signature="e#4351#4352#0" expanded="true" />
+                <element signature="e#4427#4428#0" expanded="true" />
+                <element signature="e#4483#4484#0" expanded="true" />
+                <element signature="e#4527#4528#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -75,53 +109,51 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/core/src/com/fireball/game/entities/player/FlamethrowerProjectile.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="334">
-              <caret line="82" column="73" selection-start-line="82" selection-start-column="73" selection-end-line="82" selection-end-column="73" />
+            <state relative-caret-position="420">
+              <caret line="98" column="44" selection-start-line="98" selection-start-column="44" selection-end-line="98" selection-end-column="44" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#2511#2512#0" expanded="true" />
-                <element signature="e#2594#2595#0" expanded="true" />
-                <element signature="e#2759#2760#0" expanded="true" />
-                <element signature="e#2789#2790#0" expanded="true" />
-                <element signature="e#2829#2830#0" expanded="true" />
-                <element signature="e#2860#2861#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/core/src/com/fireball/game/rendering/fire/FireRenderer.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="346">
-              <caret line="97" column="35" selection-start-line="97" selection-start-column="35" selection-end-line="97" selection-end-column="35" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/core/src/com/fireball/game/entities/EntityManager.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="459">
-              <caret line="54" column="64" selection-start-line="54" selection-start-column="64" selection-end-line="54" selection-end-column="64" />
-              <folding>
-                <element signature="e#2000#2255#0" expanded="true" />
-                <element signature="e#2254#2255#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/core/src/com/fireball/game/entities/player/RingFireball.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="420">
+              <caret line="93" column="67" selection-start-line="93" selection-start-column="67" selection-end-line="93" selection-end-column="67" />
+              <folding>
+                <element signature="e#1507#1508#0" expanded="true" />
+                <element signature="e#1545#1546#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/core/src/com/fireball/game/entities/abilities/Ability.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="416">
+              <caret line="129" column="38" selection-start-line="129" selection-start-column="38" selection-end-line="129" selection-end-column="38" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/core/assets/files/abilities.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="404">
-              <caret line="67" column="30" selection-start-line="67" selection-start-column="30" selection-end-line="67" selection-end-column="30" />
+            <state relative-caret-position="318">
+              <caret line="85" column="31" selection-start-line="85" selection-start-column="31" selection-end-line="85" selection-end-column="31" />
               <folding>
                 <element signature="n#!!block;n#dash#0;n#!!block;n#player#0;n#!!top" />
                 <element signature="n#!!block;n#fireball#0;n#!!block;n#player#0;n#!!top" />
                 <element signature="n#!!block;n#fireball -&gt; explosion#0;n#!!block;n#player#0;n#!!top" />
-                <element signature="n#!!block;n#ring#0;n#!!block;n#player#0;n#!!top" />
+                <element signature="n#!!block;n#flamethrower#0;n#!!block;n#player#0;n#!!top" />
+                <element signature="n#!!block;n#flamethrower -&gt; flame#0;n#!!block;n#player#0;n#!!top" />
                 <element signature="n#!!block;n#spark#0;n#!!block;n#player#0;n#!!top" />
                 <element signature="n#!!block;n#dash-dash#0;n#!!block;n#player#0;n#!!top" />
                 <element signature="n#!!block;n#dash-fireball#0;n#!!block;n#player#0;n#!!top" />
@@ -191,30 +223,32 @@
         <option value="$PROJECT_DIR$/core/src/com/fireball/game/entities/Entity.java" />
         <option value="$PROJECT_DIR$/core/src/com/fireball/game/entities/player/Player.java" />
         <option value="$PROJECT_DIR$/core/src/com/fireball/game/entities/player/Explosion.java" />
-        <option value="$PROJECT_DIR$/core/src/com/fireball/game/entities/ControllableEntity.java" />
         <option value="$PROJECT_DIR$/core/src/com/fireball/game/entities/player/Fireball.java" />
         <option value="$PROJECT_DIR$/core/src/com/fireball/game/entities/hitboxes/Hitbox.java" />
-        <option value="$PROJECT_DIR$/core/src/com/fireball/game/entities/abilities/Ability.java" />
-        <option value="$PROJECT_DIR$/core/src/com/fireball/game/entities/EntityManager.java" />
         <option value="$PROJECT_DIR$/core/src/com/fireball/game/entities/player/Flamethrower.java" />
-        <option value="$PROJECT_DIR$/core/src/com/fireball/game/entities/player/FlamethrowerProjectile.java" />
         <option value="$PROJECT_DIR$/core/src/com/fireball/game/rendering/fire/FireRenderer.java" />
+        <option value="$PROJECT_DIR$/core/src/com/fireball/game/entities/ControllableEntity.java" />
+        <option value="$PROJECT_DIR$/core/src/com/fireball/game/entities/EntityManager.java" />
+        <option value="$PROJECT_DIR$/core/src/com/fireball/game/entities/player/FlamethrowerProjectile.java" />
+        <option value="$PROJECT_DIR$/core/src/com/fireball/game/entities/abilities/Ability.java" />
         <option value="$PROJECT_DIR$/core/assets/files/abilities.json" />
+        <option value="$PROJECT_DIR$/core/src/com/fireball/game/entities/player/RingFireball.java" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds">
-    <option name="x" value="1913" />
-    <option name="width" value="1146" />
-    <option name="height" value="1047" />
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="260" />
+    <option name="y" value="20" />
+    <option name="width" value="1400" />
+    <option name="height" value="1000" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
       <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -277,58 +311,7 @@
               <item name="src" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="game" type="462c0819:PsiDirectoryNode" />
               <item name="entities" type="462c0819:PsiDirectoryNode" />
-              <item name="hitboxes" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="fireball_v2" type="b2602c69:ProjectViewProjectNode" />
-              <item name="fireball_v2" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="core" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="game" type="462c0819:PsiDirectoryNode" />
-              <item name="entities" type="462c0819:PsiDirectoryNode" />
               <item name="player" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="fireball_v2" type="b2602c69:ProjectViewProjectNode" />
-              <item name="fireball_v2" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="core" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="game" type="462c0819:PsiDirectoryNode" />
-              <item name="rendering" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="fireball_v2" type="b2602c69:ProjectViewProjectNode" />
-              <item name="fireball_v2" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="core" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="game" type="462c0819:PsiDirectoryNode" />
-              <item name="rendering" type="462c0819:PsiDirectoryNode" />
-              <item name="fire" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="fireball_v2" type="b2602c69:ProjectViewProjectNode" />
-              <item name="fireball_v2" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="core" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="game" type="462c0819:PsiDirectoryNode" />
-              <item name="rooms" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="fireball_v2" type="b2602c69:ProjectViewProjectNode" />
-              <item name="fireball_v2" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="core" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="game" type="462c0819:PsiDirectoryNode" />
-              <item name="rooms" type="462c0819:PsiDirectoryNode" />
-              <item name="rooms" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="fireball_v2" type="b2602c69:ProjectViewProjectNode" />
-              <item name="fireball_v2" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="core" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="game" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="fireball_v2" type="b2602c69:ProjectViewProjectNode" />
@@ -363,6 +346,9 @@
     <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.fireball.game.entities.player" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\nicks\Desktop\Java C++\workspace\Java\fireball_v2\core\assets\files" />
     </key>
@@ -436,10 +422,10 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1913" y="0" width="1146" height="1047" extended-state="0" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.22836095" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25266525" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -448,7 +434,7 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.31838074" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.30877572" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -457,7 +443,7 @@
       <window_info anchor="bottom" id="Terminal" order="8" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
       <window_info anchor="bottom" id="Build" order="10" weight="0.32936078" />
-      <window_info anchor="bottom" id="Messages" order="11" weight="0.32822758" />
+      <window_info anchor="bottom" id="Messages" order="11" weight="0.32719395" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -548,14 +534,8 @@
     <entry file="file://$PROJECT_DIR$/core/src/com/fireball/game/entities/projectiles/Projectile.java" />
     <entry file="file://$PROJECT_DIR$/core/src/com/fireball/game/entities/player/PlayerData.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-200">
-          <caret line="8" column="32" lean-forward="true" selection-start-line="8" selection-start-column="32" selection-end-line="8" selection-end-column="32" />
-          <folding>
-            <element signature="e#1340#1341#0" expanded="true" />
-            <element signature="e#1371#1372#0" expanded="true" />
-            <element signature="e#1415#1416#0" expanded="true" />
-            <element signature="e#1449#1450#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="340">
+          <caret line="17" column="52" selection-start-line="17" selection-start-column="52" selection-end-line="17" selection-end-column="52" />
         </state>
       </provider>
     </entry>
@@ -634,28 +614,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/desktop/src/com/fireball/game/desktop/DesktopLauncher.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="15" column="5" selection-start-line="15" selection-start-column="5" selection-end-line="15" selection-end-column="5" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/com/fireball/game/entities/player/Player.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="525">
-          <caret line="124" column="5" selection-start-line="124" selection-start-column="5" selection-end-line="124" selection-end-column="5" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/com/fireball/game/entities/Entity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="30" column="49" lean-forward="true" selection-start-line="30" selection-start-column="49" selection-end-line="30" selection-end-column="49" />
+        <state relative-caret-position="240">
+          <caret line="14" column="9" selection-start-line="14" selection-start-column="9" selection-end-line="14" selection-end-column="9" />
         </state>
       </provider>
     </entry>
@@ -668,18 +628,6 @@
             <element signature="e#1340#1341#0" expanded="true" />
             <element signature="e#1380#1381#0" expanded="true" />
             <element signature="e#1487#1488#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/com/fireball/game/entities/ControllableEntity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="975">
-          <caret line="310" column="37" selection-start-line="310" selection-start-column="19" selection-end-line="310" selection-end-column="37" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#11516#11517#0" expanded="true" />
-            <element signature="e#11557#11558#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -707,16 +655,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/com/fireball/game/entities/abilities/Ability.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="337">
-          <caret line="111" column="59" lean-forward="true" selection-start-line="111" selection-start-column="59" selection-end-line="111" selection-end-column="59" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/core/src/com/fireball/game/entities/player/Flamethrower.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="575">
@@ -731,22 +669,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/com/fireball/game/entities/player/FlamethrowerProjectile.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="334">
-          <caret line="82" column="73" selection-start-line="82" selection-start-column="73" selection-end-line="82" selection-end-column="73" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#2511#2512#0" expanded="true" />
-            <element signature="e#2594#2595#0" expanded="true" />
-            <element signature="e#2759#2760#0" expanded="true" />
-            <element signature="e#2789#2790#0" expanded="true" />
-            <element signature="e#2829#2830#0" expanded="true" />
-            <element signature="e#2860#2861#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/core/src/com/fireball/game/rendering/fire/FireRenderer.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="346">
@@ -754,26 +676,114 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/com/fireball/game/entities/ControllableEntity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="220">
+          <caret line="107" column="32" lean-forward="true" selection-start-line="107" selection-start-column="32" selection-end-line="107" selection-end-column="32" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#11244#11245#0" expanded="true" />
+            <element signature="e#11277#11278#0" expanded="true" />
+            <element signature="e#11317#11318#0" expanded="true" />
+            <element signature="e#11343#11344#0" expanded="true" />
+            <element signature="e#11377#11378#0" expanded="true" />
+            <element signature="e#11407#11408#0" expanded="true" />
+            <element signature="e#11441#11442#0" expanded="true" />
+            <element signature="e#11471#11472#0" expanded="true" />
+            <element signature="e#11514#11515#0" expanded="true" />
+            <element signature="e#11555#11556#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/com/fireball/game/entities/player/Player.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-580">
+          <caret line="16" column="13" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
+          <folding>
+            <element signature="e#4351#4352#0" expanded="true" />
+            <element signature="e#4427#4428#0" expanded="true" />
+            <element signature="e#4483#4484#0" expanded="true" />
+            <element signature="e#4527#4528#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/com/fireball/game/entities/Entity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="16" column="43" selection-start-line="16" selection-start-column="21" selection-end-line="16" selection-end-column="43" />
+          <folding>
+            <element signature="e#895#896#0" expanded="true" />
+            <element signature="e#948#949#0" expanded="true" />
+            <element signature="e#1375#1376#0" expanded="true" />
+            <element signature="e#1410#1411#0" expanded="true" />
+            <element signature="e#1461#1462#0" expanded="true" />
+            <element signature="e#1499#1500#0" expanded="true" />
+            <element signature="e#1527#1528#0" expanded="true" />
+            <element signature="e#1551#1552#0" expanded="true" />
+            <element signature="e#1579#1580#0" expanded="true" />
+            <element signature="e#1603#1604#0" expanded="true" />
+            <element signature="e#1634#1635#0" expanded="true" />
+            <element signature="e#1661#1662#0" expanded="true" />
+            <element signature="e#1692#1693#0" expanded="true" />
+            <element signature="e#1719#1720#0" expanded="true" />
+            <element signature="e#1866#1867#0" expanded="true" />
+            <element signature="e#1894#1895#0" expanded="true" />
+            <element signature="e#1926#1927#0" expanded="true" />
+            <element signature="e#1954#1955#0" expanded="true" />
+            <element signature="e#2128#2129#0" expanded="true" />
+            <element signature="e#2173#2174#0" expanded="true" />
+            <element signature="e#2202#2203#0" expanded="true" />
+            <element signature="e#2229#2230#0" expanded="true" />
+            <element signature="e#2261#2262#0" expanded="true" />
+            <element signature="e#2336#2337#0" expanded="true" />
+            <element signature="e#2367#2368#0" expanded="true" />
+            <element signature="e#2394#2395#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/core/src/com/fireball/game/entities/EntityManager.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="459">
-          <caret line="54" column="64" selection-start-line="54" selection-start-column="64" selection-end-line="54" selection-end-column="64" />
+        <state relative-caret-position="299">
+          <caret line="56" column="13" lean-forward="true" selection-start-line="56" selection-start-column="13" selection-end-line="56" selection-end-column="13" />
           <folding>
-            <element signature="e#2000#2255#0" expanded="true" />
-            <element signature="e#2254#2255#0" expanded="true" />
+            <element signature="e#2000#2270#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/com/fireball/game/entities/player/FlamethrowerProjectile.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="420">
+          <caret line="98" column="44" selection-start-line="98" selection-start-column="44" selection-end-line="98" selection-end-column="44" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/com/fireball/game/entities/abilities/Ability.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="416">
+          <caret line="129" column="38" selection-start-line="129" selection-start-column="38" selection-end-line="129" selection-end-column="38" />
+          <folding>
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/core/assets/files/abilities.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="404">
-          <caret line="67" column="30" selection-start-line="67" selection-start-column="30" selection-end-line="67" selection-end-column="30" />
+        <state relative-caret-position="318">
+          <caret line="85" column="31" selection-start-line="85" selection-start-column="31" selection-end-line="85" selection-end-column="31" />
           <folding>
             <element signature="n#!!block;n#dash#0;n#!!block;n#player#0;n#!!top" />
             <element signature="n#!!block;n#fireball#0;n#!!block;n#player#0;n#!!top" />
             <element signature="n#!!block;n#fireball -&gt; explosion#0;n#!!block;n#player#0;n#!!top" />
-            <element signature="n#!!block;n#ring#0;n#!!block;n#player#0;n#!!top" />
+            <element signature="n#!!block;n#flamethrower#0;n#!!block;n#player#0;n#!!top" />
+            <element signature="n#!!block;n#flamethrower -&gt; flame#0;n#!!block;n#player#0;n#!!top" />
             <element signature="n#!!block;n#spark#0;n#!!block;n#player#0;n#!!top" />
             <element signature="n#!!block;n#dash-dash#0;n#!!block;n#player#0;n#!!top" />
             <element signature="n#!!block;n#dash-fireball#0;n#!!block;n#player#0;n#!!top" />
@@ -803,6 +813,17 @@
             <element signature="n#!!block;n#shield#0;n#!!block;n#shielder#0;n#!!top" />
             <element signature="n#!!block;n#sparker#0;n#!!top" />
             <element signature="n#!!block;n#lightning#0;n#!!block;n#sparker#0;n#!!top" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/com/fireball/game/entities/player/RingFireball.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="420">
+          <caret line="93" column="67" selection-start-line="93" selection-start-column="67" selection-end-line="93" selection-end-column="67" />
+          <folding>
+            <element signature="e#1507#1508#0" expanded="true" />
+            <element signature="e#1545#1546#0" expanded="true" />
           </folding>
         </state>
       </provider>

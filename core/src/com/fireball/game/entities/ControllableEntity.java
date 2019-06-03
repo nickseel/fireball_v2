@@ -108,7 +108,7 @@ public abstract class ControllableEntity extends Entity {
         if(abilitiesStreaming) {
             //update streaming abilities and check if should stop streaming
             abilityStreamTime += delta;
-            health -= abilityCost * delta;
+            health = Math.max(0.01, health - abilityCost * delta);
 
             updateStreamingAbilities(delta);
 

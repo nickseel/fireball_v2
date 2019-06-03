@@ -80,10 +80,11 @@
 			"cooldown": 2.0,
 			"cost": 8,
 			
-			"num_orbiting": 5,
-			"orbit_speed": 6.0,
-			"orbit_distance": 20,
-			"size": 12,
+			"num": 5,
+			"spin_speed": 6.0,
+			"max_distance": 20,
+			"extend_time": 0.15,
+			"radius": 6,
 			"lifetime": 5.0,
 			
 			"damage": 12,

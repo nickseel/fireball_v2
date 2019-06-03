@@ -11,8 +11,11 @@ import com.fireball.game.util.Util;
 import static java.lang.Math.floor;
 
 public class FlamethrowerProjectile extends Ability {
+    private final float fadeoutTime = 0.15f;
+    private float alpha = 1;
+
     private boolean isAlive = true;
-    private double lifeTime;
+    private double lifetime;
 
     private double minRadius, maxRadius, currentRadius, sizeTimer, sizeTimerMax;
     private double angle, velocity, accel;
@@ -21,10 +24,10 @@ public class FlamethrowerProjectile extends Ability {
     private DamagerHitbox hitbox;
 
     public FlamethrowerProjectile(ControllableEntity owner, Entity castOwner, String subAbilityName,
-                          double x, double y, double lifeTime, double angle, double velocity, double accel,
+                          double x, double y, double lifetime, double angle, double velocity, double accel,
                           double minRadius, double maxRadius, double sizeTimerMax) {
         super("flamethrower projectile", owner, castOwner, subAbilityName, x, y);
-        this.lifeTime = lifeTime;
+        this.lifetime = lifetime;
         this.angle = angle;
         this.velocity = velocity;
         this.accel = accel;
@@ -72,15 +75,18 @@ public class FlamethrowerProjectile extends Ability {
 
     @Override
     public void updatePost(double delta) {
-        lifeTime -= delta;
-        if(lifeTime < 0) {
+        lifetime -= delta;
+
+        alpha = (float)Math.max(0, Math.min(1, lifetime / fadeoutTime));
+
+        if(lifetime < 0) {
             kill();
         }
     }
 
     @Override
     public void drawFire(FireRenderer renderer) {
-        renderer.drawFire((float)x, (float)y, (float)currentRadius*1, 0.3f);
+        renderer.drawFire((float)x, (float)y, (float)currentRadius*1, 0.25f * alpha);
     }
 
     @Override
@@ -91,8 +97,7 @@ public class FlamethrowerProjectile extends Ability {
         yVel *= Math.sin(angle);
         velocity = Math.hypot(xVel, yVel);
         this.angle = Math.atan2(yVel, xVel);
-        System.out.println(xVel + " " + yVel);
-        lifeTime = Math.min(0.2, lifeTime);
+        lifetime = Math.min(0.2, lifetime);
     }
 
     @Override

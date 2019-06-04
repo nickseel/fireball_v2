@@ -51,7 +51,7 @@ public class Flamethrower extends Ability {
                 fireTimer -= 1/fireRate;
 
                 for(int i = 0; i < numProjectiles; i++) {
-                    double flameAngle = angle + angleRange*((i/(numProjectiles/2))-1) + Math.random()*(2*angleRange/numProjectiles);
+                    double flameAngle = angle + angleRange*((i/((float)numProjectiles/2))-1) + Math.random()*(2*angleRange/numProjectiles);
 
                     castSubAbility(new CastArgumentOverride(CastArgumentOverride.ARGUMENT_ANGLE).setAngle(flameAngle));
                 }

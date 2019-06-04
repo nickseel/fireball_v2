@@ -4,6 +4,9 @@ import com.fireball.game.entities.ControllableEntity;
 import com.fireball.game.entities.Entity;
 import com.fireball.game.entities.player.*;
 import com.fireball.game.util.DataFile;
+import com.fireball.game.util.Util;
+
+import java.util.ArrayList;
 
 public abstract class Ability extends Entity {
     protected ControllableEntity owner;
@@ -41,7 +44,7 @@ public abstract class Ability extends Entity {
         double targetX = owner.getTargetX();
         double targetY = owner.getTargetY();
         double angle = Math.atan2(targetY - createY, targetX - createX);
-        Object[] extraArgs = new Object[0];
+        ArrayList<Object[]> extraArgs = new ArrayList<Object[]>();
         for(CastArgumentOverride override: argumentOverrides) {
             switch(override.getType()) {
                 case CastArgumentOverride.ARGUMENT_OWNER:
@@ -55,7 +58,7 @@ public abstract class Ability extends Entity {
                 case CastArgumentOverride.ARGUMENT_ANGLE:
                     angle = override.getAngle(); break;
                 case CastArgumentOverride.ARGUMENT_OTHER:
-                    extraArgs = override.getOther(); break;
+                    extraArgs.add(override.getOther()); break;
             }
         }
         String subAbilityName = "";
@@ -66,12 +69,18 @@ public abstract class Ability extends Entity {
 
         DataFile.setCurrentLocation("abilities", owner.getName(), abilityCastNameString);
         if(castName.equals("fireball")) {
+            float radius = DataFile.getFloat("radius");
+            if(extraArgs.size() > 0)
+                for(Object[] o: extraArgs)
+                    if(o[0] instanceof String && o[0].equals("radius"))
+                        radius = (float)((Double)o[1]).doubleValue();
+
             Entity e = new Fireball(owner,
                     castOwner,
                     subAbilityName,
                     createX,
                     createY,
-                    DataFile.getFloat("radius"),
+                    radius,
                     angle,
                     DataFile.getFloat("velocity"));
             createdObjects = new Entity[] {e};
@@ -92,7 +101,7 @@ public abstract class Ability extends Entity {
                     angle,
                     DataFile.getFloat("angle_range"),
                     DataFile.getFloat("fire_rate"),
-                    DataFile.getInt("num_projectiles"));
+                    DataFile.getInt("num"));
             createdObjects = new Entity[] {e};
         } else if(castName.equals("flame")) {
             double lifetime = DataFile.getFloat("lifetime");
@@ -110,24 +119,48 @@ public abstract class Ability extends Entity {
                     DataFile.getFloat("radius"),
                     DataFile.getFloat("grow_time"));
             createdObjects = new Entity[] {e};
-        } else if(castName.equals("ring")) {
+        } else if(castName.equals("ring") || castName.equals("temp_ring")) {
             int num = DataFile.getInt("num");
             createdObjects = new Entity[num];
 
+            float minLifetime = DataFile.getFloat("min_lifetime");
+            float maxLifetime = DataFile.getFloat("max_lifetime");
+            ArrayList<Float> lifetimes = new ArrayList<Float>();
             for(int i = 0; i < num; i++) {
-                Entity e = new RingFireball(owner,
-                        castOwner,
-                        subAbilityName,
-                        (AbilityCooldown)(extraArgs[0]),
-                        createX,
-                        createY,
-                        DataFile.getFloat("radius"),
-                        DataFile.getFloat("lifetime"),
-                        i * (Math.PI * 2 / num),
-                        DataFile.getFloat("spin_speed"),
-                        0,
-                        DataFile.getFloat("max_distance"),
-                        DataFile.getFloat("extend_time"));
+                lifetimes.add((int)(Math.random() * (lifetimes.size()+1)), (float)Util.mix(minLifetime, maxLifetime, (float)i/(num-1)));
+            }
+
+            for(int i = 0; i < num; i++) {
+                Entity e;
+                if(castName.equals("ring")) {
+                    e = new RingFireball(owner,
+                            castOwner,
+                            subAbilityName,
+                            (AbilityCooldown) (extraArgs.get(0)[0]),
+                            createX,
+                            createY,
+                            DataFile.getFloat("radius"),
+                            lifetimes.get(i),
+                            i * (Math.PI * 2 / num),
+                            DataFile.getFloat("spin_speed"),
+                            0,
+                            DataFile.getFloat("max_distance"),
+                            DataFile.getFloat("extend_time"));
+                } else {
+                    e = new TempRingFireball(owner,
+                            castOwner,
+                            subAbilityName,
+                            (AbilityCooldown) (extraArgs.get(0)[0]),
+                            createX,
+                            createY,
+                            DataFile.getFloat("radius"),
+                            lifetimes.get(i),
+                            i * (Math.PI * 2 / num),
+                            DataFile.getFloat("spin_speed"),
+                            0,
+                            DataFile.getFloat("max_distance"),
+                            DataFile.getFloat("extend_time"));
+                }
                 createdObjects[i] = e;
             }
         }

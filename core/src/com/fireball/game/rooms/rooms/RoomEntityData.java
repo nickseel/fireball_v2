@@ -1,10 +1,10 @@
 package com.fireball.game.rooms.rooms;
 
-public class RoomJsonEntityData {
+public class RoomEntityData {
     private String name, type;
     private int x, y, width, height;
 
-    public RoomJsonEntityData(String name, String type, int x, int y, int width, int height) {
+    public RoomEntityData(String name, String type, int x, int y, int width, int height) {
         this.name = name;
         this.type = type;
         this.x = x;

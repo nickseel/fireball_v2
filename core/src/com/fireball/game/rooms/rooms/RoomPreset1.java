@@ -7,7 +7,7 @@ import com.fireball.game.views.GameView;
 
 public class RoomPreset1 extends Room {
     public RoomPreset1(GameView parentView) {
-        super(parentView, new TileMap(new int[0][0], TextureData.TEST_IMAGE), new TileMap(new int[0][0], TextureData.TEST_IMAGE), new Wall[0], new RoomJsonEntityData[0]);
+        super(parentView, new TileMap(new int[0][0], TextureData.TEST_IMAGE), new TileMap(new int[0][0], TextureData.TEST_IMAGE), new Wall[0], new RoomEntityData[0]);
 
         staticWalls = new Wall[] {
             new Wall(0, 350, 500, 250),

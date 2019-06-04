@@ -28,7 +28,6 @@
 			"sub_ability_name": "fireball -> explosion",
 			
 			"velocity": 320,
-			"slide": -1,
 			"lifetime": -1,
 			
 			"radius": 8.5,
@@ -57,7 +56,7 @@
 			"movement_debuff": 0.6,
 			
 			"fire_rate": 10,
-			"num_projectiles": 2,
+			"num": 2,
 			"angle_range": 0.35
 		},
 		"flamethrower -> flame": {
@@ -68,7 +67,7 @@
 			"velocity": 300.0,
 			"velocity_range": 40.0,
 			"final_velocity": -20.0,
-			"lifetime": 0.8,
+			"lifetime": 0.7,
 			
 			"damage": 50,
 			"knockback": 0,
@@ -82,10 +81,11 @@
 			
 			"num": 5,
 			"spin_speed": 6.0,
-			"max_distance": 20,
+			"max_distance": 18,
 			"extend_time": 0.15,
-			"radius": 6,
-			"lifetime": 5.0,
+			"radius": 7,
+			"min_lifetime": 5.0,
+			"max_lifetime": 5.0,
 			
 			"damage": 12,
 			"knockback": 100,
@@ -280,22 +280,24 @@
 			"stun": 0.1
 		},
 		"fireball-ring": {
-			"_description": "ring of fireballs that shoot off after a delay   NOTE: changing size requires changing size in sub ability too!",
+			"_description": "ring of fireballs that shoot off after a delay",
 			"cast_time": 0.2,
 			"cost": 16,
-			
+			"cast_name": "temp_ring",
+
 			"sub_ability_name": "fireball-ring -> fireball",
-			
+
 			"cooldown_type": "ring_objects_destroyed",
 			"cooldown_fireball": 3.0,
-			
-			"num_orbiting": 6,
-			"orbit_speed": 5.5,
-			"orbit_distance": 20,
-			"size": 13,
+
+			"num": 6,
+			"spin_speed": 5.5,
+			"max_distance": 20,
+			"extend_time": 0.15,
+			"radius": 8,
 			"min_lifetime": 1.0,
 			"max_lifetime": 2.3,
-			
+
 			"damage": 16,
 			"knockback": 100,
 			"stun": 0.1
@@ -303,12 +305,12 @@
 		"fireball-ring -> fireball": {
 			"cast_name": "fireball",
 			"sub_ability_name": "fireball-ring -> fireball -> explosion",
-			
+
 			"velocity": 500,
-			"slide": -1,
 			"lifetime": -1,
-			
-			"size": 13,
+
+			"radius": -1,
+
 			"damage": 16,
 			"knockback": 120,
 			"stun": 0.1
@@ -316,7 +318,7 @@
 		"fireball-ring -> fireball -> explosion": {
 			"cast_name": "explosion",
 			
-			"size": 38,
+			"radius": 20,
 			"damage": 8,
 			"knockback": 80,
 			"stun": 0.1
@@ -349,18 +351,19 @@
 			"min_stream_time": 0.2,
 			"movement_debuff": 0.0,
 			
-			"rate": 10,
-			"num": 12,
+			"fire_rate": 10,
+			"num": 18,
 			"angle_range": 3.14
 		},
 		"flamethrower-ring -> flame": {
 			"cast_name": "flame",
-			
-			"size": 42,
-			"velocity": 380.0,
+
+			"radius": 22,
+			"grow_time": 0.1,
+			"velocity": 300.0,
 			"velocity_range": 40.0,
-			"slide": 4.0,
-			"lifetime": 0.6,
+			"final_velocity": -20.0,
+			"lifetime": 0.7,
 			
 			"damage": 50,
 			"knockback": 0,
@@ -373,12 +376,14 @@
 			"cost": 16,
 			"cooldown_type": "ring_objects_destroyed",
 			"cooldown_ring": 2.5,
-			
-			"num_orbiting": 10,
-			"orbit_speed": 6.0,
-			"orbit_distance": 18,
-			"size": 9,
-			"lifetime": 9.0,
+
+			"num": 10,
+			"spin_speed": 6.0,
+			"max_distance": 16,
+			"extend_time": 0.15,
+			"radius": 5,
+			"min_lifetime": 9.0,
+			"max_lifetime": 9.0,
 			
 			"damage": 9,
 			"knockback": 60,

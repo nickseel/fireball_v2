@@ -35,7 +35,7 @@ public class Room {
     protected Wall[] staticWalls;
     protected ArrayList<DestructibleWall> dynamicWalls;
     protected TileMap wallTiles, groundTiles;
-    protected RoomJsonEntityData[] initialEntities;
+    protected RoomEntityData[] initialEntities;
 
     private SpawnPoint spawnPoint;
 
@@ -43,7 +43,7 @@ public class Room {
     private FrameBuffer buffer;
     private SpriteBatch bufferBatch;
 
-    public Room(GameView parentVew, TileMap wallTiles, TileMap groundTiles, Wall[] staticWalls, RoomJsonEntityData[] initialEntities) {
+    public Room(GameView parentVew, TileMap wallTiles, TileMap groundTiles, Wall[] staticWalls, RoomEntityData[] initialEntities) {
         this.parentView = parentVew;
         this.wallTiles = wallTiles;
         this.groundTiles = groundTiles;
@@ -61,7 +61,7 @@ public class Room {
         buffer.getColorBufferTexture().setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
         bufferBatch = new SpriteBatch();
 
-        for(RoomJsonEntityData entity: initialEntities) {
+        for(RoomEntityData entity: initialEntities) {
             if(entity.getName().equals("spawn point")) {
                 spawnPoint = new SpawnPoint(entity.getCenterX(), entity.getCenterY());
             }
@@ -213,9 +213,9 @@ public class Room {
 
         while(!lines[lineIndex++].contains("entities")) {}
         int numEntities = Integer.parseInt(lines[lineIndex-1].substring(10, lines[lineIndex-1].length()-2));
-        RoomJsonEntityData[] initialEntities = new RoomJsonEntityData[numEntities];
+        RoomEntityData[] initialEntities = new RoomEntityData[numEntities];
         for(int i = 0; i < numEntities; i++) {
-            initialEntities[i] = new RoomJsonEntityData(
+            initialEntities[i] = new RoomEntityData(
                     lines[lineIndex++].substring(8),
                     lines[lineIndex++].substring(8),
                     Integer.parseInt(lines[lineIndex++].substring(8)),
@@ -394,13 +394,13 @@ public class Room {
         int objectStartLine = findLine(lines, "\"objects\"", 0, lines.length);
         int objectEndLine = findLine(lines, "\"nextobjectid\"", objectStartLine, lines.length);
         int nextObjectLine = objectStartLine;
-        ArrayList<RoomJsonEntityData> entityData = new ArrayList<RoomJsonEntityData>();
+        ArrayList<RoomEntityData> entityData = new ArrayList<RoomEntityData>();
         while(true) {
             nextObjectLine = findLine(lines, "{", nextObjectLine, objectEndLine);
             if(nextObjectLine == -1)
                 break;
 
-            entityData.add(new RoomJsonEntityData(
+            entityData.add(new RoomEntityData(
                     findString(lines, "\"name\"", nextObjectLine, objectEndLine).replaceAll("\"", ""),
                     findString(lines, "\"type\"", nextObjectLine, objectEndLine).replaceAll("\"", ""),
                     findInt(lines, "\"x\"", nextObjectLine, objectEndLine),
@@ -422,7 +422,7 @@ public class Room {
         for(double[] wall: walls)
             outputFile.writeString(wall[7] + " " + wall[8] + " " + wall[9] + " " + wall[10] + " " + wall[4] + "\n", true);
         outputFile.writeString("\nentities (" + entityData.size() + "):\n", true);
-        for(RoomJsonEntityData entity: entityData)
+        for(RoomEntityData entity: entityData)
             outputFile.writeString(entity.toString(), true);
     }
 

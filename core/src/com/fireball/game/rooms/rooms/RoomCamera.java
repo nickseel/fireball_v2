@@ -34,8 +34,8 @@ public class RoomCamera extends OrthographicCamera {
             y += (float)(Math.signum(targetY - y) * Math.min(1, delta * followSpeed) * Math.abs(targetY - y));
         }
 
-        position.x = x + offsetX;
-        position.y = y + offsetY;
+        position.x = (float)Math.floor(x + offsetX + 0.0f);
+        position.y = (float)Math.floor(y + offsetY + 0.0f);
         update();
     }
 

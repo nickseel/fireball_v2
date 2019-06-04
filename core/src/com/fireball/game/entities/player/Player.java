@@ -96,6 +96,10 @@ public class Player extends ControllableEntity {
                     abilityInputs[i] = true;
             }
         }
+        for(Double[] keys: InputManager.getPressedKeys()) {
+            if(keys[0] == 33)
+                y += 0.25f;
+        }
 
         updateAbilities(delta);
         move(delta);

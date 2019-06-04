@@ -123,7 +123,8 @@ public class GameView extends View {
     @Override
     public void draw(SpriteBatch batch) {
         batch.draw(gameFrameBuffer.getColorBufferTexture(),
-                width*0.5f*(0/*1-camera.getZoom()*/), height*0.5f*(0/*1-camera.getZoom()*/),
+                width*0.5f*(0/*1-camera.getZoom()*/) - ((camera.getX() * BUFFER_SCALE) % BUFFER_SCALE) + 0.5f * BUFFER_SCALE,
+                height*0.5f*(0/*1-camera.getZoom()*/) - (((-camera.getY()+0.5f) * BUFFER_SCALE) % BUFFER_SCALE) - 0.5f * BUFFER_SCALE,
                 width/*camera.getZoom()*/, height/*camera.getZoom()*/);
 
         fireRenderer.drawDebugTextures(batch);

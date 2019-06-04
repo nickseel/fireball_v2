@@ -3,6 +3,7 @@ package com.fireball.game.entities.player;
 import com.fireball.game.entities.ControllableEntity;
 import com.fireball.game.entities.Entity;
 import com.fireball.game.entities.abilities.Ability;
+import com.fireball.game.entities.abilities.AbilityCooldown;
 import com.fireball.game.entities.hitboxes.BodyHitbox;
 import com.fireball.game.entities.hitboxes.DamagerHitbox;
 import com.fireball.game.rendering.fire.FireRenderer;
@@ -17,13 +18,16 @@ public class RingFireball extends Ability {
     protected double angleOffset, spinSpeed, currentAngle;
     protected double minDistance, maxDistance, currentDistance, extendTime;
 
+    protected AbilityCooldown cooldownReference;
+
     protected DamagerHitbox damageHitbox;
     protected BodyHitbox bodyHitbox;
 
-    public RingFireball(ControllableEntity owner, Entity castOwner, String subAbilityName,
+    public RingFireball(ControllableEntity owner, Entity castOwner, String subAbilityName, AbilityCooldown cooldownReference,
                         double x, double y, double radius, double lifetime, double angleOffset, double spinSpeed,
                         double minDistance, double maxDistance, double extendTime) {
         super("fireball", owner, castOwner, subAbilityName, x, y);
+        this.cooldownReference = cooldownReference;
         this.radius = radius;
         this.lifetime = lifetime;
         this.maxLifetime = lifetime;
@@ -75,7 +79,6 @@ public class RingFireball extends Ability {
     public void updateMid(double delta) {
         x = nextX;
         y = nextY;
-        System.out.println("A");
         bodyHitbox.setPosition(x, y);
         damageHitbox.setPosition(x, y);
     }
@@ -106,6 +109,11 @@ public class RingFireball extends Ability {
 
     @Override
     public void kill() {
+        if(isAlive) {
+            if(cooldownReference != null)
+                cooldownReference.modifyValue(-1);
+        }
+
         isAlive = false;
         castSubAbility();
         subAbilityName = null;

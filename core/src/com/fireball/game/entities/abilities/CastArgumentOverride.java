@@ -12,7 +12,7 @@ public class CastArgumentOverride {
     private int type;
     private Entity owner;
     private double createX, createY, targetX, targetY, angle;
-    private double[] other;
+    private Object[] other;
 
     public CastArgumentOverride(int type) {
         this.type = type;
@@ -40,7 +40,7 @@ public class CastArgumentOverride {
         return this;
     }
 
-    public CastArgumentOverride setOther(double[] other) {
+    public CastArgumentOverride setOther(Object[] other) {
         this.other = other;
         return this;
     }
@@ -73,7 +73,7 @@ public class CastArgumentOverride {
         return angle;
     }
 
-    public double[] getOther() {
+    public Object[] getOther() {
         return other;
     }
 }

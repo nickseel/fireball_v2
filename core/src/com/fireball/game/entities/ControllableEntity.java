@@ -1,12 +1,11 @@
 package com.fireball.game.entities;
 
-import com.fireball.game.entities.abilities.Ability;
-import com.fireball.game.entities.abilities.AbilityType;
-import com.fireball.game.entities.abilities.SortAbility;
+import com.fireball.game.entities.abilities.*;
 import com.fireball.game.util.DataFile;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedList;
 
 public abstract class ControllableEntity extends Entity {
     protected double moveX, moveY;
@@ -15,7 +14,7 @@ public abstract class ControllableEntity extends Entity {
     protected AbilityType[] abilities;
     protected boolean[] prevAbilityInputs;
     protected boolean[] abilityInputs;
-    protected double[][] abilityTimers;
+    protected LinkedList<AbilityCooldown>[] abilityCooldowns;
     protected double abilityCastTimer, abilityCastTimerMax;
     protected int maxAbilityCombo;
     protected ArrayList<AbilityType> abilitiesCasting;
@@ -38,9 +37,9 @@ public abstract class ControllableEntity extends Entity {
         this.abilities = abilities;
         prevAbilityInputs = new boolean[abilities.length];
         abilityInputs = new boolean[abilities.length];
-        abilityTimers = new double[abilities.length][];
+        abilityCooldowns = new LinkedList[abilities.length];
         for(int i = 0; i < abilities.length; i++)
-            abilityTimers[i] = new double[] {0, 0};
+            abilityCooldowns[i] = new LinkedList<AbilityCooldown>();
         this.maxAbilityCombo = maxAbilityCombo;
         abilitiesCasting = new ArrayList<AbilityType>();
         abilitiesStreaming = false;
@@ -49,17 +48,14 @@ public abstract class ControllableEntity extends Entity {
 
     protected void updateAbilities(double delta) {
         for(int i = 0; i < abilities.length; i++) {
-            switch(abilities[i].getCooldownType()) {
-                case NORMAL:
-                    if(abilityTimers[i][0] < 0) {
-                        abilityTimers[i][0] = Math.min(0, abilityTimers[i][0] + delta);
+            for(int j = 0; j < abilityCooldowns[i].size(); j++) {
+                if(abilityCooldowns[i].get(j).update(j == 0, delta)) {
+                    abilityCooldowns[i].remove(j--).finish(true);
+                }
 
-                        if(abilityTimers[i][0] == 0) {
-                            prevAbilityInputs[i] = false; //allows for holding down abilities
-                        }
-                    }
-                    break;
-                case RING_OBJECTS_DESTROYED:
+                if(abilityCooldowns[i].size() == 0) {
+                    prevAbilityInputs[i] = false; //allow for holding down ability
+                }
             }
 
             if(shouldBeginCastingAbility(i)) {
@@ -121,13 +117,12 @@ public abstract class ControllableEntity extends Entity {
                             for(int j = 0; j < abilities.length; j++) {
                                 prevAbilityInputs[j] = false;
                                 abilityInputs[j] = false;
-                                if(abilitiesCasting.contains(abilities[j])) {
-                                    abilityCooldown(j);
-                                }
                             }
 
                             abilitiesStreaming = false;
                             abilitiesCasting.clear();
+                            abilityCooldown(null);
+                            break;
                         }
                     }
                 }
@@ -140,9 +135,8 @@ public abstract class ControllableEntity extends Entity {
                 abilityCastTimerMax = 0;
                 //cast abilities
 
-                //actually create ability objects here
                 DataFile.setCurrentLocation("abilities", name, abilityCastNameString);
-                Ability.castAbility(this, this, abilityCastNameString);
+                ArrayList<CastArgumentOverride> overrides = new ArrayList<CastArgumentOverride>();
 
 
                 abilitiesStreaming = false;
@@ -159,19 +153,23 @@ public abstract class ControllableEntity extends Entity {
 
                     //add to recent abilities graphic
 
-                    for(int i = 0; i < abilities.length; i++) {
-                        if(abilitiesCasting.contains(abilities[i])) {
-                            abilityCooldown(i);
-                        }
-                    }
+                    abilityCooldown(overrides);
                     abilitiesCasting.clear();
                 }
+
+
+                CastArgumentOverride[] overridesA = new CastArgumentOverride[overrides.size()];
+                for(int i = 0; i < overrides.size(); i++)
+                    overridesA[i] = overrides.remove(0);
+
+                //actually create ability objects here
+                Ability.castAbility(this, this, abilityCastNameString, overridesA);
             }
         }
     }
 
     private boolean shouldBeginCastingAbility(int index) {
-        if(abilityInputs[index] && abilityTimers[index][0] == 0 &&
+        if(abilityInputs[index] && abilityCooldowns[index].size() == 0 &&
                 abilitiesCasting.size() < maxAbilityCombo &&
                 !abilitiesStreaming /*&& stunTimer <= 0 && not ability locked*/) {
 
@@ -183,7 +181,7 @@ public abstract class ControllableEntity extends Entity {
                     int numHeldOnCooldown = 0;
                     for(int i = 0; i < abilities.length; i++) {
                         if(i != index && abilityInputs[i]) {
-                            if(abilityTimers[i][0] != 0) {
+                            if(abilityCooldowns[i].size() != 0) {
                                 numHeldOnCooldown += 1;
                             } else {
                                 numHeldOffCooldown += 1;
@@ -204,41 +202,79 @@ public abstract class ControllableEntity extends Entity {
         return false;
     }
 
-    protected void abilityCooldown(int index) {
+    protected void abilityCooldown(ArrayList<CastArgumentOverride> overrides) {
         DataFile.setCurrentLocation("abilities");
 
-        double cooldown = 0;
+        boolean ringObjectCooldown = false;
+        try {
+            ringObjectCooldown = DataFile.getString(name, abilityCastNameString, "cooldown_type").equals("ring_objects_destroyed");
+        } catch(IllegalArgumentException e) {
+        }
+        if(ringObjectCooldown) {
+            int num = 0;
+            try {
+                num = DataFile.getInt(name, abilityCastNameString, "num");
+            } catch(IllegalArgumentException e) {
+            }
+            AbilityCooldown ro = new AbilityCooldown(CooldownType.RING_OBJECTS_DESTROYED, num);
+            AbilityCooldown rfs = new AbilityCooldown(CooldownType.RING_FAILSAFE, CooldownType.RING_FAILSAFE_COOLDOWN);
+            ro.setLinked(rfs);
+            rfs.setLinked(ro);
+            if(overrides != null)
+                overrides.add(new CastArgumentOverride(CastArgumentOverride.ARGUMENT_OTHER).setOther(new Object[] {ro}));
+
+            for(int i = 0; i < abilities.length; i++) {
+                if(abilitiesCasting.contains(abilities[i])) {
+                    abilityCooldowns[i].add(ro);
+                    abilityCooldowns[i].add(rfs);
+                }
+            }
+        }
+
+
+
+        double[] cooldowns = new double[abilities.length];
         boolean done = false;
         try {
-            cooldown = DataFile.getFloat(name, abilityCastNameString, "cooldown");
+            for(int i = 0; i < abilities.length; i++)
+                cooldowns[i] = DataFile.getFloat(name, abilityCastNameString, "cooldown");
             done = true;
-        } catch(IllegalArgumentException e) {}
+        } catch(IllegalArgumentException e) {
+        }
 
         if(!done)
             try {
-                cooldown = DataFile.getFloat(name, abilityCastNameString, "cooldown_" + abilities[index].getString());
+                for(int i = 0; i < abilities.length; i++)
+                    cooldowns[i] = DataFile.getFloat(name, abilityCastNameString, "cooldown_" + abilities[i].getString());
                 done = true;
-            } catch(IllegalArgumentException e) {}
+            } catch(IllegalArgumentException e) {
+            }
 
         if(!done)
             try {
-                cooldown = DataFile.getFloat(name, abilities[index].getString(), "cooldown");
+                for(int i = 0; i < abilities.length; i++)
+                    cooldowns[i] = DataFile.getFloat(name, abilities[i].getString(), "cooldown");
                 done = true;
-            } catch(IllegalArgumentException e) {}
+            } catch(IllegalArgumentException e) {
+            }
 
-        if(!done)
-            System.out.println("COOLDOWN NOT FOUND: " + abilityCastNameString);
+        if(done) {
+            for(int i = 0; i < abilities.length; i++)
+                cooldowns[i] = Math.max(cooldowns[i], 0.1);
 
-        cooldown = Math.max(cooldown, 0.1);
+            double modifier = 1;
+            try {
+                for(int i = 0; i < abilities.length; i++) {
+                    modifier = DataFile.getFloat(name, abilityCastNameString, "cooldown_pct_" + abilities[i].getString());
+                    cooldowns[i] *= modifier;
+                }
+            } catch(IllegalArgumentException e) {
+            }
 
-        double modifier = 1;
-        try {
-            modifier = DataFile.getFloat(name, abilityCastNameString, "cooldown_pct_" + abilities[index].getString());
-            cooldown *= modifier;
-        } catch(IllegalArgumentException e) {}
-
-        abilityTimers[index][0] = -cooldown;
-        abilityTimers[index][1] = -cooldown;
+            for(int i = 0; i < abilities.length; i++)
+                if(abilitiesCasting.contains(abilities[i]))
+                    abilityCooldowns[i].add(new AbilityCooldown(CooldownType.NORMAL, cooldowns[i]));
+        }
     }
 
     protected void updateStreamingAbilities(double delta) {

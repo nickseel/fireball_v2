@@ -41,7 +41,7 @@ public abstract class Ability extends Entity {
         double targetX = owner.getTargetX();
         double targetY = owner.getTargetY();
         double angle = Math.atan2(targetY - createY, targetX - createX);
-        double[] extraArgs = new double[0];
+        Object[] extraArgs = new Object[0];
         for(CastArgumentOverride override: argumentOverrides) {
             switch(override.getType()) {
                 case CastArgumentOverride.ARGUMENT_OWNER:
@@ -118,6 +118,7 @@ public abstract class Ability extends Entity {
                 Entity e = new RingFireball(owner,
                         castOwner,
                         subAbilityName,
+                        (AbilityCooldown)(extraArgs[0]),
                         createX,
                         createY,
                         DataFile.getFloat("radius"),

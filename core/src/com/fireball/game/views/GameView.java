@@ -105,13 +105,13 @@ public class GameView extends View {
 
         bufferBatch.begin();
         bufferBatch.setShader(colorThemeShader);
-        colorThemeShader.setColorThemeType(ColorTheme.GROUND);
+        colorThemeShader.loadUniforms(ColorTheme.GROUND, true, room.getWallTiles().getWidth(), room.getWallTiles().getHeight());
         room.drawGround(bufferBatch);
         bufferBatch.end();
 
         bufferBatch.begin();
         bufferBatch.setShader(colorThemeShader);
-        colorThemeShader.setColorThemeType(ColorTheme.WALL);
+        colorThemeShader.loadUniforms(ColorTheme.WALL, false, 0, 0);
         room.drawWalls(bufferBatch);
         bufferBatch.end();
 

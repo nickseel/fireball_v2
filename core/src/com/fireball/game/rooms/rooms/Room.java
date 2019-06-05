@@ -31,11 +31,11 @@ public class Room {
     private static final double WALL_INSET_BOT = 0.125;
     private static final int GROUND_CRACKS_NUM_SPRITES = 6;
     private static final double GROUND_CRACK_RATIO = 1;
-    private static final double GROUND_CRACK_FREQUENCY_X = 0.060;
+    private static final double GROUND_CRACK_FREQUENCY_X = 0.055;
     private static final double GROUND_CRACK_FREQUENCY_Y = GROUND_CRACK_FREQUENCY_X * GROUND_CRACK_RATIO;
-    private static final double GROUND_CRACK_POSITION_VARIATION = 0.3;
-    private static final double GROUND_CRACK_SCALE_MIN = 0.5;
-    private static final double GROUND_CRACK_SCALE_MAX = 0.75;
+    private static final double GROUND_CRACK_POSITION_VARIATION = 0.35;
+    private static final double GROUND_CRACK_SCALE_MIN = 0.6;
+    private static final double GROUND_CRACK_SCALE_MAX = 0.85;
 
     protected Random groundGenRandom;
 
@@ -189,6 +189,13 @@ public class Room {
         return spawnPoint;
     }
 
+    public TileMap getWallTiles() {
+        return wallTiles;
+    }
+
+    public TileMap getGroundTiles() {
+        return groundTiles;
+    }
 
     public static Room fromFile(GameView parentView, RoomData room) {
         FileHandle file = Gdx.files.internal("rooms/final/" + room.getName() + ".txt");

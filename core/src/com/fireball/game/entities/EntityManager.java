@@ -24,9 +24,15 @@ public class EntityManager {
     private CellSlotter<BodyHitbox> slottedPlayerBodyHitboxes, slottedEnemyBodyHitboxes;
     private CellSlotter<DamagerHitbox> slottedPlayerDamagerHitboxes, slottedEnemyDamagerHitboxes;
 
+    private CellSlotter<Entity> slottedIndividualEntity;
+    private CellSlotter<BodyHitbox> slottedIndividualBodyHitbox;
+    private CellSlotter<DamagerHitbox> slottedIndividualDamagerHitbox;
+
     private CellEventManager<Wall, Entity> staticTerrainCollisionEventManager;
     private CellEventManager<BodyHitbox, DamagerHitbox> hitboxCollisionEventManager;
     private CellEventManager<BodyHitbox, BodyHitbox> hitboxPushCollisionEventManager;
+
+    private Room room;
 
     public EntityManager() {
         setCurrent();
@@ -47,6 +53,10 @@ public class EntityManager {
         slottedPlayerDamagerHitboxes = new CellSlotter<DamagerHitbox>();
         slottedEnemyDamagerHitboxes = new CellSlotter<DamagerHitbox>();
 
+        slottedIndividualEntity = new CellSlotter<Entity>();
+        slottedIndividualBodyHitbox = new CellSlotter<BodyHitbox>();
+        slottedIndividualDamagerHitbox = new CellSlotter<DamagerHitbox>();
+
 
         staticTerrainCollisionEventManager = new CellEventManager<Wall, Entity>() {
             @Override
@@ -59,7 +69,7 @@ public class EntityManager {
         hitboxCollisionEventManager = new CellEventManager<BodyHitbox, DamagerHitbox>() {
             @Override
             public void event(BodyHitbox item1, DamagerHitbox item2) {
-                if(item1.getOwner().isAlive() && item2.getOwner().isAlive() && item2.overlapping(item1) && item1.isDamageable()) {
+                if(item1.getOwner().isAlive() && item2.getOwner().isAlive() && item1.getTeam().collidesWidth(item2.getTeam()) && item2.overlapping(item1) && item1.isDamageable()) {
                     item2.damage(item1);
                 }
             }
@@ -75,7 +85,11 @@ public class EntityManager {
         };
     }
 
-    public void updateEntities(double delta, Room room) {
+    public void setRoom(Room room) {
+        this.room = room;
+    }
+
+    public void updateEntities(double delta) {
         setCurrent();
 
         prepareEntityHitboxes();
@@ -90,7 +104,7 @@ public class EntityManager {
 
         //EfficiencyMetrics.startTimer(EfficiencyMetricType.COLLISION);
         collideEntities();
-        collideTerrain(room);
+        collideTerrain();
         //EfficiencyMetrics.stopTimer(EfficiencyMetricType.COLLISION);
 
         for(Entity e: playerEntities) {
@@ -145,7 +159,7 @@ public class EntityManager {
         hitboxCollisionEventManager.callEvents(slottedEnemyBodyHitboxes, slottedPlayerDamagerHitboxes);
     }
 
-    private void collideTerrain(Room room) {
+    private void collideTerrain() {
         slottedPlayerEntities.clear();
         slottedPlayerEntities.addAndUpdateAll(playerEntities, Room.CELL_SIZE);
         slottedEnemyEntities.clear();
@@ -153,6 +167,23 @@ public class EntityManager {
 
         staticTerrainCollisionEventManager.callEvents(room.getSlottedStaticWalls(), slottedPlayerEntities);
         staticTerrainCollisionEventManager.callEvents(room.getSlottedStaticWalls(), slottedEnemyEntities);
+    }
+
+    public void collideIndividualEntity(Entity e) {
+        slottedIndividualBodyHitbox.clear();
+        slottedIndividualDamagerHitbox.clear();
+        slottedIndividualBodyHitbox.addAndUpdateAll(e.getBodyHitboxes(), Room.CELL_SIZE);
+        slottedIndividualDamagerHitbox.addAndUpdateAll(e.getDamagerHitboxes(), Room.CELL_SIZE);
+
+        hitboxCollisionEventManager.callEvents(slottedIndividualBodyHitbox, slottedPlayerDamagerHitboxes);
+        hitboxCollisionEventManager.callEvents(slottedIndividualBodyHitbox, slottedEnemyDamagerHitboxes);
+        hitboxCollisionEventManager.callEvents(slottedPlayerBodyHitboxes, slottedIndividualDamagerHitbox);
+        hitboxCollisionEventManager.callEvents(slottedEnemyBodyHitboxes, slottedIndividualDamagerHitbox);
+
+
+        slottedIndividualEntity.clear();
+        slottedIndividualEntity.addAndUpdate(e, Room.CELL_SIZE);
+        staticTerrainCollisionEventManager.callEvents(room.getSlottedStaticWalls(), slottedIndividualEntity);
     }
 
     public void draw(SpriteBatch batch) {

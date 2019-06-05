@@ -43,8 +43,9 @@ public class GameView extends View {
 
         //pauseMenuView = new PauseMenuView(this, width, height);
 
-        entityManager = new EntityManager();
         room = Room.fromFile(this, RoomData.DEBUG);
+        entityManager = new EntityManager();
+        entityManager.setRoom(room);
         camera = new RoomCamera(width, height, BUFFER_SCALE);
 
         gameFrameBuffer = new FrameBuffer(Pixmap.Format.RGB888, (int)bufferWidth, (int)bufferHeight, false);
@@ -83,7 +84,7 @@ public class GameView extends View {
 
         if(!paused) {
             room.update(delta);
-            entityManager.updateEntities(delta, room);
+            entityManager.updateEntities(delta);
             camera.update(delta);
         }
 

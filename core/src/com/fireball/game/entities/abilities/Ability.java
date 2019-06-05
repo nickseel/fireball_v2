@@ -131,38 +131,30 @@ public abstract class Ability extends Entity {
             }
 
             for(int i = 0; i < num; i++) {
-                Entity e;
-                if(castName.equals("ring")) {
-                    e = new RingFireball(owner,
-                            castOwner,
-                            subAbilityName,
-                            (AbilityCooldown) (extraArgs.get(0)[0]),
-                            createX,
-                            createY,
-                            DataFile.getFloat("radius"),
-                            lifetimes.get(i),
-                            i * (Math.PI * 2 / num),
-                            DataFile.getFloat("spin_speed"),
-                            0,
-                            DataFile.getFloat("max_distance"),
-                            DataFile.getFloat("extend_time"));
-                } else {
-                    e = new TempRingFireball(owner,
-                            castOwner,
-                            subAbilityName,
-                            (AbilityCooldown) (extraArgs.get(0)[0]),
-                            createX,
-                            createY,
-                            DataFile.getFloat("radius"),
-                            lifetimes.get(i),
-                            i * (Math.PI * 2 / num),
-                            DataFile.getFloat("spin_speed"),
-                            0,
-                            DataFile.getFloat("max_distance"),
-                            DataFile.getFloat("extend_time"));
-                }
+                Entity e = new RingFireball(owner,
+                        castOwner,
+                        subAbilityName,
+                        (AbilityCooldown) (extraArgs.get(0)[0]),
+                        createX,
+                        createY,
+                        DataFile.getFloat("radius"),
+                        lifetimes.get(i),
+                        i * (Math.PI * 2 / num),
+                        DataFile.getFloat("spin_speed"),
+                        0,
+                        DataFile.getFloat("max_distance"),
+                        DataFile.getFloat("extend_time"));
                 createdObjects[i] = e;
             }
+        } else if(castName.equals("laser")) {
+            Entity e = new Laser(owner,
+                    castOwner,
+                    subAbilityName,
+                    createX,
+                    createY,
+                    DataFile.getFloat("radius"),
+                    DataFile.getFloat("extend_speed"));
+            createdObjects = new Entity[] {e};
         }
     }
 }

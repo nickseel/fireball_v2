@@ -4,6 +4,7 @@ import com.fireball.game.entities.ControllableEntity;
 import com.fireball.game.entities.Entity;
 import com.fireball.game.entities.abilities.Ability;
 import com.fireball.game.entities.abilities.AbilityCooldown;
+import com.fireball.game.entities.abilities.CastArgumentOverride;
 import com.fireball.game.entities.hitboxes.BodyHitbox;
 import com.fireball.game.entities.hitboxes.DamagerHitbox;
 import com.fireball.game.rendering.fire.FireRenderer;
@@ -99,7 +100,6 @@ public class RingFireball extends Ability {
 
     @Override
     public void eventTerrainCollision(double angle) {
-        kill();
     }
 
     @Override
@@ -115,7 +115,7 @@ public class RingFireball extends Ability {
         }
 
         isAlive = false;
-        castSubAbility();
+        castSubAbility(new CastArgumentOverride(CastArgumentOverride.ARGUMENT_OTHER).setOther(new Object[] {"radius", radius}));
         subAbilityName = null;
     }
 

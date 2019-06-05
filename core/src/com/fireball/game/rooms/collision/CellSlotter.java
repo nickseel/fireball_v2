@@ -28,6 +28,11 @@ public class CellSlotter<T extends Slottable> {
         }
     }
 
+    public void addAndUpdate(T item, double cellSize) {
+        item.updateSlotPositions(cellSize);
+        add(item);
+    }
+
     public void addAndUpdateAll(Collection<T> items, double cellSize) {
         for(T s: items) {
             s.updateSlotPositions(cellSize);

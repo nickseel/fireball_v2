@@ -327,13 +327,15 @@
 			"_description": "laser",
 			"cast_time": 0.3,
 			"cost": 15,
+			"cast_name": "laser",
 			
 			"stream": 0,
 			"min_stream_time": 0.3,
 			"movement_debuff": 0.5,
 			
 			"angle_rate": 12.0,
-			"size": 11,
+			"radius": 5,
+			"extend_speed": 100,
 			
 			"damage": 70,
 			"knockback": 0,

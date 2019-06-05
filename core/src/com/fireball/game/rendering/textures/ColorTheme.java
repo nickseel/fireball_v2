@@ -13,7 +13,7 @@ public class ColorTheme {
     private static final int NUM_ROWS = 3;
 
     private static final int[] ROW_WIDTHS = new int[] {
-            6, //ground
+            7, //ground
             6, //wall
             4  //wood
     };

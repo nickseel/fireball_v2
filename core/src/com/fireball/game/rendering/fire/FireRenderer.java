@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 import com.badlogic.gdx.math.Matrix4;
 import com.fireball.game.rendering.shaders.*;
@@ -97,6 +98,11 @@ public class FireRenderer {
     public void drawFireTexture(Texture texture, float centerX, float centerY, float fireRadius, float fireLevel) {
         batch.setColor(fireLevel, 0, 0, 1);
         batch.draw(texture, centerX-fireRadius, centerY-fireRadius, fireRadius*2, fireRadius*2);
+    }
+
+    public void drawFireTexture(Texture texture, float centerX, float centerY, float width, float height, float rotation, float fireLevel) {
+        batch.setColor(fireLevel, 0, 0, 1);
+        batch.draw(new TextureRegion(texture), centerX-width/2, centerY-height/2, width/2, height/2, width, height, 1, 1, rotation);
     }
 
     public void end() {

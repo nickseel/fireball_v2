@@ -334,7 +334,7 @@
 			"movement_debuff": 0.5,
 			
 			"angle_rate": 12.0,
-			"radius": 5,
+			"radius": 7,
 			"extend_speed": 100,
 			
 			"damage": 70,

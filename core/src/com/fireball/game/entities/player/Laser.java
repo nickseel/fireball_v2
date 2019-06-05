@@ -6,6 +6,8 @@ import com.fireball.game.entities.EntityManager;
 import com.fireball.game.entities.abilities.Ability;
 import com.fireball.game.entities.hitboxes.DamagerHitbox;
 import com.fireball.game.rendering.fire.FireRenderer;
+import com.fireball.game.rendering.textures.TextureData;
+import com.fireball.game.rendering.textures.TextureManager;
 import com.fireball.game.util.Util;
 
 import static java.lang.Math.floor;
@@ -32,7 +34,7 @@ public class Laser extends Ability {
         this.maxDistanceExtendSpeed = extendSpeed;
         this.currentAngle = 0;
         this.targetAngle = 0;
-        terrainCollisionRadius = radius;
+        terrainCollisionRadius = radius/2;
 
 
 
@@ -85,8 +87,29 @@ public class Laser extends Ability {
 
     @Override
     public void drawFire(FireRenderer renderer) {
-        for(double i = 0; i < 1; i += 0.1)
-            renderer.drawFire((float)Util.mix(x, owner.getX(), i), (float)Util.mix(y, owner.getY(), i), (float)radius*1, 1f);
+        float fireLevel = 0.4f;
+        float dist = (float)Math.hypot(x-owner.getX(), y-owner.getY());
+
+        renderer.drawFireTexture(
+                TextureManager.getTexture(TextureData.LASER_END),
+                (float)x,
+                (float)y,
+                (float)radius*4, (float)Math.min(dist, radius*4),
+                (float)Math.toDegrees(currentAngle)+90f, fireLevel);
+        renderer.drawFireTexture(
+                TextureManager.getTexture(TextureData.LASER_END),
+                (float)owner.getX(),
+                (float)owner.getY(),
+                (float)radius*4, (float)Math.min(dist, radius*4),
+                (float)Math.toDegrees(currentAngle)-90f, fireLevel);
+
+        if(dist > radius*4)
+            renderer.drawFireTexture(
+                    TextureManager.getTexture(TextureData.LASER),
+                    (float)(x + owner.getX())/2,
+                    (float)(y + owner.getY())/2,
+                    (float)radius*4, dist - (float)radius*4,
+                    (float)Math.toDegrees(currentAngle)+90f, fireLevel);
     }
 
     @Override

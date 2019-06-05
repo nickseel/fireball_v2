@@ -13,8 +13,8 @@ uniform int u_numColors;
 
 void main() {
     vec4 tex = texture2D(u_texture, v_texCoords);
-    int index = int(tex.r * (u_numColors*0+6) + 0.5);
+    int index = int(min(tex.r, 0.99f) * (u_numColors-0));
 
     gl_FragColor = vec4(u_colors[index], tex.a);
-    //gl_FragColor = tex;
+    //gl_FragColor = vec4(float(index)/6, 0, 0, tex.a);
 }

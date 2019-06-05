@@ -1,5 +1,6 @@
 package com.fireball.game.rooms.tiles;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.fireball.game.rendering.textures.TextureData;
@@ -22,7 +23,7 @@ public class TileMap {
 
     public void draw(SpriteBatch batch) {
         TextureRegion[] textureRegions = TextureManager.getTextureRegions(texture);
-
+        batch.setColor(Color.WHITE);
         for(int r = 0; r < tiles.length; r++) {
             for(int c = 0; c < tiles[0].length; c++) {
                 if(tiles[r][c] >= 0)

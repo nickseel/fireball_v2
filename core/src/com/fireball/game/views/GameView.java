@@ -99,22 +99,32 @@ public class GameView extends View {
 
 
         gameFrameBuffer.bind();
-        Gdx.gl.glClearColor(0.75f, 0.8f, 0.9f, 1);
+        Gdx.gl.glClearColor(0f, 0f, 0f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
         bufferBatch.setProjectionMatrix(camera.combined);
-        bufferBatch.begin();
 
+        bufferBatch.begin();
+        bufferBatch.setShader(colorThemeShader);
+        colorThemeShader.setColorThemeType(ColorTheme.GROUND);
+        room.drawGround(bufferBatch);
+        bufferBatch.end();
+
+        bufferBatch.begin();
         bufferBatch.setShader(colorThemeShader);
         colorThemeShader.setColorThemeType(ColorTheme.WALL);
-        room.draw(bufferBatch);
+        room.drawWalls(bufferBatch);
+        bufferBatch.end();
 
+        bufferBatch.begin();
         bufferBatch.setShader(null);
         entityManager.draw(bufferBatch);
+        bufferBatch.end();
 
+        bufferBatch.begin();
         bufferBatch.setProjectionMatrix(defaultProjection);
         fireRenderer.drawFinalTextures(bufferBatch);
-
         bufferBatch.end();
+
         FrameBuffer.unbind();
 
 

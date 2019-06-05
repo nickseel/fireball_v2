@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 import com.fireball.game.rooms.collision.CellSlotter;
 import com.fireball.game.rooms.rooms.room_objects.SpawnPoint;
@@ -16,9 +17,11 @@ import com.fireball.game.rooms.collision.DestructibleWall;
 import com.fireball.game.rooms.collision.Wall;
 import com.fireball.game.rendering.textures.TextureData;
 import com.fireball.game.rendering.textures.TextureManager;
+import com.fireball.game.util.Util;
 import com.fireball.game.views.GameView;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Room {
     public static final double CELL_SIZE = 100.0;
@@ -26,6 +29,15 @@ public class Room {
     private static final double WALL_INSET_LEFT = 0.25;
     private static final double WALL_INSET_RIGHT = 0.25;
     private static final double WALL_INSET_BOT = 0.125;
+    private static final int GROUND_CRACKS_NUM_SPRITES = 6;
+    private static final double GROUND_CRACK_RATIO = 1;
+    private static final double GROUND_CRACK_FREQUENCY_X = 0.060;
+    private static final double GROUND_CRACK_FREQUENCY_Y = GROUND_CRACK_FREQUENCY_X * GROUND_CRACK_RATIO;
+    private static final double GROUND_CRACK_POSITION_VARIATION = 0.3;
+    private static final double GROUND_CRACK_SCALE_MIN = 0.5;
+    private static final double GROUND_CRACK_SCALE_MAX = 0.75;
+
+    protected Random groundGenRandom;
 
     protected GameView parentView;
 
@@ -40,7 +52,7 @@ public class Room {
     private SpawnPoint spawnPoint;
 
     private Sprite wallSprite;
-    private FrameBuffer buffer;
+    private FrameBuffer wallBuffer, groundBuffer;
     private SpriteBatch bufferBatch;
 
     public Room(GameView parentVew, TileMap wallTiles, TileMap groundTiles, Wall[] staticWalls, RoomEntityData[] initialEntities) {
@@ -57,8 +69,10 @@ public class Room {
 
         wallSprite = new Sprite(TextureManager.getColorTexture(Color.BLACK));
 
-        buffer = new FrameBuffer(Pixmap.Format.RGBA8888, wallTiles.getWidth(), wallTiles.getHeight(), false);
-        buffer.getColorBufferTexture().setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
+        wallBuffer = new FrameBuffer(Pixmap.Format.RGBA8888, wallTiles.getWidth(), wallTiles.getHeight(), false);
+        wallBuffer.getColorBufferTexture().setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
+        groundBuffer = new FrameBuffer(Pixmap.Format.RGBA8888, wallTiles.getWidth(), wallTiles.getHeight(), false);
+        groundBuffer.getColorBufferTexture().setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
         bufferBatch = new SpriteBatch();
 
         for(RoomEntityData entity: initialEntities) {
@@ -66,6 +80,8 @@ public class Room {
                 spawnPoint = new SpawnPoint(entity.getCenterX(), entity.getCenterY());
             }
         }
+
+        groundGenRandom = new Random();
 
         updateWallSlotPositions();
         slotWalls();
@@ -87,8 +103,8 @@ public class Room {
         slottedDynamicWalls.addAll(dynamicWalls);
     }
 
-    public void draw(SpriteBatch batch) {
-        batch.draw(buffer.getColorBufferTexture(), 0, buffer.getHeight(), buffer.getWidth(), -buffer.getHeight());
+    public void drawWalls(SpriteBatch batch) {
+        batch.draw(wallBuffer.getColorBufferTexture(), 0, wallBuffer.getHeight(), wallBuffer.getWidth(), -wallBuffer.getHeight());
 
         for(Wall w: staticWalls) {
             drawWall(w, batch);
@@ -96,6 +112,10 @@ public class Room {
         for(Wall w: dynamicWalls) {
             drawWall(w, batch);
         }
+    }
+
+    public void drawGround(SpriteBatch batch) {
+        batch.draw(groundBuffer.getColorBufferTexture(), 0, groundBuffer.getHeight(), groundBuffer.getWidth(), -groundBuffer.getHeight());
     }
 
     private void drawWall(Wall w, SpriteBatch batch) {
@@ -112,12 +132,39 @@ public class Room {
                 dynamicWalls.remove(i--);
         }
 
-        buffer.bind();
+        wallBuffer.bind();
         Gdx.gl.glClearColor(0, 0, 0, 0);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
         bufferBatch.begin();
         wallTiles.draw(bufferBatch);
+        bufferBatch.end();
+        FrameBuffer.unbind();
+
+
+        groundBuffer.bind();
+        Gdx.gl.glClearColor(0, 0, 0, 0);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        bufferBatch.begin();
+        bufferBatch.setBlendFunctionSeparate(Gdx.gl.GL_SRC_ALPHA, Gdx.gl.GL_ONE_MINUS_SRC_ALPHA, Gdx.gl.GL_ONE, Gdx.gl.GL_ONE);
+        groundTiles.draw(bufferBatch);
+        int numCracksX = (int)(GROUND_CRACK_FREQUENCY_X * groundTiles.getWidth());
+        int numCracksY = (int)(GROUND_CRACK_FREQUENCY_Y * groundTiles.getHeight());
+        groundGenRandom.setSeed(this.hashCode());
+        for(int x = 0; x < numCracksX; x++) {
+            for(int y = 0; y < numCracksY; y++) {
+                TextureRegion textureRegion = TextureManager.getTextureRegion(TextureData.CRACK, (int)(groundGenRandom.nextDouble() * GROUND_CRACKS_NUM_SPRITES));
+                float xpos = (float)((groundGenRandom.nextDouble()-0.5) * GROUND_CRACK_POSITION_VARIATION + ((x * groundTiles.getWidth()) / numCracksX));
+                float ypos = (float)((groundGenRandom.nextDouble()-0.5) * GROUND_CRACK_POSITION_VARIATION + ((y * groundTiles.getHeight()) / numCracksY));
+                float width = textureRegion.getRegionWidth() * (float)(Util.mix(GROUND_CRACK_SCALE_MIN, GROUND_CRACK_SCALE_MAX, groundGenRandom.nextDouble()));
+                float height = textureRegion.getRegionHeight() * (float)(Util.mix(GROUND_CRACK_SCALE_MIN, GROUND_CRACK_SCALE_MAX, groundGenRandom.nextDouble()) / GROUND_CRACK_RATIO);
+                float rotation = groundGenRandom.nextFloat() * (float)(Math.PI * 2);
+                float alpha = (float)(Math.pow(groundGenRandom.nextDouble(), 3) * 0.30 + 0.3);
+                bufferBatch.setColor(1, 1, 1, alpha);
+                bufferBatch.draw(textureRegion, xpos-width/2, ypos-height/2, width/2, height/2, width, height, 1, 1, rotation);
+            }
+        }
+        bufferBatch.setColor(Color.WHITE);
+        bufferBatch.setBlendFunction(Gdx.gl.GL_SRC_ALPHA, Gdx.gl.GL_ONE_MINUS_SRC_ALPHA);
         bufferBatch.end();
         FrameBuffer.unbind();
     }

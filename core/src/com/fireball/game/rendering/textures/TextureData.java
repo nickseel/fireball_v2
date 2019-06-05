@@ -11,7 +11,8 @@ public enum TextureData {
     FIREBALL ("images/fireball.png"),
     FIREBALL_BIG ("images/fireball_big.png"),
     LASER ("images/laser_main.png"),
-    LASER_END ("images/laser_end.png");
+    LASER_END ("images/laser_end.png"),
+    CRACK ("images/crack.png", 4, 4);
 
     private String fileName;
     private int sheetRows, sheetCols;

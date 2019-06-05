@@ -22,6 +22,6 @@ public class ColorThemeShader extends Shader {
         }
 
         setUniform3fv("u_colors", values, 0, colors.length * 3);
-        setUniformf("u_numColors", colors.length);
+        setUniformi("u_numColors", colors.length);
     }
 }

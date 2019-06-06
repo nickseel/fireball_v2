@@ -18,10 +18,10 @@ public class FireRenderer {
     private static final float LIGHTING_SCENE_DARKNESS = 0.0f;
     private static final float LIGHTING_RESOLUTION_FACTOR = 0.5f;
     private static final float LIGHTING_SURFACE_SIZE_FACTOR = 1.0f;
-    private static final int LIGHTING_NUM_REPETITIONS = 1;
-    private static final int LIGHTING_INITIAL_REPETITION_SKIP = 0;
-    private static final float LIGHTING_START_RADIUS = 0f;//6.0f;
-    private static final float LIGHTING_REPETITION_RADIUS_INCREASE = 0;//0.25f;
+    private static final int LIGHTING_NUM_REPETITIONS = 8;
+    private static final int LIGHTING_INITIAL_REPETITION_SKIP = 1;
+    private static final float LIGHTING_START_RADIUS = 6.0f;
+    private static final float LIGHTING_REPETITION_RADIUS_INCREASE = 0.25f;
     private static final float LIGHTING_REPETITION_RADIUS_FACTOR = 1.25f;
     private static final float LIGHTING_CIRCLE_RESOLUTION = 12;
 

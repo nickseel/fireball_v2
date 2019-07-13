@@ -33,8 +33,8 @@ public class GameView extends View {
     private FireRenderer fireRenderer;
     private ColorThemeShader colorThemeShader;
 
-    private final static float BUFFER_SCALE = 4f;
 
+    private final static float BUFFER_SCALE = 2f;
     public GameView(View parentView, int width, int height) {
         super(parentView, width, height);
 
@@ -102,6 +102,7 @@ public class GameView extends View {
         Gdx.gl.glClearColor(0f, 0f, 0f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
         bufferBatch.setProjectionMatrix(camera.combined);
+        //bufferBatch.setTransformMatrix(camera.);
 
         bufferBatch.begin();
         bufferBatch.setShader(colorThemeShader);
@@ -134,8 +135,8 @@ public class GameView extends View {
     @Override
     public void draw(SpriteBatch batch) {
         batch.draw(gameFrameBuffer.getColorBufferTexture(),
-                width*0.5f*(0/*1-camera.getZoom()*/) - ((camera.getX() * BUFFER_SCALE) % BUFFER_SCALE) + 0.5f * BUFFER_SCALE,
-                height*0.5f*(0/*1-camera.getZoom()*/) - (((-camera.getY()+0.5f) * BUFFER_SCALE) % BUFFER_SCALE) - 0.5f * BUFFER_SCALE,
+                width*0.5f*(0/*1-camera.getZoom()*/),// - ((camera.getX() * BUFFER_SCALE) % BUFFER_SCALE) + 0.5f * BUFFER_SCALE,
+                height*0.5f*(0/*1-camera.getZoom()*/),// - (((-camera.getY()+0.5f) * BUFFER_SCALE) % BUFFER_SCALE) - 0.5f * BUFFER_SCALE,
                 width/*camera.getZoom()*/, height/*camera.getZoom()*/);
 
         fireRenderer.drawDebugTextures(batch);

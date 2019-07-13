@@ -16,12 +16,13 @@ public class RoomCamera extends OrthographicCamera {
         super(viewWidth, viewHeight);
         this.baseZoom = baseZoom;
 
-        offsetX = -(viewWidth*((1/baseZoom)-1))/2;
-        offsetY = -(viewHeight*((1/baseZoom)-1))/2;
+        offsetX = 0;//-(viewWidth*((1/baseZoom)-1))/2;
+        offsetY = 0;//-(viewHeight*((1/baseZoom)-1))/2;
         x = offsetX;
         y = offsetY;
         position.x = x;
         position.y = y;
+        this.projection.setToOrtho2D(0, 0, viewWidth, viewHeight);
     }
 
     public void update(double delta) {

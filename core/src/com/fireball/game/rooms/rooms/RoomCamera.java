@@ -7,20 +7,20 @@ import com.fireball.game.entities.Entity;
 public class RoomCamera extends OrthographicCamera {
     private double followSpeed;
     private Entity following;
-    private float x, y, prevX, prevY;
+    private float x, y, prevX, prevY, zoom;
 
     private final float offsetX, offsetY;
 
     public RoomCamera(int viewWidth, int viewHeight) {
         super(viewWidth, viewHeight);
 
+        zoom = 0;
         offsetX = 0;//-(viewWidth*((1/baseZoom)-1))/2;
         offsetY = 0;//-(viewHeight*((1/baseZoom)-1))/2;
         x = offsetX;
         y = offsetY;
         position.x = x;
         position.y = y;
-        //this.projection.setToOrtho2D(0, 0, viewWidth, viewHeight);
     }
 
     public void update(double delta) {
@@ -51,6 +51,14 @@ public class RoomCamera extends OrthographicCamera {
     public void setPositionOffset(float x, float y) {
         this.x = x + offsetX;
         this.y = y + offsetY;
+    }
+
+    public void setZoom(float zoom) {
+        this.zoom = zoom;
+    }
+
+    public float getZoom() {
+        return zoom;
     }
 
     public float getPrevX() {

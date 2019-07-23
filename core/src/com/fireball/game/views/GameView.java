@@ -33,7 +33,7 @@ public class GameView extends View {
     private ColorThemeShader colorThemeShader;
 
 
-    private final static float BUFFER_SCALE = 6f;
+    private final static float BUFFER_SCALE = 16f;
     public GameView(View parentView, int width, int height) {
         super(parentView, width, height);
 
@@ -46,6 +46,7 @@ public class GameView extends View {
         entityManager = new EntityManager();
         entityManager.setRoom(room);
         camera = new RoomCamera(bufferWidth, bufferHeight);
+        camera.setZoom(1);
 
         gameFrameBuffer = new FrameBuffer(Pixmap.Format.RGB888, bufferWidth, bufferHeight, false);
         gameFrameBuffer.getColorBufferTexture().setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
@@ -133,9 +134,9 @@ public class GameView extends View {
     @Override
     public void draw(SpriteBatch batch) {
         batch.draw(gameFrameBuffer.getColorBufferTexture(),
-                width*0.5f*(0/*1-camera.getZoom()*/),// - ((camera.getX() * BUFFER_SCALE) % BUFFER_SCALE) + 0.5f * BUFFER_SCALE,
-                height*0.5f*(0/*1-camera.getZoom()*/),// - (((-camera.getY()+0.5f) * BUFFER_SCALE) % BUFFER_SCALE) - 0.5f * BUFFER_SCALE,
-                width/*camera.getZoom()*/, height/*camera.getZoom()*/);
+                width*0.5f*(1-camera.getZoom()) - ((camera.getX() * BUFFER_SCALE) % BUFFER_SCALE) + 0.5f * BUFFER_SCALE,
+                height*0.5f*(1-camera.getZoom()) + (((camera.getY()) * BUFFER_SCALE) % BUFFER_SCALE) - 0.5f * BUFFER_SCALE,
+                width*camera.getZoom(), height*camera.getZoom());
 
         fireRenderer.drawDebugTextures(batch);
 

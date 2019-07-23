@@ -2,31 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c0b3a87e-2e31-477a-a06f-8f8c9b52d0b3" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/assets/rooms/final/debug.txt" beforeDir="false" afterPath="$PROJECT_DIR$/core/assets/rooms/final/debug.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/out/production/classes/com/fireball/game/entities/EntityManager$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/out/production/classes/com/fireball/game/entities/EntityManager$4.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/out/production/classes/com/fireball/game/entities/EntityManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/out/production/classes/com/fireball/game/entities/EntityManager.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/out/production/classes/com/fireball/game/input/InputManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/out/production/classes/com/fireball/game/input/InputManager.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/out/production/classes/com/fireball/game/rendering/fire/FireRenderer.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/out/production/classes/com/fireball/game/rendering/fire/FireRenderer.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/out/production/classes/com/fireball/game/rendering/shaders/ColorThemeShader.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/out/production/classes/com/fireball/game/rendering/shaders/ColorThemeShader.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/out/production/classes/com/fireball/game/rendering/shaders/Shader.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/out/production/classes/com/fireball/game/rendering/shaders/Shader.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/out/production/classes/com/fireball/game/rendering/textures/ColorTheme.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/out/production/classes/com/fireball/game/rendering/textures/ColorTheme.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/out/production/classes/com/fireball/game/rendering/textures/TextureManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/out/production/classes/com/fireball/game/rendering/textures/TextureManager.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/out/production/classes/com/fireball/game/rooms/collision/CellEventManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/out/production/classes/com/fireball/game/rooms/collision/CellEventManager.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/out/production/classes/com/fireball/game/rooms/collision/CellSlotter.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/out/production/classes/com/fireball/game/rooms/collision/CellSlotter.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/out/production/classes/com/fireball/game/rooms/collision/Wall.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/out/production/classes/com/fireball/game/rooms/collision/Wall.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/out/production/classes/com/fireball/game/rooms/rooms/Room.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/out/production/classes/com/fireball/game/rooms/rooms/Room.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/out/production/classes/com/fireball/game/rooms/rooms/RoomCamera.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/out/production/classes/com/fireball/game/rooms/rooms/RoomCamera.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/out/production/classes/com/fireball/game/util/EfficiencyMetrics.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/out/production/classes/com/fireball/game/util/EfficiencyMetrics.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/out/production/classes/com/fireball/game/util/ExpandableGrid.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/out/production/classes/com/fireball/game/util/ExpandableGrid.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/out/production/classes/com/fireball/game/util/Util.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/out/production/classes/com/fireball/game/util/Util.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/out/production/classes/com/fireball/game/views/GameView.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/out/production/classes/com/fireball/game/views/GameView.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/out/production/classes/com/fireball/game/views/View.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/out/production/classes/com/fireball/game/views/View.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/com/fireball/game/FireballGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/fireball/game/FireballGame.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/src/com/fireball/game/entities/player/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/fireball/game/entities/player/Player.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/com/fireball/game/rendering/fire/FireRenderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/fireball/game/rendering/fire/FireRenderer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/src/com/fireball/game/rooms/rooms/RoomCamera.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/fireball/game/rooms/rooms/RoomCamera.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/src/com/fireball/game/views/GameView.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/fireball/game/views/GameView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/com/fireball/game/views/MainView.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/fireball/game/views/MainView.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/classes/" />
     <ignored path="$PROJECT_DIR$/.gradle/" />
@@ -65,17 +44,32 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/core/src/com/fireball/game/FireballGame.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-120">
-              <caret line="27" column="13" lean-forward="true" selection-start-line="27" selection-start-column="13" selection-end-line="27" selection-end-column="13" />
+            <state relative-caret-position="-240">
+              <caret line="21" column="41" lean-forward="true" selection-start-line="21" selection-start-column="41" selection-end-line="21" selection-end-column="41" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/core/src/com/fireball/game/views/MainView.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="95">
+              <caret line="11" column="59" selection-start-line="11" selection-start-column="59" selection-end-line="11" selection-end-column="59" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/core/src/com/fireball/game/rooms/rooms/RoomCamera.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1340">
-              <caret line="85" column="5" lean-forward="true" selection-start-line="85" selection-start-column="5" selection-end-line="85" selection-end-column="5" />
+            <state relative-caret-position="568">
+              <caret line="60" column="20" selection-start-line="60" selection-start-column="20" selection-end-line="60" selection-end-column="20" />
+              <folding>
+                <element signature="e#1700#1701#0" expanded="true" />
+                <element signature="e#1729#1730#0" expanded="true" />
+                <element signature="e#1766#1767#0" expanded="true" />
+                <element signature="e#1793#1794#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -83,17 +77,21 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/core/src/com/fireball/game/views/GameView.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-60">
-              <caret line="55" column="50" lean-forward="true" selection-start-line="55" selection-start-column="50" selection-end-line="55" selection-end-column="50" />
+            <state relative-caret-position="125">
+              <caret line="35" column="49" lean-forward="true" selection-start-line="35" selection-start-column="49" selection-end-line="35" selection-end-column="49" />
+              <folding>
+                <element signature="e#5151#5152#0" expanded="true" />
+                <element signature="e#5216#5217#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/core/src/com/fireball/game/entities/player/Player.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="352">
-              <caret line="122" column="70" lean-forward="true" selection-start-line="122" selection-start-column="70" selection-end-line="122" selection-end-column="70" />
+            <state relative-caret-position="412">
+              <caret line="101" column="17" selection-start-line="101" selection-start-column="17" selection-end-line="101" selection-end-column="17" />
             </state>
           </provider>
         </entry>
@@ -101,7 +99,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/core/src/com/fireball/game/rendering/fire/FireRenderer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="88">
+            <state relative-caret-position="341">
               <caret line="282" column="5" lean-forward="true" selection-start-line="282" selection-start-column="5" selection-end-line="282" selection-end-column="5" />
             </state>
           </provider>
@@ -121,6 +119,8 @@
       <find>abilityTimers</find>
       <find>lightResidualBuffer</find>
       <find>baseZoom</find>
+      <find>zoom</find>
+      <find>width</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -168,10 +168,11 @@
         <option value="$PROJECT_DIR$/core/assets/shaders/lightInitialFragment.txt" />
         <option value="$PROJECT_DIR$/core/assets/shaders/fireResidualFragment.txt" />
         <option value="$PROJECT_DIR$/core/src/com/fireball/game/FireballGame.java" />
-        <option value="$PROJECT_DIR$/core/src/com/fireball/game/rooms/rooms/RoomCamera.java" />
         <option value="$PROJECT_DIR$/core/src/com/fireball/game/rendering/fire/FireRenderer.java" />
-        <option value="$PROJECT_DIR$/core/src/com/fireball/game/views/GameView.java" />
+        <option value="$PROJECT_DIR$/core/src/com/fireball/game/rooms/rooms/RoomCamera.java" />
         <option value="$PROJECT_DIR$/core/src/com/fireball/game/entities/player/Player.java" />
+        <option value="$PROJECT_DIR$/core/src/com/fireball/game/views/MainView.java" />
+        <option value="$PROJECT_DIR$/core/src/com/fireball/game/views/GameView.java" />
       </list>
     </option>
   </component>
@@ -235,40 +236,6 @@
               <item name="core" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="src" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="game" type="462c0819:PsiDirectoryNode" />
-              <item name="rendering" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="fireball_v2" type="b2602c69:ProjectViewProjectNode" />
-              <item name="fireball_v2" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="core" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="game" type="462c0819:PsiDirectoryNode" />
-              <item name="rendering" type="462c0819:PsiDirectoryNode" />
-              <item name="fire" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="fireball_v2" type="b2602c69:ProjectViewProjectNode" />
-              <item name="fireball_v2" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="core" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="game" type="462c0819:PsiDirectoryNode" />
-              <item name="rooms" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="fireball_v2" type="b2602c69:ProjectViewProjectNode" />
-              <item name="fireball_v2" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="core" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="game" type="462c0819:PsiDirectoryNode" />
-              <item name="rooms" type="462c0819:PsiDirectoryNode" />
-              <item name="rooms" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="fireball_v2" type="b2602c69:ProjectViewProjectNode" />
-              <item name="fireball_v2" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="core" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="game" type="462c0819:PsiDirectoryNode" />
               <item name="views" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
@@ -284,7 +251,7 @@
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
+    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
   </component>
   <component name="RecentsManager">
     <key name="CopyClassDialog.RECENTS_KEY">
@@ -375,7 +342,7 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49969932" visible="true" weight="0.3075965" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49969932" visible="true" weight="0.249066" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -397,7 +364,6 @@
     </layout>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/core/src/com/fireball/game/entities/projectiles/Projectile.java" />
     <entry file="file://$PROJECT_DIR$/core/src/com/fireball/game/entities/player/PlayerData.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="340">
@@ -793,38 +759,55 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/com/fireball/game/entities/player/Player.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="412">
+          <caret line="101" column="17" selection-start-line="101" selection-start-column="17" selection-end-line="101" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/core/src/com/fireball/game/FireballGame.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-120">
-          <caret line="27" column="13" lean-forward="true" selection-start-line="27" selection-start-column="13" selection-end-line="27" selection-end-column="13" />
+        <state relative-caret-position="-240">
+          <caret line="21" column="41" lean-forward="true" selection-start-line="21" selection-start-column="41" selection-end-line="21" selection-end-column="41" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/core/src/com/fireball/game/rendering/fire/FireRenderer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="88">
+        <state relative-caret-position="341">
           <caret line="282" column="5" lean-forward="true" selection-start-line="282" selection-start-column="5" selection-end-line="282" selection-end-column="5" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/com/fireball/game/rooms/rooms/RoomCamera.java">
+    <entry file="file://$PROJECT_DIR$/core/src/com/fireball/game/views/MainView.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1340">
-          <caret line="85" column="5" lean-forward="true" selection-start-line="85" selection-start-column="5" selection-end-line="85" selection-end-column="5" />
+        <state relative-caret-position="95">
+          <caret line="11" column="59" selection-start-line="11" selection-start-column="59" selection-end-line="11" selection-end-column="59" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/core/src/com/fireball/game/views/GameView.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-60">
-          <caret line="55" column="50" lean-forward="true" selection-start-line="55" selection-start-column="50" selection-end-line="55" selection-end-column="50" />
+        <state relative-caret-position="125">
+          <caret line="35" column="49" lean-forward="true" selection-start-line="35" selection-start-column="49" selection-end-line="35" selection-end-column="49" />
+          <folding>
+            <element signature="e#5151#5152#0" expanded="true" />
+            <element signature="e#5216#5217#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/com/fireball/game/entities/player/Player.java">
+    <entry file="file://$PROJECT_DIR$/core/src/com/fireball/game/rooms/rooms/RoomCamera.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="352">
-          <caret line="122" column="70" lean-forward="true" selection-start-line="122" selection-start-column="70" selection-end-line="122" selection-end-column="70" />
+        <state relative-caret-position="568">
+          <caret line="60" column="20" selection-start-line="60" selection-start-column="20" selection-end-line="60" selection-end-column="20" />
+          <folding>
+            <element signature="e#1700#1701#0" expanded="true" />
+            <element signature="e#1729#1730#0" expanded="true" />
+            <element signature="e#1766#1767#0" expanded="true" />
+            <element signature="e#1793#1794#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

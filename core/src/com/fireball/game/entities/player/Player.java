@@ -120,8 +120,8 @@ public class Player extends ControllableEntity {
 
         hitbox.setPosition(x, y);
 
-        targetX = InputManager.getMouseX() - Gdx.graphics.getWidth()/2f + roomCamera.getX();// - x;
-        targetY = InputManager.getMouseY() - Gdx.graphics.getHeight()/2f + roomCamera.getY();// - y;
+        targetX = InputManager.getMouseX() - Gdx.graphics.getWidth()/2f + roomCamera.getX();
+        targetY = InputManager.getMouseY() - Gdx.graphics.getHeight()/2f + roomCamera.getY();
     }
 
     @Override

@@ -6,7 +6,6 @@ import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
-import com.badlogic.gdx.math.Matrix4;
 import com.fireball.game.rendering.fire.FireRenderer;
 import com.fireball.game.rooms.rooms.Room;
 import com.fireball.game.rooms.rooms.RoomCamera;
@@ -26,6 +25,8 @@ public class GameView extends View {
     private Room room;
     private RoomCamera camera;
 
+    private float baseZoom;
+    private int bufferWidth, bufferHeight;
     private FrameBuffer gameFrameBuffer;
     private SpriteBatch bufferBatch, defaultBatch;
 
@@ -33,12 +34,12 @@ public class GameView extends View {
     private ColorThemeShader colorThemeShader;
 
 
-    private final static float BUFFER_SCALE = 16f;
-    public GameView(View parentView, int width, int height) {
+    public GameView(View parentView, int width, int height, float baseZoom) {
         super(parentView, width, height);
 
-        int bufferWidth = (int)(width / BUFFER_SCALE);
-        int bufferHeight = (int)(height / BUFFER_SCALE);
+        this.baseZoom = baseZoom;
+        bufferWidth = (int)((width / baseZoom) + baseZoom*2);
+        bufferHeight = (int)((height / baseZoom) + baseZoom*2);
 
         //pauseMenuView = new PauseMenuView(this, width, height);
 
@@ -53,7 +54,7 @@ public class GameView extends View {
         bufferBatch = new SpriteBatch();
         defaultBatch = new SpriteBatch();
 
-        fireRenderer = new FireRenderer(bufferWidth, bufferHeight, BUFFER_SCALE);
+        fireRenderer = new FireRenderer(bufferWidth, bufferHeight, baseZoom);
         colorThemeShader = new ColorThemeShader();
 
         Player p;
@@ -134,9 +135,12 @@ public class GameView extends View {
     @Override
     public void draw(SpriteBatch batch) {
         batch.draw(gameFrameBuffer.getColorBufferTexture(),
-                width*0.5f*(1-camera.getZoom()) - ((camera.getX() * BUFFER_SCALE) % BUFFER_SCALE) + 0.5f * BUFFER_SCALE,
-                height*0.5f*(1-camera.getZoom()) + (((camera.getY()) * BUFFER_SCALE) % BUFFER_SCALE) - 0.5f * BUFFER_SCALE,
-                width*camera.getZoom(), height*camera.getZoom());
+                ((width - bufferWidth) / 2f) + bufferWidth * baseZoom * 0.5f * (1 - camera.getZoom()) -
+                        ((camera.getX() * baseZoom) % baseZoom) + (0.5f * baseZoom),
+                ((height - bufferHeight) / 2f) + bufferHeight * baseZoom * 0.5f * (1 - camera.getZoom()) +
+                        ((camera.getY() * baseZoom) % baseZoom) - (0.5f * baseZoom),
+                bufferWidth * baseZoom * camera.getZoom(),
+                bufferHeight * baseZoom * camera.getZoom());
 
         fireRenderer.drawDebugTextures(batch);
 

@@ -9,6 +9,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 import com.badlogic.gdx.math.Matrix4;
+import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 import com.fireball.game.rendering.shaders.*;
 import com.fireball.game.rendering.textures.TextureData;
 import com.fireball.game.rendering.textures.TextureManager;
@@ -27,7 +29,8 @@ public class FireRenderer {
 
     private FrameBuffer rawFireBuffer, residualFireBuffer1, residualFireBuffer2, finalFireBuffer;
     private FrameBuffer lightBuffer1, lightBuffer2, lightOutputBuffer, lightResidualBuffer, finalLightBuffer;
-    private float width, height, time, lastDelta;
+    private int width, height;
+    private float bufferScale, time, lastDelta;
 
     private FireResidualShader fireResidualShader;
     private FireFinalShader fireFinalShader;
@@ -36,14 +39,14 @@ public class FireRenderer {
     private LightFinalShader lightFinalShader;
 
     private RoomCamera camera, rawCamera;
-    private SpriteBatch batch;
-    private Matrix4 defaultProjection;
+    private SpriteBatch batch, defaultBatch;
 
     private Texture fireballTexture;
 
-    public FireRenderer(float width, float height, float bufferScale) {
+    public FireRenderer(int width, int height, float bufferScale) {
         this.width = width;
         this.height = height;
+        this.bufferScale = bufferScale;
         rawFireBuffer = new FrameBuffer(Pixmap.Format.RGB888, (int)(width*LIGHTING_SURFACE_SIZE_FACTOR), (int)(height*LIGHTING_SURFACE_SIZE_FACTOR), false);
         residualFireBuffer1 = new FrameBuffer(Pixmap.Format.RGB888, (int)(width*LIGHTING_SURFACE_SIZE_FACTOR), (int)(height*LIGHTING_SURFACE_SIZE_FACTOR), false);
         residualFireBuffer2 = new FrameBuffer(Pixmap.Format.RGB888, (int)(width*LIGHTING_SURFACE_SIZE_FACTOR), (int)(height*LIGHTING_SURFACE_SIZE_FACTOR), false);
@@ -61,11 +64,9 @@ public class FireRenderer {
         lightFinalShader = new LightFinalShader();
 
         batch = new SpriteBatch();
-        defaultProjection = batch.getProjectionMatrix().cpy();
+        defaultBatch = new SpriteBatch();
 
-        rawCamera = new RoomCamera((int)(width*bufferScale),
-                (int)(height*bufferScale),
-                bufferScale / LIGHTING_SURFACE_SIZE_FACTOR);
+        rawCamera = new RoomCamera(width, height);
 
         fireballTexture = TextureManager.getTexture(TextureData.FIREBALL_BIG);
     }
@@ -80,7 +81,7 @@ public class FireRenderer {
         rawCamera.setPosition(camera.getX(), camera.getY());
         rawCamera.update(0);
 
-        rawFireBuffer.bind();
+        rawFireBuffer.begin();
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
@@ -108,27 +109,26 @@ public class FireRenderer {
     public void end() {
         batch.setColor(Color.WHITE);
         batch.end();
-        FrameBuffer.unbind();
+        rawFireBuffer.end();
 
         //residual
         residualFireBuffer1.bind();
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        batch.setBlendFunction(Gdx.gl.GL_ONE, Gdx.gl.GL_ONE);
-        batch.setProjectionMatrix(defaultProjection);
-        batch.begin();
-        batch.setShader(fireResidualShader);
+        defaultBatch.setBlendFunction(Gdx.gl.GL_ONE, Gdx.gl.GL_ONE);
+        defaultBatch.begin();
+        defaultBatch.setShader(fireResidualShader);
         fireResidualShader.loadUniforms(
                 residualFireBuffer2.getColorBufferTexture(),
                 camera,
                 width*LIGHTING_SURFACE_SIZE_FACTOR, height*LIGHTING_SURFACE_SIZE_FACTOR,
                 time);
 
-        batch.draw(rawFireBuffer.getColorBufferTexture(),
+        defaultBatch.draw(rawFireBuffer.getColorBufferTexture(),
                 0, height*LIGHTING_SURFACE_SIZE_FACTOR, width*LIGHTING_SURFACE_SIZE_FACTOR, -height*LIGHTING_SURFACE_SIZE_FACTOR);
 
-        batch.end();
+        defaultBatch.end();
         FrameBuffer.unbind();
 
 
@@ -136,15 +136,14 @@ public class FireRenderer {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        batch.setBlendFunction(Gdx.gl.GL_ONE, Gdx.gl.GL_ONE);
-        batch.setProjectionMatrix(defaultProjection);
-        batch.begin();
-        batch.setShader(null);
+        defaultBatch.setBlendFunction(Gdx.gl.GL_ONE, Gdx.gl.GL_ONE);
+        defaultBatch.begin();
+        defaultBatch.setShader(null);
 
-        batch.draw(residualFireBuffer1.getColorBufferTexture(),
+        defaultBatch.draw(residualFireBuffer1.getColorBufferTexture(),
                 0, height*LIGHTING_SURFACE_SIZE_FACTOR, width*LIGHTING_SURFACE_SIZE_FACTOR, -height*LIGHTING_SURFACE_SIZE_FACTOR);
 
-        batch.end();
+        defaultBatch.end();
         FrameBuffer.unbind();
 
 
@@ -152,19 +151,18 @@ public class FireRenderer {
         Gdx.gl.glClearColor(0, 0, 0, 0);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        batch.setBlendFunction(Gdx.gl.GL_ONE, Gdx.gl.GL_ZERO);
-        batch.setProjectionMatrix(defaultProjection);
-        batch.begin();
-        batch.setShader(fireFinalShader);
+        defaultBatch.setBlendFunction(Gdx.gl.GL_ONE, Gdx.gl.GL_ZERO);
+        defaultBatch.begin();
+        defaultBatch.setShader(fireFinalShader);
         fireFinalShader.loadUniforms(
                 camera,
                 width*LIGHTING_SURFACE_SIZE_FACTOR, height*LIGHTING_SURFACE_SIZE_FACTOR,
                 time);
 
-        batch.draw(residualFireBuffer2.getColorBufferTexture(),
+        defaultBatch.draw(residualFireBuffer2.getColorBufferTexture(),
                 -(width*(LIGHTING_SURFACE_SIZE_FACTOR-1)/2), height+(height*(LIGHTING_SURFACE_SIZE_FACTOR-1)/2),
                 width*LIGHTING_SURFACE_SIZE_FACTOR, -height*LIGHTING_SURFACE_SIZE_FACTOR);
-        batch.end();
+        defaultBatch.end();
         FrameBuffer.unbind();
 
 
@@ -279,7 +277,7 @@ public class FireRenderer {
         FrameBuffer.unbind();
     }
 
-    public void drawFinalTextures(SpriteBatch batch) {
+    public void drawFinalTextures(SpriteBatch batch, int width, int height) {
         batch.draw(finalFireBuffer.getColorBufferTexture(), 0, height, width, -height);
         batch.draw(finalLightBuffer.getColorBufferTexture(), 0, height, width, -height);
     }

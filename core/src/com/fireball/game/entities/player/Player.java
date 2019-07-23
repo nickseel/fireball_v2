@@ -1,5 +1,6 @@
 package com.fireball.game.entities.player;
 
+import com.badlogic.gdx.Gdx;
 import com.fireball.game.entities.ControllableEntity;
 import com.fireball.game.entities.Team;
 import com.fireball.game.rendering.fire.FireRenderer;
@@ -119,8 +120,8 @@ public class Player extends ControllableEntity {
 
         hitbox.setPosition(x, y);
 
-        targetX = InputManager.getMouseX()/roomCamera.getBaseZoom() - roomCamera.getWidth()/2 + roomCamera.getX();// - x;
-        targetY = InputManager.getMouseY()/roomCamera.getBaseZoom() - roomCamera.getHeight()/2 + roomCamera.getY();// - y;
+        targetX = InputManager.getMouseX() - Gdx.graphics.getWidth()/2f + roomCamera.getX();// - x;
+        targetY = InputManager.getMouseY() - Gdx.graphics.getHeight()/2f + roomCamera.getY();// - y;
     }
 
     @Override

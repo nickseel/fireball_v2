@@ -27,33 +27,32 @@ public class GameView extends View {
     private RoomCamera camera;
 
     private FrameBuffer gameFrameBuffer;
-    private SpriteBatch bufferBatch;
-    private Matrix4 defaultProjection;
+    private SpriteBatch bufferBatch, defaultBatch;
 
     private FireRenderer fireRenderer;
     private ColorThemeShader colorThemeShader;
 
 
-    private final static float BUFFER_SCALE = 2f;
+    private final static float BUFFER_SCALE = 6f;
     public GameView(View parentView, int width, int height) {
         super(parentView, width, height);
 
-        float bufferWidth = (width / BUFFER_SCALE);
-        float bufferHeight = (height / BUFFER_SCALE);
+        int bufferWidth = (int)(width / BUFFER_SCALE);
+        int bufferHeight = (int)(height / BUFFER_SCALE);
 
         //pauseMenuView = new PauseMenuView(this, width, height);
 
         room = Room.fromFile(this, RoomData.DEBUG);
         entityManager = new EntityManager();
         entityManager.setRoom(room);
-        camera = new RoomCamera(width, height, BUFFER_SCALE);
+        camera = new RoomCamera(bufferWidth, bufferHeight);
 
-        gameFrameBuffer = new FrameBuffer(Pixmap.Format.RGB888, (int)bufferWidth, (int)bufferHeight, false);
+        gameFrameBuffer = new FrameBuffer(Pixmap.Format.RGB888, bufferWidth, bufferHeight, false);
         gameFrameBuffer.getColorBufferTexture().setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
         bufferBatch = new SpriteBatch();
-        defaultProjection = bufferBatch.getProjectionMatrix().cpy();
+        defaultBatch = new SpriteBatch();
 
-        fireRenderer = new FireRenderer(width / BUFFER_SCALE, height / BUFFER_SCALE, BUFFER_SCALE);
+        fireRenderer = new FireRenderer(bufferWidth, bufferHeight, BUFFER_SCALE);
         colorThemeShader = new ColorThemeShader();
 
         Player p;
@@ -98,7 +97,7 @@ public class GameView extends View {
         fireRenderer.end();
 
 
-        gameFrameBuffer.bind();
+        gameFrameBuffer.begin();
         Gdx.gl.glClearColor(0f, 0f, 0f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
         bufferBatch.setProjectionMatrix(camera.combined);
@@ -121,12 +120,11 @@ public class GameView extends View {
         entityManager.draw(bufferBatch);
         bufferBatch.end();
 
-        bufferBatch.begin();
-        bufferBatch.setProjectionMatrix(defaultProjection);
-        fireRenderer.drawFinalTextures(bufferBatch);
-        bufferBatch.end();
+        defaultBatch.begin();
+        fireRenderer.drawFinalTextures(defaultBatch, width, height);
+        defaultBatch.end();
 
-        FrameBuffer.unbind();
+        gameFrameBuffer.end();
 
 
         //pauseMenuView.preDraw();

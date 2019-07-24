@@ -13,6 +13,8 @@ import com.fireball.game.rendering.textures.TextureData;
 import com.fireball.game.rendering.textures.TextureManager;
 import com.fireball.game.rooms.rooms.RoomCamera;
 
+import java.awt.*;
+
 public class FireRenderer {
     private static final float LIGHTING_SCENE_DARKNESS = 0.0f;
     private static final float LIGHTING_RESOLUTION_FACTOR = 0.5f;
@@ -280,25 +282,23 @@ public class FireRenderer {
     }
 
     public void drawDebugTextures(SpriteBatch batch) {
-        int i = 0;
-        float f = 4;
-        batch.draw(rawFireBuffer.getColorBufferTexture(),
-                0, height*i++/f, width/f-2, height/f-2);
-        batch.draw(residualFireBuffer1.getColorBufferTexture(),
-                0, height*i++/f, width/f-2, height/f-2);
-        batch.draw(residualFireBuffer2.getColorBufferTexture(),
-                0, height*i++/f, width/f-2, height/f-2);
-        batch.draw(finalFireBuffer.getColorBufferTexture(),
-                0, height*i++/f, width/f-2, height/f-2);
-        batch.draw(lightBuffer1.getColorBufferTexture(),
-                0, height*i++/f, width/f-2, height/f-2);
-        batch.draw(lightBuffer2.getColorBufferTexture(),
-                0, height*i++/f, width/f-2, height/f-2);
-        batch.draw(lightOutputBuffer.getColorBufferTexture(),
-                0, height*i++/f, width/f-2, height/f-2);
-        batch.draw(lightResidualBuffer.getColorBufferTexture(),
-                0, height*i++/f, width/f-2, height/f-2);
-        batch.draw(finalLightBuffer.getColorBufferTexture(),
-                0, height*i++/f, width/f-2, height/f-2);
+        FrameBuffer[] debugBuffers = new FrameBuffer[] {
+                rawFireBuffer,
+                residualFireBuffer1,
+                residualFireBuffer2,
+                finalFireBuffer,
+                lightBuffer1,
+                lightBuffer2,
+                lightOutputBuffer,
+                lightResidualBuffer,
+                finalLightBuffer
+        };
+        float w = (float)Gdx.graphics.getWidth() / (debugBuffers.length-1);
+        float h = (float)Gdx.graphics.getHeight() / (debugBuffers.length-1);
+
+        for(int i = 0; i < debugBuffers.length; i++) {
+            batch.draw(debugBuffers[i].getColorBufferTexture(),
+                    0, h*i, w-2, h-2);
+        }
     }
 }

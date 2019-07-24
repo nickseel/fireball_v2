@@ -47,7 +47,7 @@ public class GameView extends View {
         entityManager = new EntityManager();
         entityManager.setRoom(room);
         camera = new RoomCamera(bufferWidth, bufferHeight);
-        camera.setZoom(1.5f);
+        camera.setZoom(1);
 
         gameFrameBuffer = new FrameBuffer(Pixmap.Format.RGB888, bufferWidth, bufferHeight, false);
         gameFrameBuffer.getColorBufferTexture().setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
@@ -142,7 +142,7 @@ public class GameView extends View {
                 bufferWidth * baseZoom * camera.getZoom(),
                 bufferHeight * baseZoom * camera.getZoom());
 
-        //fireRenderer.drawDebugTextures(batch);
+        fireRenderer.drawDebugTextures(batch);
 
         //pauseMenuView.draw(batch);
     }

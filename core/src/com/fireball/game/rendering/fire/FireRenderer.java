@@ -168,63 +168,28 @@ public class FireRenderer {
         //                                           //
         ///////////////////////////////////////////////
 
-        //clear buffer 2
+        lightBuffer1.bind();
+        Gdx.gl.glClearColor(0, 0, 0, 1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        FrameBuffer.unbind();
+
+
         lightBuffer2.bind();
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         FrameBuffer.unbind();
 
 
-        //draw last frames residual light to buffer 1
-        lightBuffer1.bind();
-        Gdx.gl.glClearColor(0, 0, 0, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        defaultBatch.begin();
-        defaultBatch.draw(lightResidualBuffer.getColorBufferTexture(), 0, height*LIGHTING_SURFACE_SIZE_FACTOR*LIGHTING_RESOLUTION_FACTOR,
-                width*LIGHTING_SURFACE_SIZE_FACTOR*LIGHTING_RESOLUTION_FACTOR, -height*LIGHTING_SURFACE_SIZE_FACTOR*LIGHTING_RESOLUTION_FACTOR);
-        defaultBatch.end();
-        FrameBuffer.unbind();
-
-
-        //fade/update residual buffer while drawing new fire
         Gdx.gl.glColorMask(false, true, false, true);
-        lightResidualBuffer.bind();
-        defaultBatch.begin();
-        defaultBatch.setShader(lightResidualShader);
-        Gdx.gl.glClearColor(0, 0, 0, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        lightResidualShader.loadUniforms(lightBuffer1.getColorBufferTexture(), camera,
-                width*LIGHTING_SURFACE_SIZE_FACTOR*LIGHTING_RESOLUTION_FACTOR,
-                height*LIGHTING_SURFACE_SIZE_FACTOR*LIGHTING_RESOLUTION_FACTOR,
-                lastDelta);
-        defaultBatch.draw(residualFireBuffer1.getColorBufferTexture(), 0, height*LIGHTING_SURFACE_SIZE_FACTOR*LIGHTING_RESOLUTION_FACTOR,
-                width*LIGHTING_SURFACE_SIZE_FACTOR*LIGHTING_RESOLUTION_FACTOR, -height*LIGHTING_SURFACE_SIZE_FACTOR*LIGHTING_RESOLUTION_FACTOR);
-        defaultBatch.setShader(null);
-        defaultBatch.end();
-        FrameBuffer.unbind();
-
-
-        //draw residual fire to output (full strength initial)
         lightOutputBuffer.bind();
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         defaultBatch.begin();
         defaultBatch.setShader(lightInitialShader);
         lightInitialShader.setCutoff(0);
-        defaultBatch.draw(lightResidualBuffer.getColorBufferTexture(), 0, height*LIGHTING_SURFACE_SIZE_FACTOR*LIGHTING_RESOLUTION_FACTOR,
+        defaultBatch.draw(residualFireBuffer1.getColorBufferTexture(), 0, height*LIGHTING_SURFACE_SIZE_FACTOR*LIGHTING_RESOLUTION_FACTOR,
                 width*LIGHTING_SURFACE_SIZE_FACTOR*LIGHTING_RESOLUTION_FACTOR, -height*LIGHTING_SURFACE_SIZE_FACTOR*LIGHTING_RESOLUTION_FACTOR);
         defaultBatch.setShader(null);
-        defaultBatch.end();
-        FrameBuffer.unbind();
-
-
-        //copy output to buffer 1 to prep for expansion
-        lightBuffer1.bind();
-        Gdx.gl.glClearColor(0, 0, 0, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        defaultBatch.begin();
-        defaultBatch.draw(lightOutputBuffer.getColorBufferTexture(), 0, height*LIGHTING_SURFACE_SIZE_FACTOR*LIGHTING_RESOLUTION_FACTOR,
-                width*LIGHTING_SURFACE_SIZE_FACTOR*LIGHTING_RESOLUTION_FACTOR, -height*LIGHTING_SURFACE_SIZE_FACTOR*LIGHTING_RESOLUTION_FACTOR);
         defaultBatch.end();
         FrameBuffer.unbind();
 
@@ -238,8 +203,8 @@ public class FireRenderer {
             defaultBatch.setBlendFunction(Gdx.gl.GL_ONE, Gdx.gl.GL_ONE);
             defaultBatch.begin();
             defaultBatch.setShader(lightInitialShader);
-            lightInitialShader.setCutoff(1 - ((float)(i+1) / LIGHTING_NUM_REPETITIONS));
-            defaultBatch.draw(lightResidualBuffer.getColorBufferTexture(), 0, height*LIGHTING_SURFACE_SIZE_FACTOR*LIGHTING_RESOLUTION_FACTOR, width*LIGHTING_SURFACE_SIZE_FACTOR*LIGHTING_RESOLUTION_FACTOR, -height*LIGHTING_SURFACE_SIZE_FACTOR*LIGHTING_RESOLUTION_FACTOR);
+            lightInitialShader.setCutoff(0);//1 - ((float)(i+1) / LIGHTING_NUM_REPETITIONS));
+            defaultBatch.draw(residualFireBuffer1.getColorBufferTexture(), 0, height*LIGHTING_SURFACE_SIZE_FACTOR*LIGHTING_RESOLUTION_FACTOR, width*LIGHTING_SURFACE_SIZE_FACTOR*LIGHTING_RESOLUTION_FACTOR, -height*LIGHTING_SURFACE_SIZE_FACTOR*LIGHTING_RESOLUTION_FACTOR);
             defaultBatch.setShader(null);
             defaultBatch.end();
             FrameBuffer.unbind();
@@ -279,10 +244,35 @@ public class FireRenderer {
             currentRadius *= LIGHTING_REPETITION_RADIUS_FACTOR;
             currentRadius += LIGHTING_REPETITION_RADIUS_INCREASE;
         }
+
+
+        lightBuffer1.bind();
+        Gdx.gl.glClearColor(0, 0, 0, 1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        defaultBatch.begin();
+        defaultBatch.setShader(lightResidualShader);
+        lightResidualShader.loadUniforms(lightResidualBuffer.getColorBufferTexture(), camera,
+                width*LIGHTING_SURFACE_SIZE_FACTOR*LIGHTING_RESOLUTION_FACTOR,
+                height*LIGHTING_SURFACE_SIZE_FACTOR*LIGHTING_RESOLUTION_FACTOR,
+                lastDelta);
+        defaultBatch.draw(lightOutputBuffer.getColorBufferTexture(), 0, height*LIGHTING_SURFACE_SIZE_FACTOR*LIGHTING_RESOLUTION_FACTOR,
+                width*LIGHTING_SURFACE_SIZE_FACTOR*LIGHTING_RESOLUTION_FACTOR, -height*LIGHTING_SURFACE_SIZE_FACTOR*LIGHTING_RESOLUTION_FACTOR);
+        defaultBatch.setShader(null);
+        defaultBatch.end();
+        FrameBuffer.unbind();
+
+
+        lightResidualBuffer.bind();
+        Gdx.gl.glClearColor(0, 0, 0, 1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        defaultBatch.begin();
+        defaultBatch.draw(lightBuffer1.getColorBufferTexture(), 0, height*LIGHTING_SURFACE_SIZE_FACTOR*LIGHTING_RESOLUTION_FACTOR,
+                width*LIGHTING_SURFACE_SIZE_FACTOR*LIGHTING_RESOLUTION_FACTOR, -height*LIGHTING_SURFACE_SIZE_FACTOR*LIGHTING_RESOLUTION_FACTOR);
+        defaultBatch.end();
+        FrameBuffer.unbind();
+
+
         Gdx.gl.glColorMask(true, true, true, true);
-
-
-
         finalLightBuffer.bind();
         Gdx.gl.glClearColor(0, 0, 0, 0);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);

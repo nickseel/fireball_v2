@@ -13,7 +13,7 @@ uniform vec2 u_camera_delta;
 const float speed = 1.0;
 
 void main() {
-	float new = texture2D(u_texture, v_texCoords).r;
+	float new = texture2D(u_texture, v_texCoords).g;
 	float residual = texture2D(u_previous_frame, v_texCoords + u_camera_delta).g;
 	float total = max(new, residual - (u_delta_time * speed));
 

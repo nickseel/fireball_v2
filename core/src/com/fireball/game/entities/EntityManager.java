@@ -14,8 +14,6 @@ import java.util.LinkedList;
 public class EntityManager {
     public static EntityManager current = null;
 
-    //private EntityRenderer entityRenderer;
-
     private LinkedList<Entity> newEntities;
 
     private LinkedList<Entity> playerEntities, enemyEntities;//, neutralEntities;
@@ -103,7 +101,6 @@ public class EntityManager {
         }
 
         //EfficiencyMetrics.startTimer(EfficiencyMetricType.COLLISION);
-        collideEntities();
         collideTerrain();
         //EfficiencyMetrics.stopTimer(EfficiencyMetricType.COLLISION);
 
@@ -113,6 +110,8 @@ public class EntityManager {
         for(Entity e: enemyEntities) {
             e.updateMid(delta);
         }
+
+        collideEntities();
 
         for(int i = 0; i < playerEntities.size(); i++) {
             Entity e = playerEntities.get(i);

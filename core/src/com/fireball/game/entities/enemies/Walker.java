@@ -1,8 +1,10 @@
-package com.fireball.game.entities.player;
+package com.fireball.game.entities.enemies;
 
 import com.badlogic.gdx.Gdx;
 import com.fireball.game.entities.ControllableEntity;
 import com.fireball.game.entities.Team;
+import com.fireball.game.entities.abilities.AbilityType;
+import com.fireball.game.entities.hitboxes.DamagerHitbox;
 import com.fireball.game.rendering.fire.FireRenderer;
 import com.fireball.game.rooms.rooms.RoomCamera;
 import com.fireball.game.entities.hitboxes.BodyHitbox;
@@ -15,8 +17,9 @@ import java.util.LinkedList;
 
 import static java.lang.Math.*;
 
-public class Player extends ControllableEntity {
+public class Walker extends ControllableEntity {
     private BodyHitbox hitbox;
+    private DamagerHitbox hurtbox;
 
     private double healthRegen;
     private double radius = 12;
@@ -25,14 +28,10 @@ public class Player extends ControllableEntity {
     private double pushVelX = 0;
     private double pushVelY = 0;
 
-    private int[] abilityKeys;
-    private RoomCamera roomCamera;
+    public Walker(int x, int y) {
+        super(Team.PLAYER, "player", x, y, new AbilityType[0], 1);
 
-    public Player(int x, int y) {
-        super(Team.PLAYER, "player", x, y, PlayerData.getCurrentAbilities(), PlayerData.getMaxCombo());
-        abilityKeys = PlayerData.getAbilityKeys();
-
-        DataFile.setCurrentLocation("entities", "player");
+        DataFile.setCurrentLocation("entities", "walker");
         this.maxHealth = DataFile.getFloat("maxHealth"); this.health = maxHealth;
         this.healthRegen = DataFile.getFloat("healthRegen");
         this.radius = DataFile.getFloat("radius");
@@ -64,22 +63,31 @@ public class Player extends ControllableEntity {
                 pushVelY -= maxPushSpeed * pushPct * normalY;
             }
         };
-
         bodyHitboxes = new BodyHitbox[] {hitbox};
+
+
+        hurtbox = new DamagerHitbox(this, team, x, y, radius) {
+            @Override
+            public void damage(BodyHitbox other) {
+                other.takeDamage(1, 1, 0);
+            }
+        };
+        damagerHitboxes = new DamagerHitbox[] {hurtbox};
+
         registerEntityAndHitboxes();
     }
 
-    //////////////////////////////////////////////////////
-    //               ENTITY UPDATE ORDER:               //
-    //   1. Entities Push Each Other                    //
-    //   2. [Update Pre]                                //
-    //   3. Entities Collide With Terrain               //
-    //   4. [Update Mid]                                //
-    //   5. Entity Hitboxes Collide With Each Other     //
-    //   6. [Update Post]                               //
-    //   7. Dead Entities Are Kill()ed                  //
-    //   8. Entities Created During Updates Are Added   //
-    //////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////
+    //              ENTITY UPDATE ORDER:              //
+    //   1. Entities Push Each Other                  //
+    //   2. [Update Pre]                              //
+    //   3. Entities Collide With Terrain             //
+    //   4. [Update Mid]                              //
+    //   5. Entity Hitboxes Collide With Each Other   //
+    //   6. [Update Post]                             //
+    //   7. Dead Entities Are Kill()ed                //
+    //   8. New Entities Added                        //
+    ////////////////////////////////////////////////////
 
     @Override
     public void updatePre(double delta) {
@@ -88,31 +96,7 @@ public class Player extends ControllableEntity {
         //check input
         moveX = 0;
         moveY = 0;
-        for(int i = 0; i < abilities.length; i++) {
-            prevAbilityInputs[i] = abilityInputs[i];
-        }
-        for(Double[] keys: heldKeys) {
-            //System.out.println(keys[0] + " " + keys[1]);
-            if(keys[0] == ControlMapping.MOVE_LEFT)
-                moveX--;
-            if(keys[0] == ControlMapping.MOVE_RIGHT)
-                moveX++;
-            if(keys[0] == ControlMapping.MOVE_UP)
-                moveY--;
-            if(keys[0] == ControlMapping.MOVE_DOWN)
-                moveY++;
-        }
-        for(int i = 0; i < abilityKeys.length; i++) {
-            abilityInputs[i] = false;
-            for(Double[] keys: heldKeys) {
-                if(keys[0] == abilityKeys[i])
-                    abilityInputs[i] = true;
-            }
-        }
-        for(Double[] keys: InputManager.getPressedKeys()) {
-            if(keys[0] == 33)
-                y += 0.25f;
-        }
+        // RUN AI HERE
 
         updateAbilities(delta);
         move(delta);
@@ -131,23 +115,12 @@ public class Player extends ControllableEntity {
         y = nextY;
 
         hitbox.setPosition(x, y);
-
-        targetX = InputManager.getMouseX() - Gdx.graphics.getWidth()/2f + roomCamera.getX();
-        targetY = InputManager.getMouseY() - Gdx.graphics.getHeight()/2f + roomCamera.getY();
+        hurtbox.setPosition(x, y);
     }
 
     @Override
     public void updatePost(double delta) {
 
-    }
-
-    @Override
-    public void drawFire(FireRenderer renderer) {
-        renderer.drawFire((float)x, (float)y, (float)radius*1, 1.0f);
-    }
-
-    public void setRoomCamera(RoomCamera roomCamera) {
-        this.roomCamera = roomCamera;
     }
 
     @Override

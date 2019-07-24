@@ -26,10 +26,10 @@ import java.util.Random;
 
 public class Room {
     public static final double CELL_SIZE = 100.0;
-    private static final double WALL_INSET_TOP = 0.5;
-    private static final double WALL_INSET_LEFT = 0.25;
-    private static final double WALL_INSET_RIGHT = 0.25;
-    private static final double WALL_INSET_BOT = 0.125;
+    private static final double WALL_INSET_TOP = 0.45;
+    private static final double WALL_INSET_LEFT = 0.3;
+    private static final double WALL_INSET_RIGHT = 0.3;
+    private static final double WALL_INSET_BOT = 0.15;
     private static final int GROUND_CRACKS_NUM_SPRITES = 6;
     private static final double GROUND_CRACK_RATIO = 1;
     private static final double GROUND_CRACK_FREQUENCY_X = 0.055;

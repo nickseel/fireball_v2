@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
+import com.fireball.game.rendering.textures.TextureSheetData;
 import com.fireball.game.rooms.collision.CellSlotter;
 import com.fireball.game.rooms.rooms.room_objects.SpawnPoint;
 import com.fireball.game.rooms.tiles.TileMap;
@@ -152,7 +153,7 @@ public class Room {
         groundGenRandom.setSeed(this.hashCode());
         for(int x = 0; x < numCracksX; x++) {
             for(int y = 0; y < numCracksY; y++) {
-                TextureRegion textureRegion = TextureManager.getTextureRegion(TextureData.CRACK, (int)(groundGenRandom.nextDouble() * GROUND_CRACKS_NUM_SPRITES));
+                TextureRegion textureRegion = TextureManager.getTextureRegion(TextureSheetData.CRACK, (int)(groundGenRandom.nextDouble() * GROUND_CRACKS_NUM_SPRITES));
                 float xpos = (float)((groundGenRandom.nextDouble()-0.5) * GROUND_CRACK_POSITION_VARIATION + ((x * groundTiles.getWidth()) / numCracksX));
                 float ypos = (float)((groundGenRandom.nextDouble()-0.5) * GROUND_CRACK_POSITION_VARIATION + ((y * groundTiles.getHeight()) / numCracksY));
                 float width = textureRegion.getRegionWidth() * (float)(Util.mix(GROUND_CRACK_SCALE_MIN, GROUND_CRACK_SCALE_MAX, groundGenRandom.nextDouble()));
@@ -221,7 +222,7 @@ public class Room {
             }
             lineIndex++;
         }
-        TileMap wallTileMap = new TileMap(wallTiles, TextureData.WALLS_GRAY);
+        TileMap wallTileMap = new TileMap(wallTiles, TextureSheetData.WALLS_GRAY);
 
 
         while(!lines[lineIndex++].contains("ground tiles")) {}
@@ -233,7 +234,7 @@ public class Room {
             }
             lineIndex++;
         }
-        TileMap groundTileMap = new TileMap(groundTiles, TextureData.GROUND_BIG);
+        TileMap groundTileMap = new TileMap(groundTiles, TextureSheetData.GROUND_BIG);
 
 
         while(!lines[lineIndex++].contains("static walls")) {}

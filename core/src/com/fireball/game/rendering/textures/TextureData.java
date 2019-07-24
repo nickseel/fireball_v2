@@ -1,39 +1,28 @@
 package com.fireball.game.rendering.textures;
 
 public enum TextureData {
-    TEST_IMAGE ("images/badlogic.jpg"),
-    ROUNDED_RECT ("images/rounded_rect.png"),
-    COLOR_THEME ("images/color_theme.png"),
-    GROUND_SMALL ("images/ground_small.png", 4, 4),
-    GROUND_BIG ("images/ground_big.png", 4, 4),
-    WALLS ("images/walls.png", 8, 8),
-    WALLS_GRAY ("images/walls_gray.png", 8, 8),
-    FIREBALL ("images/fireball.png"),
-    FIREBALL_BIG ("images/fireball_big.png"),
-    LASER ("images/laser_main.png"),
-    LASER_END ("images/laser_end.png"),
-    CRACK ("images/crack.png", 4, 4);
+    TEST_IMAGE ("sprites/other/badlogic.jpg"),
+    ROUNDED_RECT ("sprites/other/rounded_rect.png"),
+    COLOR_THEME ("tilesets/color_theme.png"),
+    FIREBALL ("sprites/player/fireball.png"),
+    FIREBALL_BIG ("sprites/player/fireball_big.png"),
+    LASER ("sprites/player/laser_main.png"),
+    LASER_END ("sprites/player/laser_end.png"),
+    GROUND_SMALL ("tilesets/ground_small.png"),
+    GROUND_BIG ("tilesets/ground_big.png"),
+    WALLS ("tilesets/walls.png"),
+    WALLS_GRAY ("tilesets/walls_gray.png"),
+    CRACK ("sprites/environment/crack.png");
 
     private String fileName;
-    private int sheetRows, sheetCols;
-
     TextureData(String fileName) {
         this.fileName = fileName;
-        sheetRows = 1;
-        sheetCols = 1;
-    }
-
-    TextureData(String fileName, int sheetRows, int sheetCols) {
-        this.fileName = fileName;
-        this.sheetRows = sheetRows;
-        this.sheetCols = sheetCols;
     }
 
     public String getFileName() {
         return fileName;
     }
-
     public void load() {
-        TextureManager.loadTexture(this, sheetRows, sheetCols);
+        TextureManager.loadTexture(this);
     }
 }

@@ -5,24 +5,25 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.fireball.game.rendering.textures.TextureData;
 import com.fireball.game.rendering.textures.TextureManager;
+import com.fireball.game.rendering.textures.TextureSheetData;
 
 public class TileMap {
     private int[][] tiles;
-    private TextureData texture;
+    private TextureSheetData texture;
 
     private int tileWidth, tileHeight;
 
-    public TileMap(int[][] tiles, TextureData texture) {
+    public TileMap(int[][] tiles, TextureSheetData texture) {
         this.tiles = tiles;
         this.texture = texture;
 
-        TextureRegion[] textureRegions = TextureManager.getTextureRegions(texture);
+        TextureRegion[] textureRegions = TextureManager.getTextureSheet(texture);
         tileWidth = textureRegions[0].getRegionWidth();
         tileHeight = textureRegions[0].getRegionHeight();
     }
 
     public void draw(SpriteBatch batch) {
-        TextureRegion[] textureRegions = TextureManager.getTextureRegions(texture);
+        TextureRegion[] textureRegions = TextureManager.getTextureSheet(texture);
         batch.setColor(Color.WHITE);
         for(int r = 0; r < tiles.length; r++) {
             for(int c = 0; c < tiles[0].length; c++) {
@@ -36,7 +37,7 @@ public class TileMap {
         return tiles;
     }
 
-    public TextureData getTexture() {
+    public TextureSheetData getTexture() {
         return texture;
     }
 

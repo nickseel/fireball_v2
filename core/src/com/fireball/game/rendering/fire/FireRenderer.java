@@ -16,9 +16,9 @@ import com.fireball.game.rooms.rooms.RoomCamera;
 import java.awt.*;
 
 public class FireRenderer {
-    private static final float LIGHTING_SCENE_DARKNESS = 0.0f;
-    private static final float LIGHTING_RESOLUTION_FACTOR = 1f;
-    private static final float LIGHTING_SURFACE_SIZE_FACTOR = 1.0f;
+    private static final float LIGHTING_SCENE_DARKNESS = 0.9f;
+    private static final float LIGHTING_RESOLUTION_FACTOR = 0.5f;
+    private static final float LIGHTING_SURFACE_SIZE_FACTOR = 1.5f;
     private static final int LIGHTING_NUM_REPETITIONS = 8;
     private static final int LIGHTING_INITIAL_REPETITION_SKIP = 1;
     private static final float LIGHTING_START_RADIUS = 6.0f;
@@ -65,7 +65,7 @@ public class FireRenderer {
         batch = new SpriteBatch();
         defaultBatch = new SpriteBatch();
 
-        rawCamera = new RoomCamera(width, height);
+        rawCamera = new RoomCamera((int)(width*LIGHTING_SURFACE_SIZE_FACTOR), (int)(height*LIGHTING_SURFACE_SIZE_FACTOR));
 
         fireballTexture = TextureManager.getTexture(TextureData.FIREBALL_BIG);
     }
@@ -218,8 +218,8 @@ public class FireRenderer {
             defaultBatch.begin();
             for(float angle = 0; angle < 2*Math.PI; angle += (float)(2*Math.PI) / LIGHTING_CIRCLE_RESOLUTION) {
                 defaultBatch.draw(lightBuffer1.getColorBufferTexture(),
-                        (float)(currentRadius*Math.cos(angle))*LIGHTING_RESOLUTION_FACTOR,
-                        (float)(currentRadius*Math.sin(angle))*LIGHTING_RESOLUTION_FACTOR + height*LIGHTING_SURFACE_SIZE_FACTOR*LIGHTING_RESOLUTION_FACTOR,
+                        (float)(currentRadius*Math.cos(angle))*LIGHTING_RESOLUTION_FACTOR/*LIGHTING_SURFACE_SIZE_FACTOR*/,
+                        (float)(currentRadius*Math.sin(angle))*LIGHTING_RESOLUTION_FACTOR/*LIGHTING_SURFACE_SIZE_FACTOR*/ + height*LIGHTING_SURFACE_SIZE_FACTOR*LIGHTING_RESOLUTION_FACTOR,
                         width*LIGHTING_SURFACE_SIZE_FACTOR*LIGHTING_RESOLUTION_FACTOR, -height*LIGHTING_SURFACE_SIZE_FACTOR*LIGHTING_RESOLUTION_FACTOR);
             }
             defaultBatch.end();
@@ -252,8 +252,8 @@ public class FireRenderer {
         defaultBatch.begin();
         defaultBatch.setShader(lightResidualShader);
         lightResidualShader.loadUniforms(lightResidualBuffer.getColorBufferTexture(), camera,
-                width*LIGHTING_SURFACE_SIZE_FACTOR*LIGHTING_RESOLUTION_FACTOR,
-                height*LIGHTING_SURFACE_SIZE_FACTOR*LIGHTING_RESOLUTION_FACTOR,
+                width*LIGHTING_SURFACE_SIZE_FACTOR*1,
+                height*LIGHTING_SURFACE_SIZE_FACTOR*1,
                 lastDelta);
         defaultBatch.draw(lightOutputBuffer.getColorBufferTexture(), 0, height*LIGHTING_SURFACE_SIZE_FACTOR*LIGHTING_RESOLUTION_FACTOR,
                 width*LIGHTING_SURFACE_SIZE_FACTOR*LIGHTING_RESOLUTION_FACTOR, -height*LIGHTING_SURFACE_SIZE_FACTOR*LIGHTING_RESOLUTION_FACTOR);
@@ -280,7 +280,11 @@ public class FireRenderer {
         defaultBatch.begin();
         defaultBatch.setShader(lightFinalShader);
         lightFinalShader.loadUniforms(width, height, time, LIGHTING_SCENE_DARKNESS);
-        defaultBatch.draw(lightOutputBuffer.getColorBufferTexture(), 0, height, width, -height);
+        defaultBatch.draw(lightResidualBuffer.getColorBufferTexture(),
+                (width/2) - (width*LIGHTING_SURFACE_SIZE_FACTOR)/2,
+                (height/2) + (height*LIGHTING_SURFACE_SIZE_FACTOR)/2,
+                width*LIGHTING_SURFACE_SIZE_FACTOR,
+                -height*LIGHTING_SURFACE_SIZE_FACTOR);
         defaultBatch.end();
         FrameBuffer.unbind();
     }

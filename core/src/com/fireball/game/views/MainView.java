@@ -9,7 +9,7 @@ public class MainView extends View {
 
     public MainView(int width, int height) {
         super(null, width, height);
-        gameView = new GameView(this, width, height, 16f);
+        gameView = new GameView(this, width, height, 4f);
     }
 
     @Override

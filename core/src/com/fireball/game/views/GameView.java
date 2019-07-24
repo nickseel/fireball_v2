@@ -47,7 +47,7 @@ public class GameView extends View {
         entityManager = new EntityManager();
         entityManager.setRoom(room);
         camera = new RoomCamera(bufferWidth, bufferHeight);
-        camera.setZoom(1);
+        camera.setZoom(1.5f);
 
         gameFrameBuffer = new FrameBuffer(Pixmap.Format.RGB888, bufferWidth, bufferHeight, false);
         gameFrameBuffer.getColorBufferTexture().setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
@@ -135,14 +135,14 @@ public class GameView extends View {
     @Override
     public void draw(SpriteBatch batch) {
         batch.draw(gameFrameBuffer.getColorBufferTexture(),
-                ((width - bufferWidth) / 2f) + bufferWidth * baseZoom * 0.5f * (1 - camera.getZoom()) -
-                        ((camera.getX() * baseZoom) % baseZoom) + (0.5f * baseZoom),
-                ((height - bufferHeight) / 2f) + bufferHeight * baseZoom * 0.5f * (1 - camera.getZoom()) +
-                        ((camera.getY() * baseZoom) % baseZoom) - (0.5f * baseZoom),
+                (width * 0.5f) - (bufferWidth * baseZoom * camera.getZoom() * 0.5f)
+                        - ((camera.getX() * baseZoom) % baseZoom) + (0.5f * baseZoom),
+                (height * 0.5f) - (bufferHeight * baseZoom * camera.getZoom() * 0.5f)
+                        + ((camera.getY() * baseZoom) % baseZoom) - (0.5f * baseZoom),
                 bufferWidth * baseZoom * camera.getZoom(),
                 bufferHeight * baseZoom * camera.getZoom());
 
-        fireRenderer.drawDebugTextures(batch);
+        //fireRenderer.drawDebugTextures(batch);
 
         //pauseMenuView.draw(batch);
     }

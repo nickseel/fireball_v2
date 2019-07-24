@@ -19,8 +19,8 @@ import com.fireball.game.views.View;
 
 public class FireballGame extends ApplicationAdapter {
     public static final String TITLE = "FIREBALL";
-    public static final int WIDTH = 2600;
-    public static final int HEIGHT = 1700;
+    public static final int WIDTH = 1200;
+    public static final int HEIGHT = 800;
 
     private View mainView;
     private SpriteBatch batch;

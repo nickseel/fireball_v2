@@ -1,6 +1,7 @@
 package com.fireball.game.entities;
 
 import com.fireball.game.entities.abilities.*;
+import com.fireball.game.entities.enemies.ai.AI;
 import com.fireball.game.util.DataFile;
 
 import java.util.ArrayList;
@@ -8,6 +9,7 @@ import java.util.Collections;
 import java.util.LinkedList;
 
 public abstract class ControllableEntity extends Entity {
+    protected AI ai;
     protected double moveX, moveY;
     protected double targetX, targetY;
 
@@ -31,9 +33,10 @@ public abstract class ControllableEntity extends Entity {
     protected double maxSpeed;
     protected double turnAssist;
 
-    public ControllableEntity(Team team, String name, double x, double y, AbilityType[] abilities, int maxAbilityCombo) {
+    public ControllableEntity(Team team, String name, double x, double y, AbilityType[] abilities, int maxAbilityCombo, AI ai) {
         super(team, name, x, y);
 
+        this.ai = ai;
         this.abilities = abilities;
         prevAbilityInputs = new boolean[abilities.length];
         abilityInputs = new boolean[abilities.length];
@@ -44,6 +47,12 @@ public abstract class ControllableEntity extends Entity {
         abilitiesCasting = new ArrayList<AbilityType>();
         abilitiesStreaming = false;
         abilityStreamMovementDebuff = 1;
+    }
+
+    public void cycleAbilityInputs() {
+        for(int i = 0; i < abilities.length; i++) {
+            prevAbilityInputs[i] = abilityInputs[i];
+        }
     }
 
     protected void updateAbilities(double delta) {
@@ -324,6 +333,21 @@ public abstract class ControllableEntity extends Entity {
         }
         xVel = vel * Math.cos(angle);
         yVel = vel * Math.sin(angle);
+    }
+
+    public void setMove(double moveX, double moveY) {
+        this.moveX = moveX;
+        this.moveY = moveY;
+    }
+
+    public void setTarget(double targetX, double targetY) {
+        this.targetX = targetX;
+        this.targetY = targetY;
+    }
+
+    public void setAbilityInput(int index, boolean input) {
+        if(index < abilityInputs.length)
+            abilityInputs[index] = input;
     }
 
     @Override

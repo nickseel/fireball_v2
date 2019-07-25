@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.fireball.game.entities.ControllableEntity;
 import com.fireball.game.entities.Team;
 import com.fireball.game.entities.abilities.AbilityType;
+import com.fireball.game.entities.enemies.ai.DummyAI;
 import com.fireball.game.entities.hitboxes.DamagerHitbox;
 import com.fireball.game.rendering.fire.FireRenderer;
 import com.fireball.game.rooms.rooms.RoomCamera;
@@ -29,7 +30,7 @@ public class Walker extends ControllableEntity {
     private double pushVelY = 0;
 
     public Walker(int x, int y) {
-        super(Team.PLAYER, "player", x, y, new AbilityType[0], 1);
+        super(Team.PLAYER, "player", x, y, new AbilityType[0], 1, new DummyAI());
 
         DataFile.setCurrentLocation("entities", "walker");
         this.maxHealth = DataFile.getFloat("maxHealth"); this.health = maxHealth;

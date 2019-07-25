@@ -23,7 +23,7 @@ const float max_read_shift_y = 0.0009;
 const float read_shift_rise_speed = 2.0;
 const float read_shift_noise_3d_speed = 3.0;
 
-const float skew = 1.5;
+const float skew = 1.25;
 
 void main()
 {

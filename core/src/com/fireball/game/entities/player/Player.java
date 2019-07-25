@@ -3,6 +3,7 @@ package com.fireball.game.entities.player;
 import com.badlogic.gdx.Gdx;
 import com.fireball.game.entities.ControllableEntity;
 import com.fireball.game.entities.Team;
+import com.fireball.game.entities.enemies.ai.PlayerController;
 import com.fireball.game.rendering.fire.FireRenderer;
 import com.fireball.game.rooms.rooms.RoomCamera;
 import com.fireball.game.entities.hitboxes.BodyHitbox;
@@ -25,12 +26,10 @@ public class Player extends ControllableEntity {
     private double pushVelX = 0;
     private double pushVelY = 0;
 
-    private int[] abilityKeys;
     private RoomCamera roomCamera;
 
     public Player(int x, int y) {
-        super(Team.PLAYER, "player", x, y, PlayerData.getCurrentAbilities(), PlayerData.getMaxCombo());
-        abilityKeys = PlayerData.getAbilityKeys();
+        super(Team.PLAYER, "player", x, y, PlayerData.getCurrentAbilities(), PlayerData.getMaxCombo(), new PlayerController());
 
         DataFile.setCurrentLocation("entities", "player");
         this.maxHealth = DataFile.getFloat("maxHealth"); this.health = maxHealth;
@@ -83,36 +82,12 @@ public class Player extends ControllableEntity {
 
     @Override
     public void updatePre(double delta) {
-        LinkedList<Double[]> heldKeys = InputManager.getHeldKeys();
-
         //check input
         moveX = 0;
         moveY = 0;
-        for(int i = 0; i < abilities.length; i++) {
-            prevAbilityInputs[i] = abilityInputs[i];
-        }
-        for(Double[] keys: heldKeys) {
-            //System.out.println(keys[0] + " " + keys[1]);
-            if(keys[0] == ControlMapping.MOVE_LEFT)
-                moveX--;
-            if(keys[0] == ControlMapping.MOVE_RIGHT)
-                moveX++;
-            if(keys[0] == ControlMapping.MOVE_UP)
-                moveY--;
-            if(keys[0] == ControlMapping.MOVE_DOWN)
-                moveY++;
-        }
-        for(int i = 0; i < abilityKeys.length; i++) {
-            abilityInputs[i] = false;
-            for(Double[] keys: heldKeys) {
-                if(keys[0] == abilityKeys[i])
-                    abilityInputs[i] = true;
-            }
-        }
-        for(Double[] keys: InputManager.getPressedKeys()) {
-            if(keys[0] == 33)
-                y += 0.25f;
-        }
+
+        ai.run(this, delta);
+
 
         updateAbilities(delta);
         move(delta);

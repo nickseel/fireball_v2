@@ -21,9 +21,9 @@ public class FireRenderer {
     private static final float LIGHTING_SURFACE_SIZE_FACTOR = 1.5f;
     private static final int LIGHTING_NUM_REPETITIONS = 8;
     private static final int LIGHTING_INITIAL_REPETITION_SKIP = 1;
-    private static final float LIGHTING_START_RADIUS = 6.0f;
-    private static final float LIGHTING_REPETITION_RADIUS_INCREASE = 0.25f;
-    private static final float LIGHTING_REPETITION_RADIUS_FACTOR = 1.25f;
+    private static final float LIGHTING_START_RADIUS = 5.0f;
+    private static final float LIGHTING_REPETITION_RADIUS_INCREASE = 0.3f;
+    private static final float LIGHTING_REPETITION_RADIUS_FACTOR = 1.15f;
     private static final float LIGHTING_CIRCLE_RESOLUTION = 12;
 
     private FrameBuffer rawFireBuffer, residualFireBuffer1, residualFireBuffer2, finalFireBuffer;
@@ -289,9 +289,9 @@ public class FireRenderer {
         FrameBuffer.unbind();
     }
 
-    public void drawFinalTextures(SpriteBatch batch, int width, int height) {
-        batch.draw(finalFireBuffer.getColorBufferTexture(), 0, height, width, -height);
-        batch.draw(finalLightBuffer.getColorBufferTexture(), 0, height, width, -height);
+    public void drawFinalTextures(SpriteBatch batch, float x, float y, float width, float height) {
+        batch.draw(finalFireBuffer.getColorBufferTexture(), x, y, width, height);
+        batch.draw(finalLightBuffer.getColorBufferTexture(), x, y, width, height);
     }
 
     public void drawDebugTextures(SpriteBatch batch) {

@@ -123,7 +123,7 @@ public class GameView extends View {
         bufferBatch.end();
 
         defaultBatch.begin();
-        fireRenderer.drawFinalTextures(defaultBatch, width, height);
+        fireRenderer.drawFinalTextures(defaultBatch, 0, height, width, -height);
         defaultBatch.end();
 
         gameFrameBuffer.end();

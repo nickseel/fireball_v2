@@ -9,6 +9,7 @@ import com.fireball.game.rooms.collision.Wall;
 import com.fireball.game.entities.hitboxes.BodyHitbox;
 import com.fireball.game.entities.hitboxes.DamagerHitbox;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 
 public class EntityManager {
@@ -224,5 +225,59 @@ public class EntityManager {
 
     public void setCurrent() {
         EntityManager.current = this;
+    }
+
+    public Entity nearestEntity(double x, double y, Team team, String checkName) {
+        LinkedList<Entity> entities;
+        if(team == Team.PLAYER) {
+            entities = playerEntities;
+        } else if(team == Team.ENEMY) {
+            entities = enemyEntities;
+        } else {
+            return null;
+        }
+
+        double nearestDist = 0;
+        Entity nearest = null;
+        for(Entity e: entities) {
+            boolean valid = true;
+            if(checkName != null && !checkName.equals(e.getName())) {
+                valid = false;
+            }
+
+            if(valid) {
+                double dist = Math.hypot(e.getX() - x, e.getY() - y);
+                if(nearest != null || nearestDist > dist) {
+                    nearest = e;
+                    nearestDist = dist;
+                }
+            }
+        }
+
+        return nearest;
+    }
+
+    public LinkedList<Entity> findEntities(Team team, String checkName) {
+        LinkedList<Entity> entities;
+        if(team == Team.PLAYER) {
+            entities = playerEntities;
+        } else if(team == Team.ENEMY) {
+            entities = enemyEntities;
+        } else {
+            return null;
+        }
+
+        LinkedList<Entity> validEntities = new LinkedList<Entity>();
+        for(Entity e: entities) {
+            boolean valid = true;
+            if(checkName != null && !checkName.equals(e.getName())) {
+                valid = false;
+            }
+
+            if(valid) {
+                validEntities.add(e);
+            }
+        }
+        return validEntities;
     }
 }

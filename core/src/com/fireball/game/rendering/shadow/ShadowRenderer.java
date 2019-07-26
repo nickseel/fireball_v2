@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
+import com.fireball.game.rendering.fire.FireRenderer;
 import com.fireball.game.rendering.shaders.*;
 import com.fireball.game.rendering.textures.TextureData;
 import com.fireball.game.rendering.textures.TextureManager;
@@ -98,10 +99,22 @@ public class ShadowRenderer {
         currentBatch.draw(texture, centerX, centerY);
     }
 
-    public void end() {
+    public void end(Texture lightTexture) {
         currentBatch.end();
         currentBatch = null;
         shadowInitialBuffer.end();
+
+
+        shadowDistortBuffer.bind();
+        Gdx.gl.glClearColor(0, 0, 0, 1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        defaultBatch.begin();
+        defaultBatch.setShader(shadowDistortShader);
+        shadowDistortShader.loadUniforms(lightTexture, camera, time, FireRenderer.LIGHTING_SCENE_DARKNESS);
+        defaultBatch.draw(shadowInitialBuffer.getColorBufferTexture(), 0, height, width, -height);
+        defaultBatch.setShader(null);
+        defaultBatch.end();
+        FrameBuffer.unbind();
     }
 
     public void drawFinalTextures(SpriteBatch batch, float x, float y, float width, float height) {

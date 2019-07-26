@@ -107,7 +107,7 @@ public class GameView extends View {
 
         shadowRenderer.begin(camera);
         entityManager.drawShadow(shadowRenderer);
-        shadowRenderer.end();
+        shadowRenderer.end(fireRenderer.getLightTexture());
 
 
 

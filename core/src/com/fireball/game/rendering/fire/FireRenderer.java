@@ -14,7 +14,7 @@ import com.fireball.game.rendering.textures.TextureManager;
 import com.fireball.game.rooms.rooms.RoomCamera;
 
 public class FireRenderer {
-    private static final float LIGHTING_SCENE_DARKNESS = 0.9f;
+    public static final float LIGHTING_SCENE_DARKNESS = 0.9f;
     private static final float LIGHTING_RESOLUTION_FACTOR = 0.5f;
     private static final float LIGHTING_SURFACE_SIZE_FACTOR = 1.5f;
     private static final int LIGHTING_NUM_REPETITIONS = 8;
@@ -309,6 +309,14 @@ public class FireRenderer {
             batch.draw(debugBuffers[i].getColorBufferTexture(),
                     w*xOffset, h*i, w-2, h-2);
         }
+    }
+
+    public Texture getLightTexture() {
+        return finalLightBuffer.getColorBufferTexture();
+    }
+
+    public Texture getFireTexture() {
+        return finalFireBuffer.getColorBufferTexture();
     }
 
     public void dispose() {

@@ -35,6 +35,7 @@ public abstract class ControllableEntity extends Entity {
     protected double friction;
     protected double maxSpeed;
     protected double turnAssist;
+    protected double weight;
 
     public ControllableEntity(Team team, String name, double x, double y, AbilityType[] abilities, int maxAbilityCombo, AI ai) {
         super(team, name, x, y);
@@ -305,8 +306,6 @@ public abstract class ControllableEntity extends Entity {
         if(stunTimer > 0) {
             stunTimer = Math.max(0, stunTimer - delta);
             currentFriction = stunFriction;
-        }
-        if(stunTimer > 0.1) {
             moveX = 0;
             moveY = 0;
         }
@@ -385,5 +384,9 @@ public abstract class ControllableEntity extends Entity {
 
     public boolean abilitiesStreaming() {
         return abilitiesStreaming;
+    }
+
+    public double getWeight() {
+        return weight;
     }
 }

@@ -39,6 +39,7 @@ public class Player extends ControllableEntity {
         this.friction = DataFile.getFloat("friction");
         this.maxSpeed = DataFile.getFloat("maxSpeed");
         this.turnAssist = DataFile.getFloat("turnAssist");
+        this.weight = DataFile.getFloat("weight");
 
         this.terrainCollisionRadius = radius;
 
@@ -46,16 +47,21 @@ public class Player extends ControllableEntity {
             @Override
             public void takeDamage(double damage, double knockback, double knockbackAngle, double stun, double stunFriction_) {
                 health -= damage;
-                xVel *= 0.5;
-                yVel *= 0.5;
-                xVel += knockback * Math.cos(knockbackAngle);
-                yVel += knockback * Math.sin(knockbackAngle);
+                xVel += (knockback * Math.cos(knockbackAngle)) / weight;
+                yVel += (knockback * Math.sin(knockbackAngle)) / weight;
                 stunTimer += stun;
                 stunFriction = stunFriction_;
             }
 
             @Override
             public void getPushedBy(BodyHitbox other) {
+                double otherWeight = 1;
+                if(other.getOwner() instanceof ControllableEntity) {
+                    ControllableEntity otherC = (ControllableEntity)other.getOwner();
+                    otherWeight = otherC.getWeight();
+                }
+
+                double weightRatio = otherWeight / weight;
                 double angle = Math.atan2(other.getY() - y, other.getX() - x);
                 double normalX = Math.cos(angle);
                 double normalY = Math.sin(angle);
@@ -63,8 +69,8 @@ public class Player extends ControllableEntity {
                 double distance = Math.hypot(other.getY() - y, other.getX() - x);
                 double pushPct = Math.max(0, Math.min(1, Util.mix(1.0, -0.05, Math.pow(distance / (radius + other.getRadius()), 3))));
 
-                pushVelX -= maxPushSpeed * pushPct * normalX;
-                pushVelY -= maxPushSpeed * pushPct * normalY;
+                pushVelX -= maxPushSpeed * weightRatio * pushPct * normalX;
+                pushVelY -= maxPushSpeed * weightRatio * pushPct * normalY;
             }
         };
 

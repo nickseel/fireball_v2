@@ -1,11 +1,13 @@
 {
 	"player": {
 		"maxHealth": 		100,
-		"healthRegen": 		16,
 		"radius":			11,
 		"maxSpeed":			90,
 		"friction": 		0.75,
-		"turnAssist": 		2.0
+		"turnAssist": 		2.0,
+		"weight": 			1.0,
+
+		"healthRegen": 16
 	},
 	"walker": {
 		"maxHealth": 		125,
@@ -13,6 +15,7 @@
 		"maxSpeed":			60,
 		"friction": 		0.75,
 		"turnAssist": 		2.0,
+		"weight": 			1.0,
 		
 		"contact_damage": 15,
 		"contact_knockback": 260,

@@ -24,7 +24,7 @@ public class Explosion extends Ability {
         hitbox = new DamagerHitbox(this, team, x, y, radius) {
             @Override
             public void damage(BodyHitbox other) {
-                other.takeDamage(1, 1, 0);
+                other.takeDamage(1, 1, 0, 0, 1);
             }
         };
 

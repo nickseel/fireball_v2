@@ -18,30 +18,12 @@ varying vec4 v_color;
 varying vec2 v_texCoords;
 
 uniform sampler2D u_texture;
-uniform vec2 u_scale;
-uniform vec2 u_camera_position;
-uniform float u_time;
-
-const vec2 color_noise_magnification = vec2(400.0, 50.0);
-const float read_shift_noise_3d_speed = 4.0;
 
 void main()
 {
-	vec4 read = texture2D(u_texture, v_vTexcoord);
-	float shadow_amount = read.a;
-	if(shadow_amount <= 0.0) {
-		discard;
+	vec4 col = texture2D(u_texture, v_texCoords);
+	if(col.r + col.g + col.b < 0.02) {
+	    discard;
 	}
-	float light_amount = read.r;
-	vec2 world_position = v_vTexcoord + u_camera_position;
-
-	float color_amount_base = mix(0.5, 1.0, light_amount) * read.b;
-	float color_amount_min = max(mix(-0.2, 0.6, color_amount_base), 0.0);
-	float color_amount_max = mix(0.15, 0.8, color_amount_base);
-	vec2 color_scaled_tex_coord = vec2(color_noise_magnification.x * world_position.x / u_scale.x, color_noise_magnification.y * world_position.y / u_scale.y);
-	float color_noise_range = snoise(vec3(color_scaled_tex_coord, u_time * read_shift_noise_3d_speed));
-	float color_noise = (color_noise_range * 0.5) + 0.5;
-	vec3 col = mix(vec3(1.0, 0.0, 1.0) * color_amount_min, vec3(1.0, 0.0, 1.0) * color_amount_max, pow(color_noise, 2.5));
-
-	gl_FragColor = vec4(col, shadow_amount);
+	gl_FragColor = vec4(col.rgb, 1.0);
 }

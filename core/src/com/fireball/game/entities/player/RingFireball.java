@@ -43,14 +43,14 @@ public class RingFireball extends Ability {
         damageHitbox = new DamagerHitbox(this, team, x, y, radius) {
             @Override
             public void damage(BodyHitbox other) {
-                other.takeDamage(1, 1, 0);
+                other.takeDamage(1, 1, 0, 0, 1);
                 kill();
             }
         };
 
         bodyHitbox = new BodyHitbox(this, team, x, y, radius) {
             @Override
-            public void takeDamage(double damage, double knockback, double knockbackAngle) {
+            public void takeDamage(double damage, double knockback, double knockbackAngle, double stun, double stunFriction) {
                 kill();
             }
 

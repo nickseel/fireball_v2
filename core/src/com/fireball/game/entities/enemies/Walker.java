@@ -33,27 +33,35 @@ public class Walker extends ControllableEntity {
     private double pushVelX = 0;
     private double pushVelY = 0;
 
+    private double contactDamage, contactKnockback, contactStun, contactStunFriction;
+
     public Walker(int x, int y) {
-        super(Team.PLAYER, "player", x, y, new AbilityType[0], 1, new DummyAI());
+        super(Team.ENEMY, "player", x, y, new AbilityType[0], 1, new DummyAI());
 
         sprite = TextureManager.getTextureSheet(TextureSheetData.WALKER);
 
         DataFile.setCurrentLocation("entities", "walker");
         this.maxHealth = DataFile.getFloat("maxHealth"); this.health = maxHealth;
         this.radius = DataFile.getFloat("radius");
-        this.accel = DataFile.getFloat("accel");
+        //this.accel = DataFile.getFloat("accel");
         this.friction = DataFile.getFloat("friction");
         this.maxSpeed = DataFile.getFloat("maxSpeed");
         this.turnAssist = DataFile.getFloat("turnAssist");
+        this.contactDamage = DataFile.getFloat("contact_damage");
+        this.contactKnockback = DataFile.getFloat("contact_knockback");
+        this.contactStun = DataFile.getFloat("contact_stun");
+        this.contactStunFriction = DataFile.getFloat("contact_stun_friction");
 
         this.terrainCollisionRadius = radius;
 
         hitbox = new BodyHitbox(this, team, x, y, radius) {
             @Override
-            public void takeDamage(double damage, double knockback, double knockbackAngle) {
+            public void takeDamage(double damage, double knockback, double knockbackAngle, double stun, double stunFriction_) {
                 health -= damage;
                 xVel += knockback * Math.cos(knockbackAngle);
                 yVel += knockback * Math.sin(knockbackAngle);
+                stunTimer += stun;
+                stunFriction = stunFriction_;
             }
 
             @Override
@@ -75,7 +83,9 @@ public class Walker extends ControllableEntity {
         hurtbox = new DamagerHitbox(this, team, x, y, radius) {
             @Override
             public void damage(BodyHitbox other) {
-                other.takeDamage(1, 1, 0);
+                double angle = Math.atan2(other.getY() - y, other.getX() - x);
+
+                other.takeDamage(contactDamage, contactKnockback, angle, contactStun, contactStunFriction);
             }
         };
         damagerHitboxes = new DamagerHitbox[] {hurtbox};
@@ -131,7 +141,9 @@ public class Walker extends ControllableEntity {
 
     @Override
     public void drawShadow(ShadowRenderer renderer, int batchIndex) {
-        renderer.drawShadow((float)x, (float)y, sprite[batchIndex]);
+        float width = sprite[batchIndex].getRegionWidth();
+        float height = sprite[batchIndex].getRegionHeight();
+        renderer.drawShadow((float)x - width/2, (float)y + height/2, width, -height, sprite[batchIndex]);
     }
 
     @Override

@@ -4,21 +4,20 @@
 		"healthRegen": 		16,
 		"radius":			11,
 		"maxSpeed":			90,
-		"accel": 			1000,
 		"friction": 		0.75,
 		"turnAssist": 		2.0
 	},
 	"walker": {
 		"maxHealth": 		125,
-		"radius":			20,
+		"radius":			10,
 		"maxSpeed":			60,
-		"accel": 			1000,
 		"friction": 		0.75,
 		"turnAssist": 		2.0,
 		
 		"contact_damage": 15,
-		"contact_knockback": 0,
-		"contact_stun": 0,
+		"contact_knockback": 260,
+		"contact_stun": 0.11,
+		"contact_stun_friction": 1.2,
 		
 		"min_strafe_distance": 30,
 		"max_strafe_distance": 120,

@@ -11,7 +11,7 @@ public abstract class BodyHitbox extends Hitbox {
         super(owner, team, x, y, radius);
     }
 
-    public abstract void takeDamage(double damage, double knockback, double knockbackAngle);
+    public abstract void takeDamage(double damage, double knockback, double knockbackAngle, double stun, double stunFriction);
     public abstract void getPushedBy(BodyHitbox other);
 
     public boolean isDamageable() {

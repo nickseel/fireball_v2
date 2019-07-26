@@ -35,7 +35,7 @@ public class Player extends ControllableEntity {
         this.maxHealth = DataFile.getFloat("maxHealth"); this.health = maxHealth;
         this.healthRegen = DataFile.getFloat("healthRegen");
         this.radius = DataFile.getFloat("radius");
-        this.accel = DataFile.getFloat("accel");
+        //this.accel = DataFile.getFloat("accel");
         this.friction = DataFile.getFloat("friction");
         this.maxSpeed = DataFile.getFloat("maxSpeed");
         this.turnAssist = DataFile.getFloat("turnAssist");
@@ -44,10 +44,14 @@ public class Player extends ControllableEntity {
 
         hitbox = new BodyHitbox(this, team, x, y, radius) {
             @Override
-            public void takeDamage(double damage, double knockback, double knockbackAngle) {
+            public void takeDamage(double damage, double knockback, double knockbackAngle, double stun, double stunFriction_) {
                 health -= damage;
+                xVel *= 0.5;
+                yVel *= 0.5;
                 xVel += knockback * Math.cos(knockbackAngle);
                 yVel += knockback * Math.sin(knockbackAngle);
+                stunTimer += stun;
+                stunFriction = stunFriction_;
             }
 
             @Override

@@ -34,7 +34,7 @@ public class ShadowRenderer {
         this.height = height;
         shadowInitialBuffer = new FrameBuffer(Pixmap.Format.RGB888, width, height, false);
         shadowDistortBuffer = new FrameBuffer(Pixmap.Format.RGB888, width, height, false);
-        finalShadowBuffer = new FrameBuffer(Pixmap.Format.RGB888, width, height, false);
+        finalShadowBuffer = new FrameBuffer(Pixmap.Format.RGBA8888, width, height, false);
 
         shadowInitialShader = new ShadowInitialShader();
         shadowDistortShader= new ShadowDistortShader();
@@ -95,8 +95,8 @@ public class ShadowRenderer {
         currentBatch.begin();
     }
 
-    public void drawShadow(float centerX, float centerY, TextureRegion texture) {
-        currentBatch.draw(texture, centerX, centerY);
+    public void drawShadow(float centerX, float centerY, float width, float height, TextureRegion texture) {
+        currentBatch.draw(texture, centerX, centerY, width, height);
     }
 
     public void end(Texture lightTexture) {
@@ -115,10 +115,23 @@ public class ShadowRenderer {
         defaultBatch.setShader(null);
         defaultBatch.end();
         FrameBuffer.unbind();
+
+
+        finalShadowBuffer.bind();
+        Gdx.gl.glClearColor(0, 0, 0, 0);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        defaultBatch.setBlendFunction(Gdx.gl.GL_ONE, Gdx.gl.GL_ONE);
+        defaultBatch.begin();
+        defaultBatch.setShader(shadowFinalShader);
+        defaultBatch.draw(shadowDistortBuffer.getColorBufferTexture(), 0, height, width, -height);
+        defaultBatch.setShader(null);
+        defaultBatch.end();
+        defaultBatch.setBlendFunction(Gdx.gl.GL_SRC_ALPHA, Gdx.gl.GL_ONE_MINUS_SRC_ALPHA);
+        FrameBuffer.unbind();
     }
 
     public void drawFinalTextures(SpriteBatch batch, float x, float y, float width, float height) {
-        //batch.draw(finalShadowBuffer.getColorBufferTexture(), x, y, width, height);
+        batch.draw(finalShadowBuffer.getColorBufferTexture(), x, y, width, height);
     }
 
     public void drawDebugTextures(SpriteBatch batch, int numMax, int xOffset) {

@@ -26,9 +26,12 @@ public abstract class ControllableEntity extends Entity {
     protected double abilityStreamTime, minAbilityStreamTime;
     protected double abilityStreamMovementDebuff;
 
+    protected double stunTimer;
+    protected double stunFriction;
+
     protected double maxHealth;
     protected double health;
-    protected double accel;
+    protected double accel = 1000;
     protected double friction;
     protected double maxSpeed;
     protected double turnAssist;
@@ -298,6 +301,16 @@ public abstract class ControllableEntity extends Entity {
     }
 
     protected void move(double delta) {
+        double currentFriction = friction;
+        if(stunTimer > 0) {
+            stunTimer = Math.max(0, stunTimer - delta);
+            currentFriction = stunFriction;
+        }
+        if(stunTimer > 0.1) {
+            moveX = 0;
+            moveY = 0;
+        }
+
         //accelerate
         if(moveX != 0) {
             xVel += moveX * accel * delta;
@@ -307,15 +320,17 @@ public abstract class ControllableEntity extends Entity {
         }
 
 
-        //cap max speed
         double debuffedMaxSpeed = maxSpeed * getMovementDebuff();
         double vel = Math.hypot(xVel, yVel);
         double angle = Math.atan2(yVel, xVel);
-        if(vel > debuffedMaxSpeed) {
+
+        //cap max speed
+        if(vel > debuffedMaxSpeed && stunTimer <= 0) {
             vel = Math.signum(vel) * Math.min(debuffedMaxSpeed, Math.abs(vel) - accel * delta);
         } else if(moveX == 0 && moveY == 0) {
-            vel = Math.signum(vel) * Math.max(0, Math.abs(vel) - accel * friction * delta);
+            vel = Math.signum(vel) * Math.max(0, Math.abs(vel) - accel * currentFriction * delta);
         }
+
 
         //assist in turning
         if(moveX != 0 || moveY != 0) {

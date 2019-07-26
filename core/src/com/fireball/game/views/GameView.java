@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 import com.fireball.game.rendering.fire.FireRenderer;
+import com.fireball.game.rendering.shadow.ShadowRenderer;
 import com.fireball.game.rooms.rooms.Room;
 import com.fireball.game.rooms.rooms.RoomCamera;
 import com.fireball.game.rooms.rooms.RoomData;
@@ -31,6 +32,7 @@ public class GameView extends View {
     private SpriteBatch bufferBatch, defaultBatch;
 
     private FireRenderer fireRenderer;
+    private ShadowRenderer shadowRenderer;
     private ColorThemeShader colorThemeShader;
 
 
@@ -54,7 +56,8 @@ public class GameView extends View {
         bufferBatch = new SpriteBatch();
         defaultBatch = new SpriteBatch();
 
-        fireRenderer = new FireRenderer(bufferWidth, bufferHeight, baseZoom);
+        fireRenderer = new FireRenderer(bufferWidth, bufferHeight);
+        shadowRenderer = new ShadowRenderer(bufferWidth, bufferHeight);
         colorThemeShader = new ColorThemeShader();
 
         Player p;
@@ -71,6 +74,7 @@ public class GameView extends View {
     @Override
     public void update(double delta) {
         fireRenderer.update(delta);
+        shadowRenderer.update(delta);
 
         if(InputManager.keyPressed(ControlMapping.PAUSE_GAME)) {
             if(paused) {
@@ -124,6 +128,7 @@ public class GameView extends View {
 
         defaultBatch.begin();
         fireRenderer.drawFinalTextures(defaultBatch, 0, height, width, -height);
+        //shadowRenderer.drawFinalTextures(defaultBatch, 0, height, width, -height);
         defaultBatch.end();
 
         gameFrameBuffer.end();
@@ -142,7 +147,8 @@ public class GameView extends View {
                 bufferWidth * baseZoom * camera.getZoom(),
                 bufferHeight * baseZoom * camera.getZoom());
 
-        fireRenderer.drawDebugTextures(batch);
+        fireRenderer.drawDebugTextures(batch, 9, 0);
+        shadowRenderer.drawDebugTextures(batch, 9, 1);
 
         //pauseMenuView.draw(batch);
     }
@@ -157,5 +163,7 @@ public class GameView extends View {
         super.dispose();
         gameFrameBuffer.dispose();
         bufferBatch.dispose();
+        fireRenderer.dispose();
+        shadowRenderer.dispose();
     }
 }

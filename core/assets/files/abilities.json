@@ -34,7 +34,8 @@
 			
 			"damage": 16,
 			"knockback": 80,
-			"stun": 0.15
+			"stun": 0.15,
+			"stun_friction": 1
 		},
 		"fireball -> explosion": {
 			"cast_name": "explosion",

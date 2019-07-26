@@ -29,7 +29,7 @@ public class Player extends ControllableEntity {
     private RoomCamera roomCamera;
 
     public Player(int x, int y) {
-        super(Team.PLAYER, "player", x, y, PlayerData.getCurrentAbilities(), PlayerData.getMaxCombo(), new PlayerController());
+        super(Team.PLAYER, "player", x, y, PlayerData.getCurrentAbilities(), PlayerData.getMaxCombo());
 
         DataFile.setCurrentLocation("entities", "player");
         this.maxHealth = DataFile.getFloat("maxHealth"); this.health = maxHealth;
@@ -41,6 +41,8 @@ public class Player extends ControllableEntity {
         this.turnAssist = DataFile.getFloat("turnAssist");
         this.weight = DataFile.getFloat("weight");
 
+        ai = new PlayerController();
+
         this.terrainCollisionRadius = radius;
 
         hitbox = new BodyHitbox(this, team, x, y, radius) {
@@ -49,7 +51,7 @@ public class Player extends ControllableEntity {
                 health -= damage;
                 xVel += (knockback * Math.cos(knockbackAngle)) / weight;
                 yVel += (knockback * Math.sin(knockbackAngle)) / weight;
-                stunTimer += stun;
+                stunTimer = Math.max(stunTimer, stun);
                 stunFriction = stunFriction_;
             }
 

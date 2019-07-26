@@ -2,6 +2,7 @@ package com.fireball.game.entities;
 
 import com.fireball.game.entities.abilities.*;
 import com.fireball.game.entities.enemies.ai.AI;
+import com.fireball.game.entities.enemies.ai.DummyAI;
 import com.fireball.game.util.DataFile;
 
 import java.util.ArrayList;
@@ -9,7 +10,9 @@ import java.util.Collections;
 import java.util.LinkedList;
 
 public abstract class ControllableEntity extends Entity {
-    protected AI ai;
+    public static final double STUN_FRICTION = 0.15;
+
+    protected AI ai = new DummyAI();
     protected double moveX, moveY;
     protected double targetX, targetY;
 
@@ -37,7 +40,7 @@ public abstract class ControllableEntity extends Entity {
     protected double turnAssist;
     protected double weight;
 
-    public ControllableEntity(Team team, String name, double x, double y, AbilityType[] abilities, int maxAbilityCombo, AI ai) {
+    public ControllableEntity(Team team, String name, double x, double y, AbilityType[] abilities, int maxAbilityCombo) {
         super(team, name, x, y);
 
         this.ai = ai;
@@ -305,9 +308,9 @@ public abstract class ControllableEntity extends Entity {
         double currentFriction = friction;
         if(stunTimer > 0) {
             stunTimer = Math.max(0, stunTimer - delta);
-            currentFriction = stunFriction;
             moveX = 0;
             moveY = 0;
+            currentFriction = STUN_FRICTION;
         }
 
         //accelerate

@@ -47,9 +47,25 @@ public class DataFile {
         return currentLocation.getString(name);
     }
 
+    public static int[] getIntArray(String... keys) {
+        return getUltimate(keys).asIntArray();
+    }
+
+    public static int[] getIntArray(String name) {
+        return getUltimate(name).asIntArray();
+    }
+
     private static JsonValue getPenultimate(String... keys) {
         JsonValue value = currentLocation;
         for(int i = 0; i < keys.length-1; i++) {
+            value = value.get(keys[i]);
+        }
+        return value;
+    }
+
+    private static JsonValue getUltimate(String... keys) {
+        JsonValue value = currentLocation;
+        for(int i = 0; i < keys.length; i++) {
             value = value.get(keys[i]);
         }
         return value;

@@ -6,6 +6,7 @@ import com.fireball.game.entities.ControllableEntity;
 import com.fireball.game.entities.Team;
 import com.fireball.game.entities.abilities.AbilityType;
 import com.fireball.game.entities.enemies.ai.DummyAI;
+import com.fireball.game.entities.enemies.ai.WalkerAI;
 import com.fireball.game.entities.hitboxes.DamagerHitbox;
 import com.fireball.game.rendering.fire.FireRenderer;
 import com.fireball.game.rendering.shadow.ShadowRenderer;
@@ -36,7 +37,7 @@ public class Walker extends ControllableEntity {
     private double contactDamage, contactKnockback, contactStun, contactStunFriction;
 
     public Walker(int x, int y) {
-        super(Team.ENEMY, "player", x, y, new AbilityType[0], 1, new DummyAI());
+        super(Team.ENEMY, "walker", x, y, new AbilityType[0], 1);
 
         sprite = TextureManager.getTextureSheet(TextureSheetData.WALKER);
 
@@ -53,6 +54,18 @@ public class Walker extends ControllableEntity {
         this.contactStun = DataFile.getFloat("contact_stun");
         this.contactStunFriction = DataFile.getFloat("contact_stun_friction");
 
+        double minStrafeDistance = DataFile.getFloat("min_strafe_distance");
+        double maxStrafeDistance = DataFile.getFloat("max_strafe_distance");
+        int[] directionsChooseList = DataFile.getIntArray("directions_choose_list");
+        double changeDirectionTimerMin = DataFile.getFloat("change_direction_timer_min");
+        double changeDirectionTimerMax = DataFile.getFloat("change_direction_timer_max");
+        double changeDirectionTimerWeight = DataFile.getFloat("change_direction_timer_weight");
+        double minTowardsPlayerWeight = DataFile.getFloat("min_towards_player_weight");
+
+        ai = new WalkerAI(minStrafeDistance, maxStrafeDistance, directionsChooseList,
+                changeDirectionTimerMin, changeDirectionTimerMax,
+                changeDirectionTimerWeight, minTowardsPlayerWeight);
+
         this.terrainCollisionRadius = radius;
 
         hitbox = new BodyHitbox(this, team, x, y, radius) {
@@ -61,7 +74,7 @@ public class Walker extends ControllableEntity {
                 health -= damage;
                 xVel += (knockback * Math.cos(knockbackAngle)) / weight;
                 yVel += (knockback * Math.sin(knockbackAngle)) / weight;
-                stunTimer += stun;
+                stunTimer = Math.max(stunTimer, stun);
                 stunFriction = stunFriction_;
             }
 
@@ -90,9 +103,8 @@ public class Walker extends ControllableEntity {
 
         hurtbox = new DamagerHitbox(this, team, x, y, radius) {
             @Override
-            public void damage(BodyHitbox other) {
+            public void damageBody(BodyHitbox other) {
                 double angle = Math.atan2(other.getY() - y, other.getX() - x);
-
                 other.takeDamage(contactDamage, contactKnockback, angle, contactStun, contactStunFriction);
             }
         };
@@ -117,10 +129,7 @@ public class Walker extends ControllableEntity {
     public void updatePre(double delta) {
         LinkedList<Double[]> heldKeys = InputManager.getHeldKeys();
 
-        //check input
-        moveX = 0;
-        moveY = 0;
-        // RUN AI HERE
+        ai.run(this, delta);
 
         updateAbilities(delta);
         move(delta);

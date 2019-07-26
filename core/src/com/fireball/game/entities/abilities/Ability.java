@@ -82,7 +82,12 @@ public abstract class Ability extends Entity {
                     createY,
                     radius,
                     angle,
-                    DataFile.getFloat("velocity"));
+                    DataFile.getFloat("velocity"),
+                    DataFile.getFloat("lifetime"),
+                    DataFile.getFloat("damage"),
+                    DataFile.getFloat("knockback"),
+                    DataFile.getFloat("stun"),
+                    DataFile.getFloat("stun_friction"));
             createdObjects = new Entity[] {e};
         } else if(castName.equals("explosion")) {
             Entity e = new Explosion(owner,

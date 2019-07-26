@@ -9,5 +9,5 @@ public abstract class DamagerHitbox extends Hitbox {
         super(owner, team, x, y, radius);
     }
 
-    public abstract void damage(BodyHitbox other);
+    public abstract void damageBody(BodyHitbox other);
 }

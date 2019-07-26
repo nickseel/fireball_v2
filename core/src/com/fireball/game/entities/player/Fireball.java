@@ -16,21 +16,31 @@ public class Fireball extends Ability {
     protected double radius;
     protected double angle;
     protected double velocity;
+    protected double lifetime;
+    protected double damage, knockback, stun, stunFriction;
 
     protected DamagerHitbox hitbox;
 
     public Fireball(ControllableEntity owner, Entity castOwner, String subAbilityName,
-                    double x, double y, double radius, double angle, double velocity) {
+                    double x, double y, double radius, double angle, double velocity,
+                    double lifetime, double damage_, double knockback_, double stun_, double stunFriction_) {
         super("fireball", owner, castOwner, subAbilityName, x, y);
         this.radius = radius;
         this.angle = angle;
         this.velocity = velocity;
+        this.lifetime = lifetime;
+        this.damage = damage_;
+        this.knockback = knockback_;
+        this.stun = stun_;
+        this.stunFriction = stunFriction_;
+
         terrainCollisionRadius = radius;
 
         hitbox = new DamagerHitbox(this, team, x, y, radius) {
             @Override
-            public void damage(BodyHitbox other) {
-                other.takeDamage(1, 1, 0, 0, 1);
+            public void damageBody(BodyHitbox other) {
+                double angle = Math.atan2(other.getY() - y, other.getX() - x);
+                other.takeDamage(damage, knockback, angle, stun, stunFriction);
                 kill();
             }
         };

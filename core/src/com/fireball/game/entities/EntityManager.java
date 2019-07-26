@@ -70,7 +70,7 @@ public class EntityManager {
             @Override
             public void event(BodyHitbox item1, DamagerHitbox item2) {
                 if(item1.getOwner().isAlive() && item2.getOwner().isAlive() && item1.getTeam().collidesWidth(item2.getTeam()) && item2.overlapping(item1) && item1.isDamageable()) {
-                    item2.damage(item1);
+                    item2.damageBody(item1);
                 }
             }
         };
@@ -241,57 +241,69 @@ public class EntityManager {
         EntityManager.current = this;
     }
 
-    public Entity nearestEntity(double x, double y, Team team, String checkName) {
-        LinkedList<Entity> entities;
-        if(team == Team.PLAYER) {
-            entities = playerEntities;
-        } else if(team == Team.ENEMY) {
-            entities = enemyEntities;
+    public Entity nearestEntity(double x, double y, Team checkTeam, String checkName) {
+        LinkedList<LinkedList<Entity>> validEntities = new LinkedList<LinkedList<Entity>>();
+        if(checkTeam == null) {
+            validEntities.add(playerEntities);
+            validEntities.add(enemyEntities);
+        } else if(checkTeam == Team.PLAYER) {
+            validEntities.add(playerEntities);
+        } else if(checkTeam == Team.ENEMY) {
+            validEntities.add(enemyEntities);
         } else {
             return null;
         }
 
+
         double nearestDist = 0;
         Entity nearest = null;
-        for(Entity e: entities) {
-            boolean valid = true;
-            if(checkName != null && !checkName.equals(e.getName())) {
-                valid = false;
-            }
-
-            if(valid) {
-                double dist = Math.hypot(e.getX() - x, e.getY() - y);
-                if(nearest != null || nearestDist > dist) {
-                    nearest = e;
-                    nearestDist = dist;
+        for(LinkedList<Entity> entities: validEntities) {
+            for(Entity e: entities) {
+                if(entityValid(e, checkTeam, checkName)) {
+                    double dist = Math.hypot(e.getX() - x, e.getY() - y);
+                    if(nearest == null || nearestDist > dist) {
+                        nearest = e;
+                        nearestDist = dist;
+                    }
                 }
             }
         }
 
+        System.out.println(nearest);
         return nearest;
     }
 
-    public LinkedList<Entity> findEntities(Team team, String checkName) {
-        LinkedList<Entity> entities;
-        if(team == Team.PLAYER) {
-            entities = playerEntities;
-        } else if(team == Team.ENEMY) {
-            entities = enemyEntities;
+    public LinkedList<Entity> findEntities(Team checkTeam, String checkName) {
+        LinkedList<LinkedList<Entity>> validEntities = new LinkedList<LinkedList<Entity>>();
+        if(checkTeam == null) {
+            validEntities.add(playerEntities);
+            validEntities.add(enemyEntities);
+        } else if(checkTeam == Team.PLAYER) {
+            validEntities.add(playerEntities);
+        } else if(checkTeam == Team.ENEMY) {
+            validEntities.add(enemyEntities);
         } else {
             return null;
         }
 
-        LinkedList<Entity> validEntities = new LinkedList<Entity>();
-        for(Entity e: entities) {
-            boolean valid = true;
-            if(checkName != null && !checkName.equals(e.getName())) {
-                valid = false;
-            }
-
-            if(valid) {
-                validEntities.add(e);
+        LinkedList<Entity> foundEntities = new LinkedList<Entity>();
+        for(LinkedList<Entity> entities: validEntities) {
+            for(Entity e: entities) {
+                if(entityValid(e, checkTeam, checkName)) {
+                    foundEntities.add(e);
+                }
             }
         }
-        return validEntities;
+        return foundEntities;
+    }
+
+    private boolean entityValid(Entity e, Team checkTeam, String checkName) {
+        if(checkTeam != null && !checkTeam.equals(e.getTeam()))
+            return false;
+
+        if(checkName != null && !checkName.equals(e.getName()))
+            return false;
+
+        return true;
     }
 }

@@ -1,12 +1,16 @@
 package com.fireball.game.entities.enemies;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.fireball.game.entities.ControllableEntity;
 import com.fireball.game.entities.Team;
 import com.fireball.game.entities.abilities.AbilityType;
 import com.fireball.game.entities.enemies.ai.DummyAI;
 import com.fireball.game.entities.hitboxes.DamagerHitbox;
 import com.fireball.game.rendering.fire.FireRenderer;
+import com.fireball.game.rendering.shadow.ShadowRenderer;
+import com.fireball.game.rendering.textures.TextureManager;
+import com.fireball.game.rendering.textures.TextureSheetData;
 import com.fireball.game.rooms.rooms.RoomCamera;
 import com.fireball.game.entities.hitboxes.BodyHitbox;
 import com.fireball.game.input.ControlMapping;
@@ -19,11 +23,11 @@ import java.util.LinkedList;
 import static java.lang.Math.*;
 
 public class Walker extends ControllableEntity {
+    private TextureRegion[] sprite;
     private BodyHitbox hitbox;
     private DamagerHitbox hurtbox;
 
-    private double healthRegen;
-    private double radius = 12;
+    private double radius;
 
     private double maxPushSpeed = 200;
     private double pushVelX = 0;
@@ -32,9 +36,10 @@ public class Walker extends ControllableEntity {
     public Walker(int x, int y) {
         super(Team.PLAYER, "player", x, y, new AbilityType[0], 1, new DummyAI());
 
+        sprite = TextureManager.getTextureSheet(TextureSheetData.WALKER);
+
         DataFile.setCurrentLocation("entities", "walker");
         this.maxHealth = DataFile.getFloat("maxHealth"); this.health = maxHealth;
-        this.healthRegen = DataFile.getFloat("healthRegen");
         this.radius = DataFile.getFloat("radius");
         this.accel = DataFile.getFloat("accel");
         this.friction = DataFile.getFloat("friction");
@@ -122,6 +127,11 @@ public class Walker extends ControllableEntity {
     @Override
     public void updatePost(double delta) {
 
+    }
+
+    @Override
+    public void drawShadow(ShadowRenderer renderer, int batchIndex) {
+        renderer.drawShadow((float)x, (float)y, sprite[batchIndex]);
     }
 
     @Override

@@ -5,7 +5,8 @@ public enum TextureSheetData {
     GROUND_BIG (TextureData.GROUND_BIG, 4, 4),
     WALLS (TextureData.WALLS, 8, 8),
     WALLS_GRAY (TextureData.WALLS_GRAY, 8, 8),
-    CRACK (TextureData.CRACK, 4, 4);
+    CRACK (TextureData.CRACK, 4, 4),
+    WALKER (TextureData.WALKER, 2, 2);
 
     private TextureData textureData;
     private int numRows, numCols;

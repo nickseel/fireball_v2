@@ -12,7 +12,8 @@ public enum TextureData {
     GROUND_BIG ("tilesets/ground_big.png"),
     WALLS ("tilesets/walls.png"),
     WALLS_GRAY ("tilesets/walls_gray.png"),
-    CRACK ("sprites/environment/crack.png");
+    CRACK ("sprites/environment/crack.png"),
+    WALKER ("sprites/enemies/walker.png");
 
     private String fileName;
     TextureData(String fileName) {

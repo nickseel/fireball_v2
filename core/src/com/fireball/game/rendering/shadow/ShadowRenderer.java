@@ -26,6 +26,8 @@ public class ShadowRenderer {
     private RoomCamera camera, tempCamera;
     private SpriteBatch mainBatch, obstructionBatch, colorBatch, defaultBatch;
 
+    private SpriteBatch currentBatch = null;
+
     public ShadowRenderer(int width, int height) {
         this.width = width;
         this.height = height;
@@ -62,34 +64,43 @@ public class ShadowRenderer {
 
         mainBatch.setBlendFunction(Gdx.gl.GL_ONE, Gdx.gl.GL_ONE);
         mainBatch.setProjectionMatrix(tempCamera.combined);
-        mainBatch.begin();
         mainBatch.setColor(1f, 0f, 0f, 1f);
         mainBatch.setShader(shadowInitialShader);
 
         obstructionBatch.setBlendFunction(Gdx.gl.GL_ONE, Gdx.gl.GL_ONE);
         obstructionBatch.setProjectionMatrix(tempCamera.combined);
-        obstructionBatch.begin();
         obstructionBatch.setColor(0f, 1f, 0f, 1f);
         obstructionBatch.setShader(shadowInitialShader);
 
         colorBatch.setBlendFunction(Gdx.gl.GL_ONE, Gdx.gl.GL_ONE);
         colorBatch.setProjectionMatrix(tempCamera.combined);
-        colorBatch.begin();
         colorBatch.setColor(0f, 0f, 1f, 1f);
         colorBatch.setShader(shadowInitialShader);
     }
 
-    public void drawShadow(float centerX, float centerY,
-                           TextureRegion mainTexture, TextureRegion obstructionTexture, TextureRegion colorTexture) {
-        mainBatch.draw(mainTexture, centerX, centerY);
-        obstructionBatch.draw(obstructionTexture, centerX, centerY);
-        colorBatch.draw(colorTexture, centerX, centerY);
+    public void prepBatch(int index) {
+        if(currentBatch != null)
+            currentBatch.end();
+
+        switch(index) {
+            default:
+            case 0:
+                currentBatch = mainBatch; break;
+            case 1:
+                currentBatch = obstructionBatch; break;
+            case 2:
+                currentBatch = colorBatch; break;
+        }
+        currentBatch.begin();
+    }
+
+    public void drawShadow(float centerX, float centerY, TextureRegion texture) {
+        currentBatch.draw(texture, centerX, centerY);
     }
 
     public void end() {
-        mainBatch.end();
-        obstructionBatch.end();
-        colorBatch.end();
+        currentBatch.end();
+        currentBatch = null;
         shadowInitialBuffer.end();
     }
 

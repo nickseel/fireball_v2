@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
+import com.fireball.game.entities.enemies.Walker;
 import com.fireball.game.rendering.fire.FireRenderer;
 import com.fireball.game.rendering.shadow.ShadowRenderer;
 import com.fireball.game.rooms.rooms.Room;
@@ -69,6 +70,8 @@ public class GameView extends View {
         }
         p.setRoomCamera(camera);
         camera.follow(p, 16);
+
+        new Walker((int)p.getX() + 100, (int)p.getY() + 1);
     }
 
     @Override
@@ -101,6 +104,11 @@ public class GameView extends View {
         fireRenderer.begin(camera);
         entityManager.drawFire(fireRenderer);
         fireRenderer.end();
+
+        shadowRenderer.begin(camera);
+        entityManager.drawShadow(shadowRenderer);
+        shadowRenderer.end();
+
 
 
         gameFrameBuffer.begin();

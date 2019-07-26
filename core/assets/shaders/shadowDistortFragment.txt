@@ -75,7 +75,7 @@ void main()
 	}
 	shadow_amount = mix(0.4, 1.1, shadow_amount);
 
-	gl_FragColor = vec4(light_amount, mix(read.g - 0.2, read.g, shadow_amount), read.b, shadow_amount);//shadow_amount * 5.0);
+	gl_FragColor = vec4(light_amount, read.g, mix(read.b - 0.2, read.b, shadow_amount), shadow_amount);//shadow_amount * 5.0);
 	//gl_FragColor = vec4(static_shift, 0.0, 1.0);
 
 

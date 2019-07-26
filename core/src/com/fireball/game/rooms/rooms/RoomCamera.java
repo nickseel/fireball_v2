@@ -14,7 +14,7 @@ public class RoomCamera extends OrthographicCamera {
     public RoomCamera(int viewWidth, int viewHeight) {
         super(viewWidth, viewHeight);
 
-        zoom = 0;
+        zoom = 1;
         offsetX = 0;//-(viewWidth*((1/baseZoom)-1))/2;
         offsetY = 0;//-(viewHeight*((1/baseZoom)-1))/2;
         x = offsetX;

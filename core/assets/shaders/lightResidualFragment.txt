@@ -10,7 +10,7 @@ uniform sampler2D u_previous_frame;
 uniform float u_delta_time;
 uniform vec2 u_camera_delta;
 
-const float speed = 1.0;
+const float speed = 3.0;
 
 void main() {
 	float new = texture2D(u_texture, v_texCoords).g;

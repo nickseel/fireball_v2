@@ -118,7 +118,7 @@ public class ShadowRenderer {
     }
 
     public void drawFinalTextures(SpriteBatch batch, float x, float y, float width, float height) {
-        batch.draw(finalShadowBuffer.getColorBufferTexture(), x, y, width, height);
+        //batch.draw(finalShadowBuffer.getColorBufferTexture(), x, y, width, height);
     }
 
     public void drawDebugTextures(SpriteBatch batch, int numMax, int xOffset) {

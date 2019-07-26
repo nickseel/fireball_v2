@@ -38,8 +38,6 @@ const float darkness_pct_min = 0.15;
 
 void main()
 {
-    vec2 u_scale = vec2(1.0) + 0.0 * u_viewport;
-
 	float light_amount = 1.0 - (texture2D(u_light, v_texCoords).a * 1.0 / pow(u_max_darkness, 2.0));
 	light_amount = clamp(light_amount * (1.0 + darkness_pct_min), 0.0, 1.0);
 	float static_shift_x = mix(max_static_shift_x, min_static_shift_x, light_amount);
@@ -66,9 +64,9 @@ void main()
 
 	float shadow_amount_noise_range = snoise(vec3(static_scaled_tex_coord, u_time * static_noise_3d_speed + vec2(10.0, 20.0)));
     vec4 read = texture2D(u_texture, clamp(v_texCoords + static_shift + blob_shift, 0.0, 1.0));
-	//if(max(read.rgb) == 0.0) {
-	//	discard;
-	//}
+	if(read.r + read.g + read.b < 0.02) {
+		discard;
+	}
 	float shadow_amount = read.r;
 	if(shadow_amount != 1.0) {
 		shadow_amount += shadow_amount_noise_range * 0.15;

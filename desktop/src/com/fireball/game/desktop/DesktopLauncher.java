@@ -11,6 +11,8 @@ public class DesktopLauncher {
 		config.title = FireballGame.TITLE;
 		config.width = FireballGame.WIDTH;
 		config.height = FireballGame.HEIGHT;
+		config.x = 0;
+		config.y = 0;
 
 		new LwjglApplication(new FireballGame(), config);
 	}

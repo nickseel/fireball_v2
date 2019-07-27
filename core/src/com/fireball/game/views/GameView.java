@@ -151,9 +151,9 @@ public class GameView extends View {
     public void draw(SpriteBatch batch) {
         batch.draw(gameFrameBuffer.getColorBufferTexture(),
                 (width * 0.5f) - (bufferWidth * baseZoom * camera.getZoom() * 0.5f)
-                        - ((camera.getX() * baseZoom) % baseZoom) + (0.5f * baseZoom),
+                        ,//- ((camera.getX() * baseZoom) % baseZoom) + (0.5f * baseZoom),
                 (height * 0.5f) - (bufferHeight * baseZoom * camera.getZoom() * 0.5f)
-                        + ((camera.getY() * baseZoom) % baseZoom) - (0.5f * baseZoom),
+                        ,//+ ((camera.getY() * baseZoom) % baseZoom) - (0.5f * baseZoom),
                 bufferWidth * baseZoom * camera.getZoom(),
                 bufferHeight * baseZoom * camera.getZoom());
 

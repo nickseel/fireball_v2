@@ -35,11 +35,9 @@ public class WalkerAI extends AI {
         double moveX = 0, moveY = 0;
         Entity player = EntityManager.current.nearestEntity(entity.getX(), entity.getY(), null, "player");
 
-        System.out.println(player);
         if(player != null) {
             double distanceToPlayer = Math.hypot(entity.getX() - player.getX(), entity.getY() - player.getY());
             double angleToPlayer = Math.atan2(entity.getY() - player.getY(), entity.getX() - player.getX());
-            System.out.println(angleToPlayer);
 
             directionChangeTimer += delta;
             if(directionChangeTimer >= directionChangeTimerMax) {
@@ -53,11 +51,9 @@ public class WalkerAI extends AI {
 
             moveX = strafeWeight * Math.abs(currentDirection) * Math.cos(angleToPlayer + ((Math.PI/2) * currentDirection));
             moveY = strafeWeight * Math.abs(currentDirection) * Math.sin(angleToPlayer + ((Math.PI/2) * currentDirection));
-            System.out.println("1 " + moveX + " " + moveY);
 
             moveX += ((1 + minTowardsPlayerWeight) - strafeWeight) * -Math.cos(angleToPlayer);
             moveY += ((1 + minTowardsPlayerWeight) - strafeWeight) * -Math.sin(angleToPlayer);
-            System.out.println("2" + moveX + " " + moveY);
         }
 
         entity.setMove(moveX, moveY);

@@ -1,6 +1,7 @@
 package com.fireball.game.entities;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.fireball.game.entities.hitboxes.Hitbox;
 import com.fireball.game.rendering.fire.FireRenderer;
 import com.fireball.game.rendering.shadow.ShadowRenderer;
 import com.fireball.game.rooms.rooms.Room;
@@ -16,8 +17,10 @@ import java.util.LinkedList;
 public class EntityManager {
     public static EntityManager current = null;
 
-    private LinkedList<Entity> newEntities;
+    private static final double RECENT_HITBOX_COLLISION_TIMEOUT = 0.5;
+    private static final double RECENT_HITBOX_COLLISION_DOT_TIMEOUT = 0.1;
 
+    private LinkedList<Entity> newEntities;
     private LinkedList<Entity> playerEntities, enemyEntities;//, neutralEntities;
 
     private CellSlotter<Entity> slottedPlayerEntities, slottedEnemyEntities;
@@ -31,6 +34,8 @@ public class EntityManager {
     private CellEventManager<Wall, Entity> staticTerrainCollisionEventManager;
     private CellEventManager<BodyHitbox, DamagerHitbox> hitboxCollisionEventManager;
     private CellEventManager<BodyHitbox, BodyHitbox> hitboxPushCollisionEventManager;
+
+    private LinkedList<Double[]> recentHitboxCollisions;
 
     private Room room;
 
@@ -69,8 +74,15 @@ public class EntityManager {
         hitboxCollisionEventManager = new CellEventManager<BodyHitbox, DamagerHitbox>() {
             @Override
             public void event(BodyHitbox item1, DamagerHitbox item2) {
-                if(item1.getOwner().isAlive() && item2.getOwner().isAlive() && item1.getTeam().collidesWidth(item2.getTeam()) && item2.overlapping(item1) && item1.isDamageable()) {
+                if(item1.getOwner().isAlive() && item2.getOwner().isAlive() && item1.getTeam().collidesWidth(item2.getTeam())
+                        && item2.overlapping(item1) && item1.isDamageable() && !isCollisionRecent(item1, item2)) {
                     item2.damageBody(item1);
+
+                    if(item2.isDamageOverTime()) {
+                        addHitboxCollision(item1, item2, RECENT_HITBOX_COLLISION_DOT_TIMEOUT);
+                    } else {
+                        addHitboxCollision(item1, item2, RECENT_HITBOX_COLLISION_TIMEOUT);
+                    }
                 }
             }
         };
@@ -83,6 +95,8 @@ public class EntityManager {
                 }
             }
         };
+
+        recentHitboxCollisions = new LinkedList<Double[]>();
     }
 
     public void setRoom(Room room) {
@@ -91,6 +105,8 @@ public class EntityManager {
 
     public void updateEntities(double delta) {
         setCurrent();
+
+        updateRecentHitboxCollisions(delta);
 
         prepareEntityHitboxes();
         collideEntityBodies();
@@ -237,6 +253,29 @@ public class EntityManager {
         }
     }
 
+    private void addHitboxCollision(Hitbox h1, Hitbox h2, double time) {
+        recentHitboxCollisions.add(new Double[] {(double)h1.getID(), (double)h2.getID(), time});
+    }
+
+    private void updateRecentHitboxCollisions(double delta) {
+        for(int i = 0; i < recentHitboxCollisions.size(); i++) {
+            Double[] collision = recentHitboxCollisions.get(i);
+            collision[2] -= delta;
+
+            if(collision[2] <= 0)
+                recentHitboxCollisions.remove(i--);
+        }
+    }
+
+    private boolean isCollisionRecent(Hitbox h1, Hitbox h2) {
+        for(Double[] collision: recentHitboxCollisions) {
+            if((h1.getID() == collision[0] && h2.getID() == collision[1]) ||
+                    (h2.getID() == collision[0] && h1.getID() == collision[1]))
+                return true;
+        }
+        return false;
+    }
+
     public void setCurrent() {
         EntityManager.current = this;
     }
@@ -269,7 +308,6 @@ public class EntityManager {
             }
         }
 
-        System.out.println(nearest);
         return nearest;
     }
 

@@ -7,6 +7,13 @@ import com.fireball.game.entities.Team;
 import static java.lang.Math.floor;
 
 public abstract class Hitbox extends Slottable {
+    private static int nextID = 0;
+    private static int getNextID() {
+        return nextID++;
+    }
+
+    protected int id = getNextID();
+
     protected Entity owner;
     protected Team team;
     protected HitboxType type;
@@ -69,5 +76,9 @@ public abstract class Hitbox extends Slottable {
         slotMaxX = (int)floor((x + radius) / slotSize);
         slotMinY = (int)floor((y - radius) / slotSize);
         slotMaxY = (int)floor((y + radius) / slotSize);
+    }
+
+    public int getID() {
+        return id;
     }
 }

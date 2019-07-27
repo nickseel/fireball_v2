@@ -53,6 +53,7 @@ public class Player extends ControllableEntity {
                 yVel += (knockback * Math.sin(knockbackAngle)) / weight;
                 stunTimer = Math.max(stunTimer, stun);
                 stunFriction = stunFriction_;
+                System.out.println("damage " + health);
             }
 
             @Override

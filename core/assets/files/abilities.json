@@ -4,21 +4,22 @@
 			"cast_time": 0.2,
 			"cooldown": 0.95,
 			"cost": 7,
+
+			"dash_velocity": 350,
 			
 			"num_projectiles": 4,
 			"angle_range": 0.3,
 			
 			"velocity": 300,
 			"velocity_range": 70,
-			"slide": 3,
+			"friction": 0.3,
 			"lifetime": 0.3,
-			
-			"size": 10,
-			"dash_velocity": 350,
+			"radius": 5,
 			
 			"damage": 6,
-			"knockback": 40,
-			"stun": 0.15
+			"knockback": 80,
+			"stun": 0.15,
+			"stun_friction": 0.5
 		},
 		"fireball": {
 			"cast_time": 0.2,
@@ -33,7 +34,7 @@
 			"radius": 8.5,
 			
 			"damage": 16,
-			"knockback": 160,
+			"knockback": 80,
 			"stun": 0.15,
 			"stun_friction": 0.5
 		},
@@ -43,7 +44,8 @@
 			"radius": 20,
 			"damage": 8,
 			"knockback": 80,
-			"stun": 0.1
+			"stun": 0.1,
+			"stun_friction": 0.5
 		},
 		"flamethrower": {
 			"cast_time": 0.2,
@@ -72,7 +74,8 @@
 			
 			"damage": 50,
 			"knockback": 0,
-			"stun": 0
+			"stun": 0,
+			"stun_friction": -1
 		},
 		"ring": {
 			"cast_time": 0.2,
@@ -115,21 +118,22 @@
 			"cast_time": 0.4,
 			"cost": 15,
 			"cooldown_dash": 2.6,
+
+			"dash_velocity": 600,
 			
 			"num_projectiles": 3,
 			"angle_range": 0.13,
 			
 			"velocity": 400,
 			"velocity_range": 100,
-			"slide": -1,
+			"friction": 0.0,
 			"lifetime": -1,
-			
-			"size": 10,
-			"dash_velocity": 600,
+			"radius": 5,
 			
 			"damage": 14,
 			"knockback": 90,
-			"stun": 0.25
+			"stun": 0.25,
+			"stun_friction": 0.5
 		},
 		"dash-fireball": {
 			"_description": "damage dash",
@@ -137,21 +141,22 @@
 			"cast_time": 0.1,
 			"cost": 12,
 			"sub_ability_name": "dash-fireball -> explosion",
+
+			"dash_velocity": 320,
 			
 			"num_projectiles": 8,
 			"angle_range": 0.42,
 			
 			"velocity": 300,
 			"velocity_range": 100,
-			"slide": -1,
+			"slide": 0.0,
 			"lifetime": -1,
-			
-			"size": 12,
-			"dash_velocity": 320,
+			"size": 6,
 			
 			"damage": 8,
 			"knockback": 40,
-			"stun": 0.15
+			"stun": 0.15,
+			"stun_friction": 0.5
 		},
 		"dash-fireball -> explosion": {
 			"cast_name": "explosion",

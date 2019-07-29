@@ -95,7 +95,11 @@ public abstract class Ability extends Entity {
                     subAbilityName,
                     createX,
                     createY,
-                    DataFile.getFloat("radius"));
+                    DataFile.getFloat("radius"),
+                    DataFile.getFloat("damage"),
+                    DataFile.getFloat("knockback"),
+                    DataFile.getFloat("stun"),
+                    DataFile.getFloat("stun_friction"));
             createdObjects = new Entity[] {e};
         } else if(castName.equals("flamethrower")) {
             Entity e = new Flamethrower(owner,

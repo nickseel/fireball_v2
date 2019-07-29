@@ -12,19 +12,26 @@ import static java.lang.Math.floor;
 public class Explosion extends Ability {
     protected boolean isAlive = true;
     protected double radius;
+    protected double damage, knockback, stun, stunFriction;
 
     protected DamagerHitbox hitbox;
 
     public Explosion(ControllableEntity owner, Entity castOwner, String subAbilityName,
-                    double x, double y, double radius) {
+                     double x, double y, double radius, double damage_, double knockback_,
+                     double stun_, double stunFriction_) {
         super("fireball", owner, castOwner, subAbilityName, x, y);
         this.radius = radius;
+        this.damage = damage_;
+        this.knockback = knockback_;
+        this.stun = stun_;
+        this.stunFriction = stunFriction_;
         terrainCollisionRadius = radius;
 
         hitbox = new DamagerHitbox(this, team, x, y, radius) {
             @Override
             public void damageBody(BodyHitbox other) {
-                other.takeDamage(1, 1, 0, 0, 1);
+                double angle = Math.atan2(other.getY() - y, other.getX() - x);
+                other.takeDamage(damage, knockback, angle, stun, stunFriction);
             }
         };
 

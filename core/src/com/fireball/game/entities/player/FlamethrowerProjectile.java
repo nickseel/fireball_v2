@@ -11,21 +11,23 @@ import com.fireball.game.util.Util;
 import static java.lang.Math.floor;
 
 public class FlamethrowerProjectile extends Ability {
-    private final float fadeoutTime = 0.15f;
-    private float alpha = 1;
+    protected final float fadeoutTime = 0.15f;
+    protected float alpha = 1;
 
-    private boolean isAlive = true;
-    private double lifetime;
+    protected boolean isAlive = true;
+    protected double lifetime;
 
-    private double minRadius, maxRadius, currentRadius, sizeTimer, sizeTimerMax;
-    private double angle, velocity, accel;
-    private final double collisionRadiusFactor = 0.5;
+    protected double minRadius, maxRadius, currentRadius, sizeTimer, sizeTimerMax;
+    protected double angle, velocity, accel;
+    protected double damage, knockback, stun, stunFriction;
+    protected final double collisionRadiusFactor = 0.5;
 
-    private DamagerHitbox hitbox;
+    protected DamagerHitbox hitbox;
 
     public FlamethrowerProjectile(ControllableEntity owner, Entity castOwner, String subAbilityName,
                           double x, double y, double lifetime, double angle, double velocity, double accel,
-                          double minRadius, double maxRadius, double sizeTimerMax) {
+                          double minRadius, double maxRadius, double sizeTimerMax,
+                          double damage_, double knockback_, double stun_, double stunFriction_) {
         super("flamethrower projectile", owner, castOwner, subAbilityName, x, y);
         this.lifetime = lifetime;
         this.angle = angle;
@@ -36,12 +38,17 @@ public class FlamethrowerProjectile extends Ability {
         this.currentRadius = minRadius;
         this.sizeTimer = sizeTimerMax;
         this.sizeTimerMax = sizeTimerMax;
+        this.damage = damage_;
+        this.knockback = knockback_;
+        this.stun = stun_;
+        this.stunFriction = stunFriction_;
         terrainCollisionRadius = currentRadius*collisionRadiusFactor;
 
         hitbox = new DamagerHitbox(this, team, x, y, currentRadius) {
             @Override
             public void damageBody(BodyHitbox other) {
-                other.takeDamage(1, 1, 0, 0, 1);
+                double angle = Math.atan2(other.getY() - y, other.getX() - x);
+                other.takeDamage(damage, knockback, angle, stun, stunFriction);
             }
         };
 
